@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">HomeCookHelper</string>
+    <!--어플 이름-->
+    <string name="app_name">홈쿡헬퍼</string>
+
+    <!--ui요소들 이름-->
+    <string name="user_id">ID 입력</string>
+    <string name="user_pw">패스워드 입력</string>
+
+    <!--네비게이션 타이틀-->
+    <string name="nav_title_main">메인</string>
+    <string name="nav_title_search">검색</string>
+    <string name="nav_title_recipe">레시피</string>
+    <string name="nav_title_bookmark">즐겨찾기</string>
+    <string name="nav_title_info">마이페이지</string>
 </resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- icon 속성 추가필요 -->
+    <item
+        android:id="@+id/mainFragment"
+        android:title="@string/nav_title_main"/>
+    <item
+        android:id="@+id/searchFragment"
+        android:title="@string/nav_title_search"/>
+    <item
+        android:id="@+id/recipeListFragment"
+        android:title="@string/nav_title_recipe"/>
+    <item
+        android:id="@+id/bookmarkFragment"
+        android:title="@string/nav_title_bookmark"/>
+    <item
+        android:id="@+id/infoFragment"
+        android:title="@string/nav_title_info"/>
+</menu>

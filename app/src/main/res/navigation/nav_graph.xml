@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.homecookhelper.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.homecookhelper.login.LoginFragment"
+        android:label="로그인"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/loginFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:popUpTo="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/joinFragment"
+        android:name="com.example.homecookhelper.join.JoinFragment"
+        android:label="회원가입"
+        tools:layout="@layout/fragment_join" />
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.example.homecookhelper.BookmarkFragment"
+        android:label="즐겨찾기"
+        tools:layout="@layout/fragment_bookmark" >
+        <action
+            android:id="@+id/action_bookmarkFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment"
+            app:popUpTo="@id/bookmarkFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.example.homecookhelper.InfoFragment"
+        android:label="마이페이지"
+        tools:layout="@layout/fragment_info" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.homecookhelper.DetailFragment"
+        android:label="농산물 상세보기"
+        tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/recipeListFragment"
+        android:name="com.example.homecookhelper.recipe.RecipeListFragment"
+        android:label="레시피목록"
+        tools:layout="@layout/fragment_recipe_list" >
+        <action
+            android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment"
+            app:popUpTo="@id/recipeListFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_recipeListFragment_to_registerRecipe"
+            app:destination="@id/registerRecipe"
+            app:popUpTo="@id/recipeListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeDetailFragment"
+        android:name="com.example.homecookhelper.recipe.RecipeDetailFragment"
+        android:label="레시피 상세보기"
+        tools:layout="@layout/fragment_recipe_detail" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.homecookhelper.MainFragment"
+        android:label="이달의 농산물"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.homecookhelper.SearchFragment"
+        android:label="농산물검색"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:popUpTo="@id/searchFragment2"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerRecipe"
+        android:name="com.example.homecookhelper.recipe.RecipeWriteFragment"
+        android:label="레시피등록"
+        tools:layout="@layout/fragment_recipe_write" />
+</navigation>
