@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment"
+            app:destination="@id/joinFragment"
             app:popUpTo="@id/loginFragment" />
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
@@ -28,26 +28,51 @@
         android:name="com.example.homecookhelper.join.JoinFragment"
         android:label="회원가입"
         tools:layout="@layout/fragment_join" />
+
+
     <fragment
-        android:id="@+id/bookmarkFragment"
-        android:name="com.example.homecookhelper.BookmarkFragment"
-        android:label="즐겨찾기"
-        tools:layout="@layout/fragment_bookmark" >
+        android:id="@+id/agricListFragment"
+        android:name="com.example.homecookhelper.agric.AgricListFragment"
+        android:label="이달의 농산물"
+        tools:layout="@layout/fragment_agric_list" >
         <action
-            android:id="@+id/action_bookmarkFragment_to_recipeDetailFragment"
-            app:destination="@id/recipeDetailFragment"
-            app:popUpTo="@id/bookmarkFragment" />
+            android:id="@+id/action_agricListFragment_to_agricDetailFragment"
+            app:destination="@id/agricDetailFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
-        android:id="@+id/infoFragment"
-        android:name="com.example.homecookhelper.InfoFragment"
-        android:label="마이페이지"
-        tools:layout="@layout/fragment_info" />
+        android:id="@+id/agricSearchFragment"
+        android:name="com.example.homecookhelper.agric.AgricSearchFragment"
+        android:label="농산물검색"
+        tools:layout="@layout/fragment_agric_search" >
+        <action
+            android:id="@+id/action_agricSearchFragment_to_agricDetailFragment"
+            app:destination="@id/agricDetailFragment"
+            app:popUpTo="@id/agricSearchFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.example.homecookhelper.DetailFragment"
+        android:id="@+id/agricDetailFragment"
+        android:name="com.example.homecookhelper.agric.AgricDetailFragment"
         android:label="농산물 상세보기"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_agric_detail" >
+        <argument
+            android:name="AGRIC_ID"
+            app:argType="string" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/recipeBookmarkFragment"
+        android:name="com.example.homecookhelper.recipe.RecipeBookmarkFragment"
+        android:label="즐겨찾기"
+        tools:layout="@layout/fragment_recipe_bookmark" >
+        <action
+            android:id="@+id/action_recipeBookmarkFragment_to_recipeDetailFragment"
+            app:destination="@id/recipeDetailFragment"
+            app:popUpTo="@id/recipeBookmarkFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recipeListFragment"
         android:name="com.example.homecookhelper.recipe.RecipeListFragment"
@@ -60,7 +85,7 @@
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_recipeListFragment_to_registerRecipe"
-            app:destination="@id/registerRecipe"
+            app:destination="@id/writeRecipe"
             app:popUpTo="@id/recipeListFragment" />
     </fragment>
     <fragment
@@ -69,30 +94,13 @@
         android:label="레시피 상세보기"
         tools:layout="@layout/fragment_recipe_detail" />
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.homecookhelper.MainFragment"
-        android:label="이달의 농산물"
-        tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_mainFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
-            app:popUpTo="@id/mainFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
-    <fragment
-        android:id="@+id/searchFragment2"
-        android:name="com.example.homecookhelper.SearchFragment"
-        android:label="농산물검색"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_searchFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
-            app:popUpTo="@id/searchFragment2"
-            app:popUpToInclusive="false" />
-    </fragment>
-    <fragment
-        android:id="@+id/registerRecipe"
+        android:id="@+id/writeRecipe"
         android:name="com.example.homecookhelper.recipe.RecipeWriteFragment"
         android:label="레시피등록"
         tools:layout="@layout/fragment_recipe_write" />
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.example.homecookhelper.InfoFragment"
+        android:label="마이페이지"
+        tools:layout="@layout/fragment_info" />
 </navigation>

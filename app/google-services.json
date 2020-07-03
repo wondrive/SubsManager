@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "894289880016",
+    "firebase_url": "https://homecookhelper-33ef0.firebaseio.com",
+    "project_id": "homecookhelper-33ef0",
+    "storage_bucket": "homecookhelper-33ef0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894289880016:android:891e64a4d1023e6f2d4fd5",
+        "android_client_info": {
+          "package_name": "com.example.homecookhelper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894289880016-ifv0v8iobbmrsq6q45ssojgl8670oouh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEgU2R6H6RrTzaom4tF4EvtCbXB72fo4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894289880016-ifv0v8iobbmrsq6q45ssojgl8670oouh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
