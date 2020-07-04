@@ -2,6 +2,7 @@ package com.example.homecookhelper
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -13,17 +14,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // 네비게이션 세팅
+        val controller = findNavController(R.id.navigation_host)
+
         NavigationUI.setupWithNavController(
-           bottom_navigation, findNavController(R.id.navigation_host)
+            bottom_navigation, controller
         )
 
-        // Top Level Destination 설정. (더이상 뒤로가기 안되는 부분)
+        controller.addOnDestinationChangedListener { _, destination, _ ->
+            /* 최종 destination에서 네비바 없애기*/
+            if (arrayListOf(R.id.agricDetailFragment, R.id.recipeDetailFragment).contains(destination.id)) {
+                bottom_navigation.visibility = View.VISIBLE
+            } else {
+                bottom_navigation.visibility = View.GONE
+            }
+        }
+
+        // Top Level Destination 설정. (뒤로가기 안보이게 하기)
         NavigationUI.setupActionBarWithNavController(
             this,
-            findNavController(R.id.navigation_host),
+            controller,
             AppBarConfiguration(
                 setOf(
+                    R.id.loginFragment,
                     R.id.agricListFragment,
                     R.id.agricSearchFragment,
                     R.id.recipeListFragment,

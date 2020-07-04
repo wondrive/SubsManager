@@ -15,9 +15,6 @@ import com.example.homecookhelper.database.DatabaseModule
 import kotlinx.android.synthetic.main.fragment_agric_list.view.*
 import java.util.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class AgricListFragment : Fragment() {
 
     val database by lazy {
