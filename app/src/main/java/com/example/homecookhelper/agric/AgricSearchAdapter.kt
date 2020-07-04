@@ -3,14 +3,13 @@ package com.example.agriculturalauctioningapp.search
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homecookhelper.R
-import com.example.homecookhelper.dao.AgricDao
+import com.example.homecookhelper.agric.AgricAdapter
+import com.example.homecookhelper.entity.AgricEntity
 
 /* 시작 화면(SearchFragment)에서 저장된 데이터를 리사이클러뷰에 보여주는 어댑터
    - PagedListAdapter 상속
@@ -18,14 +17,16 @@ import com.example.homecookhelper.dao.AgricDao
      PageList 가 업데이트 될 때마다 UI 업데이트가 적절히 갱신될 수 있도록 처리
 * */
 
+
+class AgricSearchAdapter() {
 /*
-class AgricSearchAdapter(val dao: AgricDao) :
-                        PagedListAdapter<SaveItem, AgricSearchAdapter.ItemViewHolder>(DIFF_CALLBACK) {
+    var agricList: List<AgricEntity> = ArrayList()
+    override fun getItemCount() = agricList.size
 
     /* 뷰홀더를 생성하여 반환 */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val rootView =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item_saveitem, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_agric, parent, false)
         return ItemViewHolder(rootView)
     }
 
@@ -77,7 +78,5 @@ class AgricSearchAdapter(val dao: AgricDao) :
             override fun areContentsTheSame(oldConcert: SaveItem, newConcert: SaveItem): Boolean =
                 oldConcert.id == newConcert.id
         }
-    }
+    }*/
 }
-
- */

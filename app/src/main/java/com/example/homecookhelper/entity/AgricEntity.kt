@@ -4,12 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
-/*
 data class AgricWrapper(
-    @Json(name="AGRIC_LIST")
+    @Json(name="list")
     val list: List<AgricEntity>
 )
-*/
 
 //요청변수
 //var API_KEY		String

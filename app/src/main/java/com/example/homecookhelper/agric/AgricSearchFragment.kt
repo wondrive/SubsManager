@@ -11,20 +11,14 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-//import com.example.agriculturalauctioningapp.search.AgricSearchAdapter
+import com.example.agriculturalauctioningapp.search.AgricSearchAdapter
 import com.example.homecookhelper.R
 import com.example.homecookhelper.database.DatabaseModule
 
-/**
- * A simple [Fragment] subclass.
- */
-
 
 class AgricSearchFragment : Fragment() {
-
 /*
     var searchAgric: String? = null
-    //var selectedDate: String? = null
 
     /* 데이터베이스를 가져옵니다.*/
     val database by lazy {
@@ -158,8 +152,6 @@ private fun checkCondition() {
         btn_search.setBackgroundColor(resources.getColor(android.R.color.holo_green_dark))
         btn_search.setTextColor(resources.getColor(android.R.color.white))
     }
-
-
- */
+*/
 
 }

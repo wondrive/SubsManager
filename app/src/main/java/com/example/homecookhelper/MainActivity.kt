@@ -13,11 +13,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        // 네비게이션 세팅
         NavigationUI.setupWithNavController(
            bottom_navigation, findNavController(R.id.navigation_host)
         )
-
 
         // Top Level Destination 설정. (더이상 뒤로가기 안되는 부분)
         NavigationUI.setupActionBarWithNavController(

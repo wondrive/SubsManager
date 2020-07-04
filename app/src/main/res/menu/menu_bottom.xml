@@ -3,16 +3,16 @@
 
     <!-- icon 속성 추가필요 -->
     <item
-        android:id="@+id/mainFragment"
+        android:id="@+id/agricListFragment"
         android:title="@string/nav_title_main"/>
     <item
-        android:id="@+id/searchFragment"
+        android:id="@+id/agricSearchFragment"
         android:title="@string/nav_title_search"/>
     <item
         android:id="@+id/recipeListFragment"
         android:title="@string/nav_title_recipe"/>
     <item
-        android:id="@+id/bookmarkFragment"
+        android:id="@+id/recipeBookmarkFragment"
         android:title="@string/nav_title_bookmark"/>
     <item
         android:id="@+id/infoFragment"

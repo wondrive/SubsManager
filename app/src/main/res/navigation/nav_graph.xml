@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/splashFragment"
@@ -16,16 +16,13 @@
         android:label="로그인"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
+            android:id="@+id/action_loginFragment_to_joinFragment"
             app:destination="@id/joinFragment"
-            app:popUpTo="@id/loginFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_mainFragment"
-            app:popUpTo="@id/mainFragment" />
+             />
     </fragment>
     <fragment
         android:id="@+id/joinFragment"
-        android:name="com.example.homecookhelper.join.JoinFragment"
+        android:name="com.example.homecookhelper.login.JoinFragment"
         android:label="회원가입"
         tools:layout="@layout/fragment_join" />
 
@@ -38,7 +35,7 @@
         <action
             android:id="@+id/action_agricListFragment_to_agricDetailFragment"
             app:destination="@id/agricDetailFragment"
-            app:popUpTo="@id/mainFragment"
+            app:popUpTo="@id/agricListFragment"
             app:popUpToInclusive="false" />
     </fragment>
     <fragment
@@ -103,4 +100,16 @@
         android:name="com.example.homecookhelper.InfoFragment"
         android:label="마이페이지"
         tools:layout="@layout/fragment_info" />
+
+
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/loginFragment"
+        app:pupUpToInclusive="true" />
+    <action
+        android:id="@+id/action_global_agricListFragment"
+        app:destination="@id/agricListFragment"
+        app:popUpTo="@id/agricListFragment"
+        app:pupUpToInclusive="true" />
 </navigation>

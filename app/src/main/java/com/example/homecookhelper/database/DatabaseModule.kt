@@ -1,14 +1,20 @@
 package com.example.homecookhelper.database
 
 import android.content.Context
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.homecookhelper.dao.AgricDao
+import com.example.homecookhelper.entity.AgricEntity
+import com.example.homecookhelper.entity.RecipeEntity
+import com.example.homecookhelper.entity.UserEntity
 
+@Database(entities = arrayOf(AgricEntity::class, RecipeEntity::class, UserEntity::class), version = 1)
 abstract class DatabaseModule : RoomDatabase() {
 
     /* Query 문에 사용하는 Dao가져오기. */
     abstract fun agricDao(): AgricDao
+    //abstract fun recipeDao(): RecipeDao
 
     companion object {
         // database 변수 선언

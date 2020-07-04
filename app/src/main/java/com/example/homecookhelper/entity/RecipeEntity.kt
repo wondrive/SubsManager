@@ -18,7 +18,7 @@ import com.squareup.moshi.Json
 )
 data class RecipeEntity(    // ID, 제목, 내용, 글쓴이, 이미지, (게시일, 수정일) => 필요시 추후 추가
     @PrimaryKey(autoGenerate = true)
-    var recipeId: Long ?= null,
+    var recipeId: Int ?= null,
     var userId:String,      // ForeignKey
 
     var recipeTitle:String,
