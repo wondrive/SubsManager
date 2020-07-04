@@ -12,9 +12,6 @@ import com.example.subway.util.hideKeyboard
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_join.view.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class JoinFragment : Fragment() {
 
     //FirebaseAuth 객체의 공유 인스턴스를 가져오기

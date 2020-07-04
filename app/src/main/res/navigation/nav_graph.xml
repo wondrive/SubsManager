@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.homecookhelper.login.SplashFragment"
-        android:label="Splash"
+        android:label=""
         tools:layout="@layout/fragment_splash" />
     <fragment
         android:id="@+id/loginFragment"
@@ -71,7 +71,7 @@
     <fragment
         android:id="@+id/recipeListFragment"
         android:name="com.example.homecookhelper.recipe.RecipeListFragment"
-        android:label="레시피목록"
+        android:label="레시피 공유 게시판"
         tools:layout="@layout/fragment_recipe_list">
         <action
             android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
@@ -79,7 +79,7 @@
             app:popUpTo="@id/recipeListFragment"
             app:popUpToInclusive="false" />
         <action
-            android:id="@+id/action_recipeListFragment_to_registerRecipe"
+            android:id="@+id/action_recipeListFragment_to_writeRecipe"
             app:destination="@id/writeRecipe"
             app:popUpTo="@id/recipeListFragment" />
     </fragment>
@@ -90,7 +90,7 @@
         tools:layout="@layout/fragment_recipe_detail">
         <argument
             android:name="RECIPE_ID"
-            app:argType="string" />
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/writeRecipe"

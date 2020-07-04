@@ -3,6 +3,8 @@ package com.example.homecookhelper
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -22,7 +24,8 @@ class MainActivity : AppCompatActivity() {
 
         controller.addOnDestinationChangedListener { _, destination, _ ->
             /* 최종 destination에서 네비바 없애기*/
-            if (arrayListOf(R.id.agricDetailFragment, R.id.recipeDetailFragment).contains(destination.id)) {
+            if (arrayListOf(R.id.agricListFragment, R.id.agricSearchFragment, R.id.recipeListFragment,
+                R.id.recipeBookmarkFragment, R.id.infoFragment).contains(destination.id)) {
                 bottom_navigation.visibility = View.VISIBLE
             } else {
                 bottom_navigation.visibility = View.GONE
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             controller,
             AppBarConfiguration(
                 setOf(
+                    R.id.splashFragment,
                     R.id.loginFragment,
                     R.id.agricListFragment,
                     R.id.agricSearchFragment,

@@ -18,6 +18,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        // BottomSheet Image Picker 라이브러리
+        maven{ url 'https://jitpack.io' }
     }
 }
 
