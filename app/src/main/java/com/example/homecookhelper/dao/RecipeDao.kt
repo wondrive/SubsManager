@@ -18,7 +18,7 @@ interface RecipeDao {
     fun selectRecipe(recipeId: Long): RecipeEntity?
 
     // 레시피 전체
-    @Query("SELECT * FROM Recipe")
+    @Query("SELECT * FROM Recipe ORDER BY recipeId DESC")
     fun selectRecipe(): LiveData<List<RecipeEntity>>
 
     @Query("SELECT * FROM Recipe WHERE recipeId = :recipeId")
@@ -32,5 +32,8 @@ interface RecipeDao {
 
     @Query("DELETE FROM Recipe WHERE recipeId = :recipeId")
     fun deleteRecipe(recipeId: Long)
+
+    // 즐겨찾기 테이블 BookmarkRecipe
+
 }
 

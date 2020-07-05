@@ -108,8 +108,9 @@ class RecipeWriteFragment : DialogFragment(), BottomSheetImagePicker.OnImagesSel
                     )
                     dao.insertRecipes(recipe)//DB에 저장
                     //dismiss()//다이얼로드 종료
-                    findNavController().popBackStack()
                 }
+
+                findNavController().popBackStack()
             }
         }//end of view.btn_save.setOnClickListener
     }//end of onViewCreated

@@ -1,4 +1,4 @@
-package com.example.subway.util
+package com.example.homecookhelper.util
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

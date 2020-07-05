@@ -18,7 +18,9 @@ import com.example.homecookhelper.database.DatabaseModule
 
 class AgricSearchFragment : Fragment() {
 /*
-    var searchAgric: String? = null
+    var selectedMonth: String? = null
+    var selectedAgric: String? = null
+
 
     /* 데이터베이스를 가져옵니다.*/
     val database by lazy {

@@ -1,4 +1,4 @@
-package com.example.subway.util
+package com.example.homecookhelper.util
 
 import android.content.Context
 import android.view.inputmethod.InputMethodManager

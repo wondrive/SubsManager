@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.homecookhelper.R
-import com.example.subway.util.hideKeyboard
+import com.example.homecookhelper.util.hideKeyboard
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_join.view.*
 

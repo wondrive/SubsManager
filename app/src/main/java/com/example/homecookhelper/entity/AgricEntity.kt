@@ -5,14 +5,9 @@ import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
 data class AgricWrapper(
-    @Json(name="list")
-    val list: List<AgricEntity>
+    @field:Json(name="row")
+    val row: List<AgricEntity>
 )
-
-//요청변수
-//var API_KEY		String
-//var TYPE 		String//xml? or json
-//var API_URL		String
 
 @Entity(tableName = "Agric")
 data class AgricEntity(
