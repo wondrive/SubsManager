@@ -33,11 +33,90 @@ class AgricViewModel : ViewModel() {
 
     //resultList LiveData 선언
     private val resultList: MutableLiveData<List<AgricEntity>> = MutableLiveData()
+    private val resultDetail: MutableLiveData<AgricEntity> = MutableLiveData()
 
     //resultList() getter 선언
     fun resultList(): LiveData<List<AgricEntity>> = resultList as MutableLiveData<List<AgricEntity>>
+    fun resultDetail(): LiveData<AgricEntity> = resultDetail as MutableLiveData<AgricEntity>
 
-//    private val userNoticeMsg: MutableLiveData<String> = MutableLiveData()
+    val errorHandler = CoroutineExceptionHandler { _, exception ->
+        Log.e("error", exception.message)
+//        userNoticeMsg.postValue(exception.message)
+    }
+
+    /**/
+    //List - Request 객체 생성 함수
+    fun loadDataFromURL(
+        selectMonth: String,
+        selectAgric: String
+    ) {
+        /* Request 객체 생성 */
+        val request = NetworkModule.makeHttprequest(
+            /* 분류코드(소분류), 검색일자, 검색수량을 인자로 HttpUrl 객체 생성 함수를 호출하여
+               HttpUrl 객체 생성 */
+            NetworkModule.makeHttpUrl(agric = selectAgric, month = selectMonth)
+        )
+        Log.i("HTTP", request.toString())
+
+        /* Coroutine을 이용하여 IO 스레드에서 경락가격정보서비스 서버에 요청  */
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+            Log.i("AGRIC", request.url.toString())
+            /* response(응답) 객체 - 경락가격정보 검색 요청
+               - OkHTTPClient.newCall()의 인자로 Request 객체(request)를 전달하여 실행(요청)
+             */
+            val response = NetworkModule.client.newCall(request).await()
+            /* String을 Moshi를 이용 JSON Body로 파싱 */
+            val agricData = response.body?.string()?.let { mappingStringToNews(it) } ?: emptyList()
+
+            //detailAgric = agricData.get(0)
+            //resultList(LiveData) 저장
+            resultList.postValue(agricData)
+        }
+
+    }//end of loadDataFromURL
+
+    // Detail
+    /*fun loadDetailFromURL(selectAgric: String){
+        loadDataFromURL(selectAgric = selectAgric, selectMonth = "")
+        //return resultDetail.postValue(agricDetail)
+    }*/
+    fun loadDetailFromURL(selectAgric: String) {
+        val request = NetworkModule.makeHttprequest(NetworkModule.makeHttpUrl(agric = selectAgric, month = ""))
+        Log.i("HTTP", request.toString())
+
+        // Coroutine을 이용하여 IO 스레드에서 경락가격정보서비스 서버에 요청
+        viewModelScope.launch(Dispatchers.IO + errorHandler) {
+            Log.i("AGRIC", request.url.toString())
+            //response(응답) 객체 - 경락가격정보 검색 요청
+            //  - OkHTTPClient.newCall()의 인자로 Request 객체(request)를 전달하여 실행(요청)
+            val response = NetworkModule.client.newCall(request).await()
+            // String을 Moshi를 이용 JSON Body로 파싱
+            val agricData = response.body?.string()?.let { mappingStringToNews(it) } ?: emptyList()
+            //detailAgric = agricData.get(0)
+            resultDetail.postValue(agricData.get(0))
+        }
+    }
+
+    //Moshi를 이용 JSON Body로 파싱
+    fun mappingStringToNews(jsonBody: String): List<AgricEntity> {
+        // json 스트링을 데이터 클래스(AgricWrapper)에 맞게 자동으로 맵핑해주는 어댑터를 생성
+        val json_tmp1 = JSONObject(jsonBody)
+        val json_tmp2 = json_tmp1.getJSONObject("Grid_20171128000000000572_1")
+
+        Log.i("아님 여기까지 ", "성공인가..?")
+
+        val agricsStringToJsonAdapter = moshi.adapter(AgricWrapper::class.java)
+        val agricsResponse = agricsStringToJsonAdapter.fromJson(json_tmp2.toString())
+        Log.i(
+            "AGRIC_JSON_LIST",
+            "${agricsResponse}"
+        )//row=[AgricEntity(...), ]
+
+        return agricsResponse?.row ?: emptyList()
+    }//end of mapppingStringToNews
+
+
+    //    private val userNoticeMsg: MutableLiveData<String> = MutableLiveData()
 //    fun userNoticeMsg(): LiveData<String> = userNoticeMsg
 
     //검색 결과를 SaveItem 테이블과 Fresh 테이블에 저장
@@ -69,64 +148,6 @@ class AgricViewModel : ViewModel() {
         }
     }//end of saveResult
 */
-    val errorHandler = CoroutineExceptionHandler { _, exception ->
-        Log.e("error", exception.message)
-//        userNoticeMsg.postValue(exception.message)
-    }
 
-    //Request 객체 생성 함수
-    fun loadDataFromURL(
-        selectMonth: String,
-        selectAgric: String
-    ) {
-        /* Request 객체 생성 */
-        val request = NetworkModule.makeHttprequest(
-            /* 분류코드(소분류), 검색일자, 검색수량을 인자로 HttpUrl 객체 생성 함수를 호출하여
-               HttpUrl 객체 생성 */
-            NetworkModule.makeHttpUrl(agric = selectAgric, month = selectMonth)
-        )
-
-        Log.i("HTTP", request.toString())
-
-        /* Coroutine을 이용하여 IO 스레드에서 경락가격정보서비스 서버에 요청  */
-        viewModelScope.launch(Dispatchers.IO + errorHandler) {
-            Log.i("AGRIC", request.url.toString())
-
-
-            /* response(응답) 객체 - 경락가격정보 검색 요청
-               - OkHTTPClient.newCall()의 인자로 Request 객체(request)를 전달하여 실행(요청)
-             */
-            val response = NetworkModule.client.newCall(request).await()
-
-            /* String을 Moshi를 이용 JSON Body로 파싱 */
-            val agricData = response.body?.string()?.let { mappingStringToNews(it) } ?: emptyList()
-
-            Log.i("여기까진", "성공인가..?")
-
-            //resultList(LiveData) 저장
-            resultList.postValue(agricData)
-        }
-    }//end of loadDataFromURL
-
-    //Moshi를 이용 JSON Body로 파싱
-    fun mappingStringToNews(jsonBody: String): List<AgricEntity> {
-
-        // json 스트링을 데이터 클래스(AgricWrapper)에 맞게 자동으로 맵핑해주는 어댑터를 생성
-        val json_tmp1 = JSONObject(jsonBody)
-        val json_tmp2 = json_tmp1.getJSONObject("Grid_20171128000000000572_1")
-        //json_tmp1[] as JSONObject
-        //val rows = json_tmp2["row"]
-
-        Log.i("아님 여기까지 ", "성공인가..?")
-
-        val agricsStringToJsonAdapter = moshi.adapter(AgricWrapper::class.java)
-        val agricsResponse = agricsStringToJsonAdapter.fromJson(json_tmp2.toString())
-        Log.i(
-            "AGRIC_JSON_LIST",
-            "${agricsResponse}"
-        )//row=[AgricEntity(...), ]
-
-        return agricsResponse?.row ?: emptyList()
-    }//end of mapppingStringToNews
 }
 

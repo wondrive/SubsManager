@@ -2,6 +2,7 @@ package com.example.homecookhelper.agric
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.example.homecookhelper.R
 import com.example.homecookhelper.dao.AgricDao
 import com.example.homecookhelper.entity.AgricEntity
 import kotlinx.android.synthetic.main.list_item_agric.view.*
+import kotlinx.android.synthetic.main.list_item_recipe.view.*
 import java.io.BufferedInputStream
 import java.io.IOException
 import java.net.URL
@@ -24,6 +26,7 @@ class AgricAdapter() : RecyclerView.Adapter<AgricAdapter.ItemViewHolder>(){
 
     // 받아온 데이터를 저장할 list
     var agricList: List<AgricEntity> = ArrayList()
+    var agricDetail: AgricEntity? = null
 
     // 어뎁터에서 관리할 아이템 갯수 반환
     override fun getItemCount() = agricList.size
@@ -50,6 +53,16 @@ class AgricAdapter() : RecyclerView.Adapter<AgricAdapter.ItemViewHolder>(){
             agric?.let {
                 itemView.txt_agric_name.text = agric.agricName
 
+                /* Note Image가 있다면?*/
+                /*agric.imgUrl?.let {
+                    itemView.item_profile_image.visibility = View.VISIBLE
+                    //it: content://media/external/images/media/26 ==> 이미지 path
+                    Log.d("TAG", it)
+                    itemView.item_profile_image.setImageURI(Uri.parse(it))//이미지 설정
+                } ?: kotlin.run {
+                    *//* 없다면 지워주기*//*
+                    itemView.item_profile_image.visibility = View.GONE
+                }*/
                 // 이미지 있으면 보여주기
                 /*agric.imgUrl?.let {
                     itemView.img_agric.visibility = View.VISIBLE
@@ -85,12 +98,10 @@ class AgricAdapter() : RecyclerView.Adapter<AgricAdapter.ItemViewHolder>(){
                 Navigation.findNavController(itemView).navigate(
                     R.id.action_agricListFragment_to_agricDetailFragment,
                     Bundle().apply {
-                        //현재 선택한 Agric의 id(primary key), 강제 언래핑(Unwrapping)
-                        putString("AGRIC_ID", agric.agricId!!)
+                        putString("AGRIC_NAME", agric.agricName!!)
                     })
             }//end of setOnClickListener
         }//end of bindItems
     }//end of ItemViewHolder
-
 }
 

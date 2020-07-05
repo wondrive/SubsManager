@@ -39,7 +39,7 @@
     <fragment
         android:id="@+id/agricSearchFragment"
         android:name="com.example.homecookhelper.agric.AgricSearchFragment"
-        android:label="농산물검색"
+        android:label="농산물 검색"
         tools:layout="@layout/fragment_agric_search">
         <action
             android:id="@+id/action_agricSearchFragment_to_agricDetailFragment"
@@ -53,21 +53,11 @@
         android:label="농산물 상세보기"
         tools:layout="@layout/fragment_agric_detail">
         <argument
-            android:name="AGRIC_ID"
+            android:name="AGRIC_NAME"
             app:argType="string" />
     </fragment>
 
 
-    <fragment
-        android:id="@+id/recipeBookmarkFragment"
-        android:name="com.example.homecookhelper.recipe.RecipeBookmarkFragment"
-        android:label="즐겨찾기"
-        tools:layout="@layout/fragment_recipe_bookmark">
-        <action
-            android:id="@+id/action_recipeBookmarkFragment_to_recipeDetailFragment"
-            app:destination="@id/recipeDetailFragment"
-            app:popUpTo="@id/recipeBookmarkFragment" />
-    </fragment>
     <fragment
         android:id="@+id/recipeListFragment"
         android:name="com.example.homecookhelper.recipe.RecipeListFragment"
@@ -91,12 +81,26 @@
         <argument
             android:name="RECIPE_ID"
             app:argType="long" />
+        <action
+            android:id="@+id/action_recipeDetailFragment_to_writeRecipe"
+            app:destination="@id/writeRecipe"
+            app:popUpTo="@id/recipeDetailFragment" />
+        <argument
+            android:name="USER_ID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/writeRecipe"
         android:name="com.example.homecookhelper.recipe.RecipeWriteFragment"
         android:label="레시피등록"
-        tools:layout="@layout/fragment_recipe_write" />
+        tools:layout="@layout/fragment_recipe_write" >
+        <argument
+            android:name="RECIPE_ID"
+            app:argType="long" />
+        <argument
+            android:name="UPDATE_YN"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.example.homecookhelper.InfoFragment"

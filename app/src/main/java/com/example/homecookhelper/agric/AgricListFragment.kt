@@ -21,11 +21,6 @@ import java.util.*
 
 class AgricListFragment : Fragment() {
 
-    /* 데이터베이스를 가져옵니다.*/
-    val database by lazy {
-        DatabaseModule.getDatabase(requireContext())
-    }
-
     //resultViewModel 참조
     val resultViewModel by lazy {
         ViewModelProvider(requireActivity()).get(AgricViewModel::class.java)
@@ -69,12 +64,12 @@ class AgricListFragment : Fragment() {
            - resultViewModel.loadDataFromURL() 함수 호출
         */
         Calendar.getInstance().apply { time = Date(System.currentTimeMillis()) }
-        resultViewModel.loadDataFromURL(selectAgric = "", selectMonth = Calendar.MONTH.toString()+"월")
+        resultViewModel.loadDataFromURL(selectAgric = "", selectMonth = (Calendar.MONTH+1).toString()+"월")
 
         //서버에서 응답한 응답 데이터의 변화를 감지하기 위해 LiveData(resultList())에 observe 설정
-        resultViewModel.resultList().observe(viewLifecycleOwner, Observer {
+        resultViewModel.resultDetail().observe(viewLifecycleOwner, Observer {
             /* resultAdpater에 데이터에 변동됨을 알려줍니다. */
-            agricAdapter.agricList = it//검색한  List<FreshData>를  resultAdpater에 전달
+            agricAdapter.agricDetail = it//검색한  List<FreshData>를  resultAdpater에 전달
             Log.i("AGRIC", "it: $it")
             agricAdapter.notifyDataSetChanged()
 
@@ -85,12 +80,12 @@ class AgricListFragment : Fragment() {
         })//end of observe
 
         /*  리사이클러뷰에 구분선 설정 */
-        view.list_agric.addItemDecoration(
+        /*view.list_agric.addItemDecoration(
             DividerItemDecoration(
                 requireContext(),
                 DividerItemDecoration.VERTICAL
             )
-        );
+        );*/
 
         /* 리사이클러뷰에 어댑터 및 레이아웃메니저 설정 */
         view.list_agric.adapter = agricAdapter

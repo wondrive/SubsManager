@@ -10,6 +10,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.homecookhelper.R
 import com.example.homecookhelper.entity.RecipeEntity
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_recipe_detail.view.*
 import kotlinx.android.synthetic.main.list_item_recipe.view.*
 
 
@@ -39,7 +41,6 @@ class RecipeAdapter(var recipes: List<RecipeEntity> = emptyList()) :
         fun bindItems(recipe: RecipeEntity) {
             /* Title 맵핑하기 */
             itemView.item_txt_title.text = recipe.recipeTitle
-
             /* Note Image가 있다면?*/
             recipe.recipeImg?.let {
                 itemView.item_profile_image.visibility = View.VISIBLE
@@ -63,6 +64,8 @@ class RecipeAdapter(var recipes: List<RecipeEntity> = emptyList()) :
                         /* //현재 선택한 Recipe의 id(primary key)
                           - noteIdx가 없는 리스트는 존재할 수 없으므로 강제 언래핑(Unwrapping)*/
                         putLong("RECIPE_ID", recipe.recipeId!!)
+                        putString("USER_ID", recipe.userId!!)
+                        putString("UPDATE_YN", "Y")
                     })
             }//end of setOnClickListener
         }//end of bindItems

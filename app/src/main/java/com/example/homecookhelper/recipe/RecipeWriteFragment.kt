@@ -2,12 +2,14 @@ package com.example.homecookhelper.recipe
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.homecookhelper.R
@@ -16,6 +18,7 @@ import com.example.homecookhelper.entity.RecipeEntity
 import com.google.firebase.auth.FirebaseAuth
 import com.kroegerama.imgpicker.BottomSheetImagePicker
 import com.kroegerama.imgpicker.ButtonType
+import kotlinx.android.synthetic.main.fragment_recipe_detail.view.*
 import kotlinx.android.synthetic.main.fragment_recipe_write.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +33,7 @@ class RecipeWriteFragment : DialogFragment(), BottomSheetImagePicker.OnImagesSel
     private var recipe =
         RecipeEntity(recipeContent = "", recipeTitle = "", recipeImg = null, userId = "")
 
-    //noteDao 참조
+        //noteDao 참조
     private val dao by lazy { DatabaseModule.getDatabase(requireContext()).recipeDao() }
 
     override fun onCreateView(
@@ -61,7 +64,10 @@ class RecipeWriteFragment : DialogFragment(), BottomSheetImagePicker.OnImagesSel
         /* 만약 Tag값(Note id)이 있으면 생성이 아니라 수정
            - 따라서 수정을 위해 데이터를 불러와야 함
         */
-        tag?.toLongOrNull()?.let { recipeId ->
+        //tag?.toLongOrNull()?.let { recipeId ->
+        val updateYn = arguments?.getString("UPDATE_YN") ?: "N"
+        if(updateYn.equals("Y")) {
+            val recipeId = arguments?.getLong("RECIPE_ID") ?: kotlin.run { throw Error("RECIPE_ID가 없습니다.") }
             viewLifecycleOwner.lifecycleScope.launch {
                 /* 미리 변수를 선언 */
                 var savedRecipe: RecipeEntity? = null
@@ -70,6 +76,7 @@ class RecipeWriteFragment : DialogFragment(), BottomSheetImagePicker.OnImagesSel
                     savedRecipe = dao.selectRecipe(recipeId)
                 }
                 /* 노트가 존재한다면 note를 변경*/
+
                 savedRecipe?.let {
                     recipe = it //쿼리한 노트 객체를 note에 저장
                     view.txt_title.setText(it.recipeTitle)
@@ -78,9 +85,20 @@ class RecipeWriteFragment : DialogFragment(), BottomSheetImagePicker.OnImagesSel
                         view.img_profile.setImageURI(Uri.parse(recipeImg))
                     }
                 }
-
             }
+
+            /* DetailFragment에서 LiveData observe
+           - DB에서 트랜잭션(Transaction)이 발생하면 UI를 갱신
+        */
+            /*dao.selectLiveRecipe(recipeId).observe(viewLifecycleOwner, Observer {
+                view.txt_recipe_title.setText(it.recipeTitle)
+                view.txt_user_id.setText(it.userId)
+                view.txt_recipe_content.setText(it.recipeContent)
+                it.recipeImg?.let { uri -> view.img_recipe.setImageURI(Uri.parse(uri)) }
+            })*/
         }//end of let
+
+
 
         //수정하고 저장하기 버튼을 클릭한 경우(DB에 수정사항 저장)
         view.btn_save.setOnClickListener {
@@ -106,10 +124,13 @@ class RecipeWriteFragment : DialogFragment(), BottomSheetImagePicker.OnImagesSel
                         recipeImg = recipe.recipeImg,
                         userId = userId.toString()
                     )
-                    dao.insertRecipes(recipe)//DB에 저장
+                    if(updateYn.equals("Y")) {   // 신규글인지 수정인지 구분하여 저장
+                        dao.updateRecipe(recipe)
+                    } else {
+                        dao.insertRecipes(recipe)//DB에 저장
+                    }
                     //dismiss()//다이얼로드 종료
                 }
-
                 findNavController().popBackStack()
             }
         }//end of view.btn_save.setOnClickListener

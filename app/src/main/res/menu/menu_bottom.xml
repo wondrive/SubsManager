@@ -12,9 +12,6 @@
         android:id="@+id/recipeListFragment"
         android:title="@string/nav_title_recipe"/>
     <item
-        android:id="@+id/recipeBookmarkFragment"
-        android:title="@string/nav_title_bookmark"/>
-    <item
         android:id="@+id/infoFragment"
         android:title="@string/nav_title_info"/>
 </menu>

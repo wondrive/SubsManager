@@ -1,5 +1,6 @@
 package com.example.homecookhelper.network
 
+import android.util.Log
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -36,9 +37,9 @@ object NetworkModule {
             .addPathSegment("Grid_20171128000000000572_1")
             .addPathSegment("1")
             .addPathSegment("30")
-        if(agric != null && agric.equals(""))
+        if(agric != null && !agric.equals(""))
             builder.addQueryParameter("PRDLST_NM", agric)
-        if(month != null && month.equals(""))
+        if(month != null && !month.equals(""))
             builder.addQueryParameter("M_DISTCTNS", month)
         return builder.build()
     }//end of makeHttpUrl

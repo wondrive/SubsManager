@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             /* 최종 destination에서 네비바 없애기*/
             if (arrayListOf(
                     R.id.agricListFragment, R.id.agricSearchFragment, R.id.recipeListFragment,
-                    R.id.recipeBookmarkFragment, R.id.infoFragment
+                    R.id.infoFragment
                 ).contains(destination.id)
             ) {
                 bottom_navigation.visibility = View.VISIBLE
@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
                     R.id.agricListFragment,
                     R.id.agricSearchFragment,
                     R.id.recipeListFragment,
-                    R.id.recipeBookmarkFragment,
                     R.id.infoFragment
                 )
             )
