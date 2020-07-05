@@ -76,10 +76,6 @@ class AgricViewModel : ViewModel() {
     }//end of loadDataFromURL
 
     // Detail
-    /*fun loadDetailFromURL(selectAgric: String){
-        loadDataFromURL(selectAgric = selectAgric, selectMonth = "")
-        //return resultDetail.postValue(agricDetail)
-    }*/
     fun loadDetailFromURL(selectAgric: String) {
         val request = NetworkModule.makeHttprequest(NetworkModule.makeHttpUrl(agric = selectAgric, month = ""))
         Log.i("HTTP", request.toString())
@@ -87,7 +83,6 @@ class AgricViewModel : ViewModel() {
         // Coroutine을 이용하여 IO 스레드에서 경락가격정보서비스 서버에 요청
         viewModelScope.launch(Dispatchers.IO + errorHandler) {
             Log.i("AGRIC", request.url.toString())
-            //response(응답) 객체 - 경락가격정보 검색 요청
             //  - OkHTTPClient.newCall()의 인자로 Request 객체(request)를 전달하여 실행(요청)
             val response = NetworkModule.client.newCall(request).await()
             // String을 Moshi를 이용 JSON Body로 파싱

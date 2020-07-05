@@ -28,7 +28,7 @@
                 android:id="@+id/txt_agric_name"
                 android:layout_width="192dp"
                 android:layout_height="34dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="40dp"
                 android:text="Loading..."
                 android:textAlignment="center"
                 android:textSize="24sp"
@@ -37,24 +37,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/img_agric"
                 android:layout_width="179dp"
                 android:layout_height="128dp"
                 android:layout_marginTop="36dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_agric_name" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_agric_name" />-->
 
             <ScrollView
-                android:layout_width="350dp"
-                android:layout_height="384dp"
+                android:layout_width="343dp"
+                android:layout_height="494dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_agric">
+                app:layout_constraintTop_toBottomOf="@+id/txt_agric_name">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -64,17 +65,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="16dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/textView13"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="7dp"
+                            android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:text="제철"
-                            android:textAlignment="center"
+                            android:textAlignment="textEnd"
                             android:textColor="@color/colorAccent"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -91,17 +92,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="16dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/textView12"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="7dp"
+                            android:layout_marginRight="10dp"
                             android:layout_weight="1"
-                            android:text="주요 산지"
-                            android:textAlignment="center"
+                            android:text="주요산지"
+                            android:textAlignment="textEnd"
                             android:textColor="@color/colorAccent"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -118,17 +119,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="16dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/textView14"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="7dp"
+                            android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:text="효능"
-                            android:textAlignment="center"
+                            android:textAlignment="textEnd"
                             android:textColor="@color/colorAccent"
                             android:textStyle="bold" />
 
@@ -143,17 +144,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="16dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/textView17"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="7dp"
+                            android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:text="구입요령"
-                            android:textAlignment="center"
+                            android:textAlignment="textEnd"
                             android:textColor="@color/colorAccent"
                             android:textStyle="bold" />
 
@@ -168,17 +169,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="16dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/textView15"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="7dp"
+                            android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:text="조리방법"
-                            android:textAlignment="center"
+                            android:textAlignment="textEnd"
                             android:textColor="@color/colorAccent"
                             android:textStyle="bold" />
 
@@ -193,17 +194,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="16dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/textView16"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="7dp"
+                            android:layout_marginRight="10dp"
                             android:layout_weight="1"
                             android:text="손질방법"
-                            android:textAlignment="center"
+                            android:textAlignment="textEnd"
                             android:textColor="@color/colorAccent"
                             android:textStyle="bold" />
 

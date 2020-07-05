@@ -87,17 +87,7 @@ class RecipeWriteFragment : DialogFragment(), BottomSheetImagePicker.OnImagesSel
                 }
             }
 
-            /* DetailFragment에서 LiveData observe
-           - DB에서 트랜잭션(Transaction)이 발생하면 UI를 갱신
-        */
-            /*dao.selectLiveRecipe(recipeId).observe(viewLifecycleOwner, Observer {
-                view.txt_recipe_title.setText(it.recipeTitle)
-                view.txt_user_id.setText(it.userId)
-                view.txt_recipe_content.setText(it.recipeContent)
-                it.recipeImg?.let { uri -> view.img_recipe.setImageURI(Uri.parse(uri)) }
-            })*/
         }//end of let
-
 
 
         //수정하고 저장하기 버튼을 클릭한 경우(DB에 수정사항 저장)

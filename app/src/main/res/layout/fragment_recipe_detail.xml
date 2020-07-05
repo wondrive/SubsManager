@@ -40,7 +40,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraintLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="510dp"
+                        android:layout_height="538dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp">
 
@@ -48,9 +48,10 @@
                             android:id="@+id/txt_recipe_title"
                             android:layout_width="169dp"
                             android:layout_height="34dp"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="24dp"
                             android:text="Loading..."
                             android:textAlignment="center"
+                            android:textColor="@color/colorAccent"
                             android:textSize="24sp"
                             android:textStyle="bold|italic"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +61,7 @@
 
                         <TextView
                             android:id="@+id/txt_recipe_content"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="24dp"
@@ -80,7 +81,7 @@
                             android:id="@+id/img_recipe"
                             android:layout_width="179dp"
                             android:layout_height="128dp"
-                            android:layout_marginTop="24dp"
+                            android:layout_marginTop="32dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.502"
                             app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +101,7 @@
                             android:id="@+id/txt_user_id"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="24dp"
                             android:layout_marginEnd="50dp"
                             android:text="Loading..."
                             android:textSize="12sp"
@@ -119,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="32dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

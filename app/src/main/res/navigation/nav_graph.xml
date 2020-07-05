@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/agricSearchFragment"
-        android:name="com.example.homecookhelper.agric.AgricSearchFragment"
+        android:name="com.example.homecookhelper.search.AgricSearchFragment"
         android:label="농산물 검색"
         tools:layout="@layout/fragment_agric_search">
         <action
@@ -46,6 +46,15 @@
             app:destination="@id/agricDetailFragment"
             app:popUpTo="@id/agricSearchFragment"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_agricSearchFragment_self"
+            app:destination="@id/agricSearchFragment" />
+        <argument
+            android:name="SELECT_MONTH"
+            app:argType="string" />
+        <argument
+            android:name="SELECT_AGRIC"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/agricDetailFragment"
