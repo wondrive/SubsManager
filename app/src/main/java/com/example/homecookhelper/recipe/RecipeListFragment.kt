@@ -45,9 +45,6 @@ class RecipeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /* ListFragment에서 LiveData observe
-           - DB에서 트랜잭션(Transaction)이 발생하면 NoteAdapter에 데이터 변경을 알려 UI를 갱신
-           - DetailFragment에서 노트를 수정 또는 삭제할 경우 ListFragment UI를 자동으로 갱신 */
         recipeDao.selectRecipe().observe(viewLifecycleOwner, androidx.lifecycle.Observer{
             recipeAdapter.recipes = it//어댑터에 변경된 note 전달
             recipeAdapter.notifyDataSetChanged()//어댑터에 변경 공지

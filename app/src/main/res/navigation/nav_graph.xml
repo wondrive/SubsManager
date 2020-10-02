@@ -127,5 +127,5 @@
         android:id="@+id/action_global_agricListFragment"
         app:destination="@id/agricListFragment"
         app:popUpTo="@id/agricListFragment"
-        app:popUpToInclusive="true" />
+        app:popUpToInclusive="true" /><action android:id="@+id/action_global_loginFragment2" app:destination="@id/loginFragment"/>
 </navigation>

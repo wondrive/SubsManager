@@ -52,10 +52,6 @@ class JoinFragment : Fragment() {
                     //id, pw, pw_firm 입력값이 정상이면
                     view.register_loader.visibility = View.VISIBLE
 
-                    /* 신규 사용자의 이메일 주소와 비밀번호를 createUserWithEmailAndPassword에 전달하여
-                       신규 계정을 생성하고, searchFragment로 이동
-                       - 실패한 경우 에러 메시지 출력
-                     */
                     firebaseAuth.createUserWithEmailAndPassword(id, pw)
                         .addOnCompleteListener { task ->
                             /* 성공한 경우*/

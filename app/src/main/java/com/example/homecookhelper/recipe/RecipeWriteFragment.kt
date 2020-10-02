@@ -61,9 +61,6 @@ class RecipeWriteFragment : DialogFragment(), BottomSheetImagePicker.OnImagesSel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /* 만약 Tag값(Note id)이 있으면 생성이 아니라 수정
-           - 따라서 수정을 위해 데이터를 불러와야 함
-        */
         //tag?.toLongOrNull()?.let { recipeId ->
         val updateYn = arguments?.getString("UPDATE_YN") ?: "N"
         if(updateYn.equals("Y")) {
@@ -119,7 +116,6 @@ class RecipeWriteFragment : DialogFragment(), BottomSheetImagePicker.OnImagesSel
                     } else {
                         dao.insertRecipes(recipe)//DB에 저장
                     }
-                    //dismiss()//다이얼로드 종료
                 }
                 findNavController().popBackStack()
             }
