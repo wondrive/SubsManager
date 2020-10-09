@@ -10,11 +10,11 @@
         android:icon="@drawable/ic_search_outline"
         android:title="@string/nav_title_search"/>
     <item
-        android:id="@+id/recipeListFragment"
+        android:id="@+id/boardListFragment"
         android:icon="@drawable/ic_noun_recipe_2093478"
         android:title="@string/nav_title_board"/>
     <item
-        android:id="@+id/infoFragment"
+        android:id="@+id/mypageFragment"
         android:icon="@drawable/ic_person"
         android:title="@string/nav_title_mypage"/>
 </menu>
