@@ -111,7 +111,7 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/infoFragment"
+        android:id="@+id/mypageFragment"
         android:name="com.example.subsmanager2.MypageFragment"
         android:label="마이페이지"
         tools:layout="@layout/fragment_mypage" />

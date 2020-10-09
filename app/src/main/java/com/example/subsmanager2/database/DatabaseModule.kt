@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.subsmanager2.dao.AgricDao
 import com.example.subsmanager2.dao.BoardDao
 import com.example.subsmanager2.entity.AgricEntity
 import com.example.subsmanager2.entity.BoardEntity
@@ -14,7 +15,7 @@ import com.example.subsmanager2.entity.BoardEntity
 abstract class DatabaseModule : RoomDatabase() {
 
     /* Query 문에 사용하는 Dao가져오기. */
-    //abstract fun agricDao(): AgricDao
+    abstract fun agricDao(): AgricDao
     abstract fun boardDao(): BoardDao
 
     companion object {

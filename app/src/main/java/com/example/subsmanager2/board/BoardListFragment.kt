@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_board_list.view.fab_add_note
  */
 class BoardListFragment : Fragment() {
 
-    /* noteDao를 Lazy 키워드를 이용하여 처음 호출될때 초기화하도록 설정 */
+    /* boardDao를 Lazy 키워드를 이용하여 처음 호출될때 초기화하도록 설정 */
     val boardDao by lazy { DatabaseModule.getDatabase(requireContext()).boardDao() }
 
     //어댑터 생성
