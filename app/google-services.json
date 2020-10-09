@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "894289880016",
-    "firebase_url": "https://homecookhelper-33ef0.firebaseio.com",
-    "project_id": "homecookhelper-33ef0",
-    "storage_bucket": "homecookhelper-33ef0.appspot.com"
+    "project_number": "271071572437",
+    "firebase_url": "https://subsmanager2.firebaseio.com",
+    "project_id": "subsmanager2",
+    "storage_bucket": "subsmanager2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:894289880016:android:891e64a4d1023e6f2d4fd5",
+        "mobilesdk_app_id": "1:271071572437:android:65795e77da5d54c04fcd5c",
         "android_client_info": {
-          "package_name": "com.example.homecookhelper"
+          "package_name": "com.example.subsmanager2"
         }
       },
       "oauth_client": [
         {
-          "client_id": "894289880016-ifv0v8iobbmrsq6q45ssojgl8670oouh.apps.googleusercontent.com",
+          "client_id": "271071572437-n6a9cf3dsr6usp2aqtri29e0i72l4b3l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDEgU2R6H6RrTzaom4tF4EvtCbXB72fo4Q"
+          "current_key": "AIzaSyC6b1TaGH6Yi-GgGnGgzW_9indIZ2uFou4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "894289880016-ifv0v8iobbmrsq6q45ssojgl8670oouh.apps.googleusercontent.com",
+              "client_id": "271071572437-n6a9cf3dsr6usp2aqtri29e0i72l4b3l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

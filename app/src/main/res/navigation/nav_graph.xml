@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.homecookhelper.login.SplashFragment"
+        android:name="com.example.subsmanager2.login.SplashFragment"
         android:label=""
         tools:layout="@layout/fragment_splash" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.homecookhelper.login.LoginFragment"
+        android:name="com.example.subsmanager2.login.LoginFragment"
         android:label="로그인"
         tools:layout="@layout/fragment_login">
         <action
@@ -21,13 +21,13 @@
     </fragment>
     <fragment
         android:id="@+id/joinFragment"
-        android:name="com.example.homecookhelper.login.JoinFragment"
+        android:name="com.example.subsmanager2.login.JoinFragment"
         android:label="회원가입"
         tools:layout="@layout/fragment_join" />
 
     <fragment
         android:id="@+id/agricListFragment"
-        android:name="com.example.homecookhelper.agric.AgricListFragment"
+        android:name="com.example.subsmanager2.agric.AgricListFragment"
         android:label="이달의 농산물"
         tools:layout="@layout/fragment_agric_list">
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/agricSearchFragment"
-        android:name="com.example.homecookhelper.search.AgricSearchFragment"
+        android:name="com.example.subsmanager2.search.AgricSearchFragment"
         android:label="농산물 검색"
         tools:layout="@layout/fragment_agric_search">
         <action
@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/agricDetailFragment"
-        android:name="com.example.homecookhelper.agric.AgricDetailFragment"
+        android:name="com.example.subsmanager2.agric.AgricDetailFragment"
         android:label="농산물 상세보기"
         tools:layout="@layout/fragment_agric_detail">
         <argument
@@ -68,43 +68,43 @@
 
 
     <fragment
-        android:id="@+id/recipeListFragment"
-        android:name="com.example.homecookhelper.recipe.RecipeListFragment"
-        android:label="레시피 공유 게시판"
-        tools:layout="@layout/fragment_recipe_list">
+        android:id="@+id/boardListFragment"
+        android:name="com.example.subsmanager2.board.BoardListFragment"
+        android:label="플랫폼 평가 게시판"
+        tools:layout="@layout/fragment_board_list">
         <action
-            android:id="@+id/action_recipeListFragment_to_recipeDetailFragment"
-            app:destination="@id/recipeDetailFragment"
-            app:popUpTo="@id/recipeListFragment"
+            android:id="@+id/action_boardListFragment_to_boardDetailFragment"
+            app:destination="@id/boardDetailFragment"
+            app:popUpTo="@id/boardListFragment"
             app:popUpToInclusive="false" />
         <action
-            android:id="@+id/action_recipeListFragment_to_writeRecipe"
-            app:destination="@id/writeRecipe"
-            app:popUpTo="@id/recipeListFragment" />
+            android:id="@+id/action_boardListFragment_to_writeBoard"
+            app:destination="@id/writeBoard"
+            app:popUpTo="@id/boardListFragment" />
     </fragment>
     <fragment
-        android:id="@+id/recipeDetailFragment"
-        android:name="com.example.homecookhelper.recipe.RecipeDetailFragment"
-        android:label="레시피 상세보기"
-        tools:layout="@layout/fragment_recipe_detail">
+        android:id="@+id/boardDetailFragment"
+        android:name="com.example.subsmanager2.board.BoardDetailFragment"
+        android:label="게시판 상세보기"
+        tools:layout="@layout/fragment_board_detail">
         <argument
-            android:name="RECIPE_ID"
+            android:name="BOARD_ID"
             app:argType="long" />
         <action
-            android:id="@+id/action_recipeDetailFragment_to_writeRecipe"
-            app:destination="@id/writeRecipe"
-            app:popUpTo="@id/recipeDetailFragment" />
+            android:id="@+id/action_boardDetailFragment_to_writeBoard"
+            app:destination="@id/writeBoard"
+            app:popUpTo="@id/boardDetailFragment" />
         <argument
             android:name="USER_ID"
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/writeRecipe"
-        android:name="com.example.homecookhelper.recipe.RecipeWriteFragment"
-        android:label="레시피등록"
-        tools:layout="@layout/fragment_recipe_write" >
+        android:id="@+id/writeBoard"
+        android:name="com.example.subsmanager2.board.BoardWriteFragment"
+        android:label="게시판 등록"
+        tools:layout="@layout/fragment_board_write" >
         <argument
-            android:name="RECIPE_ID"
+            android:name="BOARD_ID"
             app:argType="long" />
         <argument
             android:name="UPDATE_YN"
@@ -112,9 +112,9 @@
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.example.homecookhelper.InfoFragment"
+        android:name="com.example.subsmanager2.MypageFragment"
         android:label="마이페이지"
-        tools:layout="@layout/fragment_info" />
+        tools:layout="@layout/fragment_mypage" />
 
 
     <action

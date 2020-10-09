@@ -8,4 +8,13 @@
     <color name="light_grey">#DADBDD</color>
     <color name="primaryBlack">#373737</color>
     <color name="subject_green">#0B2726</color>
+
+
+    <!-- 칭챙총 -->
+    <color name="darkgreen">#004F66</color>
+    <color name="orange">#FF5F2D</color>
+    <color name="skyblue">#E1EEF6</color>
+    <color name="black">#2F2F2F</color>
+    <color name="gray">#555555</color>
+    <color name="white">#ffffff</color>
 </resources>

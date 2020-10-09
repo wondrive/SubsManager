@@ -12,9 +12,9 @@
     <item
         android:id="@+id/recipeListFragment"
         android:icon="@drawable/ic_noun_recipe_2093478"
-        android:title="@string/nav_title_recipe"/>
+        android:title="@string/nav_title_board"/>
     <item
         android:id="@+id/infoFragment"
         android:icon="@drawable/ic_person"
-        android:title="@string/nav_title_info"/>
+        android:title="@string/nav_title_mypage"/>
 </menu>
