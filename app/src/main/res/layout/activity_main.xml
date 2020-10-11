@@ -27,7 +27,6 @@
         android:layout_height="wrap_content"
         android:background="@color/darkgreen"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
