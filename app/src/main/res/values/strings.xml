@@ -12,7 +12,7 @@
 
     <!--네비게이션 타이틀-->
     <string name="nav_title_main">메인</string>
-    <string name="nav_title_search">검색</string>
+    <string name="nav_title_search">추찬</string>
     <string name="nav_title_board">게시판</string>
     <string name="nav_title_mypage">마이페이지</string>
 
