@@ -1,6 +1,7 @@
 package com.example.subsmanager2.login
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,7 @@ import com.example.subsmanager2.util.hideKeyboard
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_join.view.*
 
-class JoinFragment : Fragment() {
+class `JoinFragment` : Fragment() {
 
     //FirebaseAuth 객체의 공유 인스턴스를 가져오기
     val firebaseAuth by lazy { FirebaseAuth.getInstance() }
@@ -33,7 +34,7 @@ class JoinFragment : Fragment() {
             val id = view.edit_id.text.toString()
             val pw = view.edit_pw.text.toString()
             val pw_firm = view.edit_pw_confirm.text.toString()
-
+            Log.d("debug","clicked join")
             //id, pw, pw_firm 입력 여부 확인
             when {
                 id.isEmpty() -> Toast.makeText(requireContext(), "아이디를 입력하세요.", Toast.LENGTH_LONG)
