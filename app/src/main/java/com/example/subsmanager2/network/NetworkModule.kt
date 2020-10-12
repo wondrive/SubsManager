@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
    - 공공DB 서버에 요청할 OkHttp Request 객체 생성
  */
 object NetworkModule {
-    private val keyValue = "007c443a70fd3c24f487bbb043a1baea647dac71cc49866181e71cbec8805f47"  // API Key
+    private val keyValue = "007c443a70fd3c24f487bbb043a1baea647dac71cc49866181e71cbec8805f47__"  // API Key
 
     /* OKhttp client (실제로 네트워크를 호출하는 부분) 생성 */
     val client: OkHttpClient by lazy {
