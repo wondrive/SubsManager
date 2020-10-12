@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/colorDeepYellow"
     tools:context=".agric.AgricListFragment">
 
     <androidx.cardview.widget.CardView
@@ -42,8 +42,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:hint="검색어 입력"
                 android:inputType="textPersonName"
+                android:hint="검색어 입력"
                 android:textSize="14sp" />
 
             <Button
