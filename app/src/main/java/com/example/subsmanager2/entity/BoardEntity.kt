@@ -10,5 +10,7 @@ data class BoardEntity(    // ID, 제목, 내용, 글쓴이, 이미지, (게시�
     var userId:String,         // 글쓴이
     var boardTitle:String,     // 제목
     var boardContent:String,   // 내용
+    var subFee:String,         // 요금
+    var usage:String,         // 지속사용
     var boardImg:String?       // 이미지
 )
