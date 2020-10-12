@@ -31,8 +31,8 @@ class BoardListFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_board_list, container, false)
 
         /* 어댑터 초기화*/
-        rootView.list_board.adapter = boardAdapter
-        rootView.list_board.layoutManager = LinearLayoutManager(requireContext())
+        rootView.platformlist.adapter = boardAdapter
+        rootView.platformlist.layoutManager = LinearLayoutManager(requireContext())
 
         rootView.fab_add_note.setOnClickListener {
             findNavController().navigate(R.id.action_boardListFragment_to_writeBoard)

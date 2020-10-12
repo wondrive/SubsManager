@@ -1,8 +1,6 @@
 package com.example.subsmanager2.board
 
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,17 +36,11 @@ class BoardAdapter(var boardList: List<BoardEntity> = emptyList()) :
         //아이템 뷰(list_item_note.xml)에 데이터 바인딩(noteTitle, noteImage)
         fun bindItems(board: BoardEntity) {
             /* Title 맵핑하기 */
-            itemView.item_txt_title.text = board.boardTitle
-            /* Note Image가 있다면?*/
-            board.boardImg?.let {
-                itemView.item_profile_image.visibility = View.VISIBLE
-                //it: content://media/external/images/media/26 ==> 이미지 path
-                Log.d("TAG", it)
-                itemView.item_profile_image.setImageURI(Uri.parse(it))//이미지 설정
-            } ?: kotlin.run {
-                /* 없다면 지워주기*/
-                itemView.item_profile_image.visibility = View.GONE
-            }
+            itemView.item_txt_content.text = board.boardContent
+            itemView.item_txt_fee.text="구독료 : "+board.subFee
+            itemView.item_txt_useage.text="지속 사용 여부 : "
+
+//            itemView.item_text_fee.text =board.platformFee
 
             /* List 화면에서 아이템 뷰를 누르면 DetailFragment로 넘어감 */
             itemView.setOnClickListener {
