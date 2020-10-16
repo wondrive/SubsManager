@@ -81,7 +81,7 @@
                     android:textSize="18sp" />
 
                 <Button
-                    android:id="@+id/button18"
+                    android:id="@+id/btn_fee1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_review"
@@ -89,7 +89,7 @@
                     android:textSize="12sp" />
 
                 <Button
-                    android:id="@+id/button19"
+                    android:id="@+id/btn_fee2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_review"
@@ -97,7 +97,7 @@
                     android:textSize="12sp" />
 
                 <Button
-                    android:id="@+id/button20"
+                    android:id="@+id/btn_fee3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_review"
@@ -118,7 +118,7 @@
                     android:textSize="18sp" />
 
                 <Button
-                    android:id="@+id/button21"
+                    android:id="@+id/btn_contents1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_review"
@@ -126,7 +126,7 @@
                     android:textSize="12sp" />
 
                 <Button
-                    android:id="@+id/button22"
+                    android:id="@+id/btn_contents2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_review"
@@ -134,7 +134,7 @@
                     android:textSize="12sp" />
 
                 <Button
-                    android:id="@+id/button23"
+                    android:id="@+id/btn_contents3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_review"
@@ -155,7 +155,7 @@
                     android:textSize="18sp" />
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/btn_usage1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_review"
@@ -165,19 +165,11 @@
                     />
 
                 <Button
-                    android:id="@+id/button16"
+                    android:id="@+id/btn_usage2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_review"
                     android:text="엾음"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_review"
-                    android:text="null"
                     android:textSize="12sp" />
 
             </TableRow>

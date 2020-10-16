@@ -1,10 +1,6 @@
 package com.example.subsmanager2.board
 
-import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
-import android.os.Debug
-import android.text.method.Touch.onTouchEvent
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,10 +16,6 @@ import com.example.subsmanager2.R
 import com.example.subsmanager2.database.DatabaseModule
 import com.example.subsmanager2.entity.BoardEntity
 import com.google.firebase.auth.FirebaseAuth
-import com.kroegerama.imgpicker.BottomSheetImagePicker
-import com.kroegerama.imgpicker.ButtonType
-import kotlinx.android.synthetic.main.fragment_board_detail.view.*
-import kotlinx.android.synthetic.main.fragment_board_write.*
 import kotlinx.android.synthetic.main.fragment_board_write.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,7 +27,7 @@ import kotlinx.coroutines.withContext
 class BoardWriteFragment : DialogFragment() {
 
     /* note 객체 생성 및 초기화. */
-    private var board = BoardEntity(boardContent = "", boardTitle = "",userId = "",subFee = "",usage = "",boardImg = "")
+    private var board = BoardEntity(boardContent = "", boardTitle = "",userId = "",subFee = "",usage = "",subContents = "",boardImg = "")
 
         //noteDao 참조
     private val dao by lazy { DatabaseModule.getDatabase(requireContext()).boardDao() }
@@ -78,138 +70,239 @@ class BoardWriteFragment : DialogFragment() {
         }//end of let
 
         //태그 선택
-        lateinit var testButton1: Button
-        lateinit var testButton2: Button
-        lateinit var testButton3: Button
-        testButton1 = view.button18
-        testButton2 = view.button19
-        testButton3 = view.button20
-        var changeColorRow1 : Boolean = false
-        var changeColorRow2 : Boolean =false
-        var changeColorRow3 : Boolean =false
+        var selectFee : Boolean = false
+        var selectContents: Boolean =false
+        var selectUsage : Boolean =false
 
-        lateinit var testButton4: Button
-        lateinit var testButton5: Button
-        lateinit var testButton6: Button
-        testButton4 = view.button21
-        testButton5 = view.button22
-        testButton6 = view.button23
-
-        lateinit var testButton7: Button
-        lateinit var testButton8: Button
-        lateinit var testButton9: Button
-        testButton7 = view.button7
-        testButton8 = view.button16
-        testButton9 = view.button20
-
-        //
+        // 선택된 태그 값
         var fee :String ="" // 가격
-        var contents: String="" // 컨텐츠
-        var usage: String="" // 지속 사용
+        var contents: String="테스트 contemts" // 컨텐츠
+        var usage: String="테스트 usage" // 지속 사용
 
-        fun getTableRow() {
-            testButton1.setOnTouchListener(object : View.OnTouchListener {
+        // TODO: 엉망코드~!! 수정해야함 !
+        lateinit var btn_fee1: Button
+        lateinit var btn_fee2: Button
+        lateinit var btn_fee3: Button
+        btn_fee1 = view.btn_fee1
+        btn_fee2 = view.btn_fee2
+        btn_fee3 = view.btn_fee3
+
+        lateinit var btn_contents1: Button
+        lateinit var btn_contents2: Button
+        lateinit var btn_contents3: Button
+        btn_contents1 = view.btn_contents1
+        btn_contents2 = view.btn_contents2
+        btn_contents3 = view.btn_contents3
+
+        lateinit var btn_usage1: Button
+        lateinit var btn_usage2: Button
+        btn_usage1 = view.btn_usage1
+        btn_usage2 = view.btn_usage2
+
+
+        fun selectFeeBtn(btn_fee1: Button, btn_fee2: Button, btn_fee3: Button){
+            btn_fee1.setOnTouchListener(object : View.OnTouchListener {
                 override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                     when (event?.action) {
                         MotionEvent.ACTION_DOWN -> {
-                            Log.d("table row  ", "table row 1")
+                            if(selectFee) {
+                                btn_fee2.setBackgroundResource(R.drawable.button_review)
+                                btn_fee3.setBackgroundResource(R.drawable.button_review)
+
+                                btn_fee1.setBackgroundResource(R.drawable.button_review_click)
+                                fee= btn_fee1.text as String
+                                selectFee = !selectFee
+                            }
+                            else{
+                                selectFee = !selectFee
+                                btn_fee1.setBackgroundResource(R.drawable.button_review)
+                            }
                         }
                     }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+
+            btn_fee2.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectFee) {
+                                btn_fee1.setBackgroundResource(R.drawable.button_review)
+                                btn_fee3.setBackgroundResource(R.drawable.button_review)
+
+                                btn_fee2.setBackgroundResource(R.drawable.button_review_click)
+                                //선택 값
+                                fee= btn_fee2.text as String
+                                selectFee = !selectFee
+                            }
+                            else{
+                                selectFee = !selectFee
+                                btn_fee2.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+
+            btn_fee3.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectFee) {
+                                btn_fee1.setBackgroundResource(R.drawable.button_review)
+                                btn_fee2.setBackgroundResource(R.drawable.button_review)
+
+                                btn_fee3.setBackgroundResource(R.drawable.button_review_click)
+                                //선택 값
+                                fee= btn_fee3.text as String
+                                selectFee = !selectFee
+                            }
+                            else{
+                                selectFee = !selectFee
+                                btn_fee3.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+        }
+        fun selectContentsBtn(btn_contents1: Button, btn_contents2: Button, btn_contents3: Button){
+            btn_contents1.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectContents) {
+                                btn_contents2.setBackgroundResource(R.drawable.button_review)
+                                btn_contents3.setBackgroundResource(R.drawable.button_review)
+
+                                btn_contents1.setBackgroundResource(R.drawable.button_review_click)
+                                contents= btn_contents1.text as String
+                                selectContents = !selectContents
+                            }
+                            else{
+                                selectContents = !selectContents
+                                btn_contents1.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+
+            btn_contents2.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectContents) {
+                                btn_contents1.setBackgroundResource(R.drawable.button_review)
+                                btn_contents3.setBackgroundResource(R.drawable.button_review)
+
+                                btn_contents2.setBackgroundResource(R.drawable.button_review_click)
+                                //선택 값
+                                contents= btn_contents2.text as String
+                                selectContents = !selectContents
+                            }
+                            else{
+                                selectContents = !selectContents
+                                btn_contents2.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+
+            btn_contents3.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectContents) {
+                                btn_contents1.setBackgroundResource(R.drawable.button_review)
+                                btn_contents2.setBackgroundResource(R.drawable.button_review)
+
+                                btn_contents3.setBackgroundResource(R.drawable.button_review_click)
+                                //선택 값
+                                contents= btn_contents3.text as String
+                                selectContents = !selectContents
+                            }
+                            else{
+                                selectContents = !selectContents
+                                btn_contents3.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+        }
+        fun selectUsageBtn(btn_usage1: Button, btn_usage2: Button){
+            btn_usage1.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectUsage) {
+                                btn_usage2.setBackgroundResource(R.drawable.button_review)
+                                btn_usage1.setBackgroundResource(R.drawable.button_review_click)
+                                usage= btn_usage1.text as String
+                                selectUsage = !selectUsage
+                            }
+                            else{
+                                selectUsage = !selectUsage
+                                btn_usage1.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+
+            btn_usage2.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectUsage) {
+                                btn_usage1.setBackgroundResource(R.drawable.button_review)
+
+                                btn_usage2.setBackgroundResource(R.drawable.button_review_click)
+                                //선택 값
+                                usage= btn_usage2.text as String
+                                selectUsage = !selectUsage
+                            }
+                            else{
+                                selectUsage = !selectUsage
+                                btn_usage2.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
                     return true //or false
                 }
             })
         }
 
-        fun testClickBtn1(testButton1: Button, testButton2: Button,testButton3: Button){
-            var changeColor:Boolean =false
-            testButton1.setOnTouchListener(object : View.OnTouchListener {
-                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    when (event?.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            if(changeColor) {
-                                    testButton2.setBackgroundResource(R.drawable.button_review)
-                                    testButton3.setBackgroundResource(R.drawable.button_review)
-
-                                    testButton1.setBackgroundResource(R.drawable.button_review_click)
-                                    fee= testButton1.text as String
-                                    changeColor = !changeColor
-                                    Log.d("selectedItem ", fee.toString())
-                            }
-                            else{
-                                changeColor = !changeColor
-                                testButton1.setBackgroundResource(R.drawable.button_review)
-                            }
-
-                            Log.d("changecolor", changeColor.toString())
-                        }
-                    }
-                    //리턴값이 false면 seekbar 동작 안됨
-                    return true //or false
-                }
-            })
-
-            testButton2.setOnTouchListener(object : View.OnTouchListener {
-                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    when (event?.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            if(changeColor) {
-                                testButton1.setBackgroundResource(R.drawable.button_review)
-                                testButton3.setBackgroundResource(R.drawable.button_review)
-                                fee= testButton1.text as String
-                                testButton2.setBackgroundResource(R.drawable.button_review_click)
-                                changeColor = !changeColor
-                            }
-                            else{
-                                changeColor = !changeColor
-                                testButton2.setBackgroundResource(R.drawable.button_review)
-                            }
-
-                            Log.d("changecolor", changeColor.toString())
-                        }
-                    }
-                    //리턴값이 false면 seekbar 동작 안됨
-                    return true //or false
-                }
-            })
-
-            testButton3.setOnTouchListener(object : View.OnTouchListener {
-                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    when (event?.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            if(changeColor) {
-                                testButton1.setBackgroundResource(R.drawable.button_review)
-                                testButton2.setBackgroundResource(R.drawable.button_review)
-
-                                testButton3.setBackgroundResource(R.drawable.button_review_click)
-                                fee= testButton1.text as String
-                                changeColor = !changeColor
-                            }
-                            else{
-                                changeColor = !changeColor
-                                testButton3.setBackgroundResource(R.drawable.button_review)
-                            }
-
-                            Log.d("changecolor", changeColor.toString())
-                        }
-                    }
-                    //리턴값이 false면 seekbar 동작 안됨
-                    return true //or false
-                }
-            })
-        }
-
-
-        testClickBtn1(testButton1,testButton2,testButton3)
-        testClickBtn1(testButton4,testButton5,testButton6)
-        testClickBtn1(testButton7,testButton8,testButton9)
-
+        selectFeeBtn(btn_fee1,btn_fee2,btn_fee3)
+        selectContentsBtn(btn_contents1,btn_contents2,btn_contents3)
+        selectUsageBtn(btn_usage1,btn_usage2)
 
         //수정하고 저장하기 버튼을 클릭한 경우(DB에 수정사항 저장)
         view.btn_save.setOnClickListener {
             //입력한 noteTitle, noteContent 가져와서 변수에 할당
-//            board.boardTitle = view.txt_title.text.toString()
+
+            Log.d("입력한 값 : ", fee+" "+contents+" "+ usage)
             board.boardContent = view.txt_content.text.toString()
             board.subFee = fee
+            board.subContents=contents
+            board.usage=usage
             /* 제목과 내용이 다 있는지를 검증 */
             if (board.boardContent.isBlank() && board.boardContent.isBlank()) {
                 Toast.makeText(requireContext(), "제목과 내용을 입력해주세요", Toast.LENGTH_LONG).show()
@@ -228,7 +321,8 @@ class BoardWriteFragment : DialogFragment() {
                         boardTitle = board.boardTitle,
                         boardImg = board.boardImg,
                         subFee = board.subFee,
-                        usage = "null",
+                        usage = board.usage,
+                        subContents = board.subContents,
                         userId = userId.toString()
                     )
                     if(updateYn.equals("Y")) {   // 신규글인지 수정인지 구분하여 저장

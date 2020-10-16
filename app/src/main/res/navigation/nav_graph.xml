@@ -81,6 +81,12 @@
             android:id="@+id/action_boardListFragment_to_writeBoard"
             app:destination="@id/writeBoard"
             app:popUpTo="@id/boardListFragment" />
+        <action
+            android:id="@+id/action_boardListFragment_to_platfromBoardFragment"
+            app:destination="@id/platfromBoardFragment" />
+        <action
+            android:id="@+id/action_boardListFragment_to_contentsBoardFragment"
+            app:destination="@id/contentsBoardFragment" />
     </fragment>
     <fragment
         android:id="@+id/boardDetailFragment"
@@ -128,4 +134,14 @@
         app:destination="@id/agricListFragment"
         app:popUpTo="@id/agricListFragment"
         app:popUpToInclusive="true" /><action android:id="@+id/action_global_loginFragment2" app:destination="@id/loginFragment"/>
+    <fragment
+        android:id="@+id/platfromBoardFragment"
+        android:name="com.example.subsmanager2.board.platfromBoardFragment"
+        android:label="fragment_platfrom_board"
+        tools:layout="@layout/fragment_platfrom_board" />
+    <fragment
+        android:id="@+id/contentsBoardFragment"
+        android:name="com.example.subsmanager2.board.contentsBoardFragment"
+        android:label="fragment_contents_board2"
+        tools:layout="@layout/fragment_contents_board2" />
 </navigation>
