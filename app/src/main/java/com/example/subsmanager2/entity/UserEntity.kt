@@ -1,15 +1,16 @@
 package com.example.subsmanager2.entity
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
 
 // 유저 객체라고 보면 됨
 
-@Entity @Parcelize
+@Entity
 data class UserEntity(
     @PrimaryKey
     val userId: String,
-    val userPw: String
-) : Parcelable
+    val userNickname: String,
+    val regDate: String,
+    val userTitle: String
+    //val role: Long             // 관리자 : 1, 회원 : 2
+)
