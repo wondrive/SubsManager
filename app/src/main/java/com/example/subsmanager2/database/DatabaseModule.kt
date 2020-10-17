@@ -8,10 +8,11 @@ import com.example.subsmanager2.dao.AgricDao
 import com.example.subsmanager2.dao.BoardDao
 import com.example.subsmanager2.entity.AgricEntity
 import com.example.subsmanager2.entity.BoardEntity
+import com.example.subsmanager2.entity.ContentsBoardEntity
 
 // 사용할 DB 선언 되어있는 파일.
 
-@Database(entities = arrayOf(AgricEntity::class, BoardEntity::class), version = 3)
+@Database(entities = arrayOf(AgricEntity::class, BoardEntity::class, ContentsBoardEntity::class), version = 5)
 abstract class DatabaseModule : RoomDatabase() {
 
     /* Query 문에 사용하는 Dao가져오기. */
