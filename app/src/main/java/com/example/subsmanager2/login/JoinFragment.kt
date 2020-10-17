@@ -9,14 +9,25 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.subsmanager2.R
+import com.example.subsmanager2.entity.UserEntity
 import com.example.subsmanager2.util.hideKeyboard
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_join.*
 import kotlinx.android.synthetic.main.fragment_join.view.*
+import kotlinx.android.synthetic.main.fragment_join.view.edit_id
+import java.text.SimpleDateFormat
+import java.util.*
 
-class `JoinFragment` : Fragment() {
+
+class JoinFragment : Fragment() {
 
     //FirebaseAuth 객체의 공유 인스턴스를 가져오기
     val firebaseAuth by lazy { FirebaseAuth.getInstance() }
+    val firebaseRef by lazy { FirebaseDatabase.getInstance().getReference() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +68,19 @@ class `JoinFragment` : Fragment() {
                         .addOnCompleteListener { task ->
                             /* 성공한 경우*/
                             task.addOnSuccessListener {
+
+                                // Firebase 실시간DB : 데이터 입력
+                                //var userId: String  = edit_id.text.toString().replace("@", "_").replace(".", "_") // 사용자 이메일에서 특수문자(@, .) 제거
+                                val currentDateTime = Calendar.getInstance().time   // 현재시간 추출
+                                var regDate: String = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(currentDateTime)   // 날짜만 형식대로 추출
+                                var dataInput = UserEntity(             // 엔터티가 가진 속성값 채워주기
+                                    edit_id.text.toString(),
+                                    edit_nickname.text.toString(),
+                                    regDate,
+                                    "구독계의 꿈나무"          // ㅋㅋ 임시 데이터
+                                )
+                                firebaseRef.child("user").push().setValue(dataInput)
+
                                 //입력 필드 초기화
                                 view.edit_id.text = null
                                 view.edit_pw.text = null
