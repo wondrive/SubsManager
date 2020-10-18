@@ -21,8 +21,9 @@ class MypageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        FirebaseAuth.getInstance().currentUser?.let {
+        FirebaseAuth.getInstance().currentUser?.let { it ->
             view.txt_userinfo.text = it.email
+            //view.txt_joindate.text = it.
         }
 
         //로그아웃 버튼을 클릭하면
