@@ -12,7 +12,7 @@ interface BoardDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertBoard(vararg board: BoardEntity)
 
-    // 레시피
+    // 상세
     @Query("SELECT * FROM Board WHERE boardId = :boardId")
     fun selectBoard(boardId: Long): BoardEntity?
 
