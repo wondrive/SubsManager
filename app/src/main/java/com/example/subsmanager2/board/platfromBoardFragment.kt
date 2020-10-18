@@ -21,7 +21,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
-import jdk.nashorn.internal.parser.JSONParser
 import kotlinx.android.synthetic.main.fragment_board_list.view.*
 import org.json.JSONObject
 
@@ -54,28 +53,28 @@ class platfromBoardFragment : Fragment() {
             findNavController().navigate(R.id.action_platfromBoardFragment_to_writeBoard2)
         }
 
-        platformBoardList.addValueEventListener(object : ValueEventListener{
-            override fun onCancelled(error: DatabaseError) {
-                Log.w(TAG, "loadPost:onCancelled", error.toException())
-            }
-
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                /*TODO: parsing...*/
-                var gson = Gson()
-                var jsonString = gson.toJson(TestModel(1,"Test"))
-                Assert.assertEquals(jsonString, """{"id":1,"description":"Test"}""")
-
-                for (platformlist in dataSnapshot.children) {
-
-                    val data = JSONObject(platformlist.value.toString())
-                    val boardTitle =data.get("boardTitle")
-                    Log.d("boardTitle : ",boardTitle.toString())
-//                    boardlist?.add(platformlist.value as BoardEntity)
-//                    Log.d("boardlist: ", boardlist?.get(index).toString())
-//                    index++
-                }
-            }
-        })
+//        platformBoardList.addValueEventListener(object : ValueEventListener{
+//            override fun onCancelled(error: DatabaseError) {
+//                Log.w(TAG, "loadPost:onCancelled", error.toException())
+//            }
+//
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                /*TODO: parsing...*/
+//                var gson = Gson()
+//                var jsonString = gson.toJson(TestModel(1,"Test"))
+//                Assert.assertEquals(jsonString, """{"id":1,"description":"Test"}""")
+//
+//                for (platformlist in dataSnapshot.children) {
+//
+//                    val data = JSONObject(platformlist.value.toString())
+//                    val boardTitle =data.get("boardTitle")
+//                    Log.d("boardTitle : ",boardTitle.toString())
+////                    boardlist?.add(platformlist.value as BoardEntity)
+////                    Log.d("boardlist: ", boardlist?.get(index).toString())
+////                    index++
+//                }
+//            }
+//        })
 
         /* 어댑터 초기화*/
         rootView.platformlist.adapter = boardAdapter

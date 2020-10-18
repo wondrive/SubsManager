@@ -22,6 +22,7 @@
         <item>왓챠</item>
         <item>유튜브 프리미엄</item>
         <item>넷플릭스</item>
+    </string-array>
 
     <!-- 알람 디데이 -->
     <string-array name="spinner_alarm_d_day">
