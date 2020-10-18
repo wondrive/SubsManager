@@ -1,18 +1,13 @@
 //package com.example.subsmanager2.board
 //
-//import android.graphics.Color
-//import android.net.Uri
 //import android.os.Bundle
-//import android.os.Debug
-//import android.text.method.Touch.onTouchEvent
 //import android.util.Log
 //import androidx.fragment.app.Fragment
 //import android.view.LayoutInflater
 //import android.view.MotionEvent
 //import android.view.View
 //import android.view.ViewGroup
-//import android.widget.Button
-//import android.widget.Toast
+//import android.widget.*
 //import androidx.fragment.app.DialogFragment
 //import androidx.lifecycle.lifecycleScope
 //import androidx.navigation.fragment.findNavController
@@ -20,11 +15,7 @@
 //import com.example.subsmanager2.database.DatabaseModule
 //import com.example.subsmanager2.entity.BoardEntity
 //import com.google.firebase.auth.FirebaseAuth
-//import com.kroegerama.imgpicker.BottomSheetImagePicker
-//import com.kroegerama.imgpicker.ButtonType
-//import kotlinx.android.synthetic.main.fragment_board_write.*
 //import kotlinx.android.synthetic.main.fragment_board_write.view.*
-//import kotlinx.android.synthetic.main.fragment_board_write.view.btn_like
 //import kotlinx.coroutines.Dispatchers
 //import kotlinx.coroutines.launch
 //import kotlinx.coroutines.withContext
@@ -32,13 +23,12 @@
 ///**
 // * A simple [Fragment] subclass.
 // */
-//class BoardWriteFragment_origin : DialogFragment(), BottomSheetImagePicker.OnImagesSelectedListener {
+//class BoardWriteFragment : DialogFragment() {
 //
 //    /* note 객체 생성 및 초기화. */
-//    private var board =
-//        BoardEntity(boardContent = "", boardTitle = "", boardImg = null, userId = "")
+//    private var board = BoardEntity(boardContent = "", boardTitle = "",userId = "",subFee = "",usage = "",subContents = "",boardImg = "")
 //
-//        //noteDao 참조
+//    //noteDao 참조
 //    private val dao by lazy { DatabaseModule.getDatabase(requireContext()).boardDao() }
 //
 //    override fun onCreateView(
@@ -49,22 +39,13 @@
 //        /* 추가/수정 다이얼로그 위한 레이아웃(dialog_note_create.xml) inflate */
 //        val rootView = inflater.inflate(R.layout.fragment_board_write, container, false)
 //
-//        /* 사진을 누를경우 사진을 선택하게해주고 onImagesSelect로 받게되는 라이브러리를 사용*/
-//        rootView.img_profile.setOnClickListener {
-//            //사용한 플러그인
-//            //https://github.com/kroegerama/bottomsheet-imagepicker
-//            BottomSheetImagePicker.Builder("빌드")
-//                .cameraButton(ButtonType.Button)//카메라 버튼 표시
-//                .galleryButton(ButtonType.Button)//갤러리 버튼 표시
-//                .singleSelectTitle(R.string.select_title) //제목글
-//                .requestTag("single")//1개만 선택하게할 경우 single
-//                .show(childFragmentManager)
-//        }
 //        return rootView
 //    }//end of onCreateView
 //
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        super.onViewCreated(view, savedInstanceState)
+//
+//
 //
 //        //tag?.toLongOrNull()?.let { boardId ->
 //        val updateYn = arguments?.getString("UPDATE_YN") ?: "N"
@@ -78,49 +59,63 @@
 //                    savedBoard = dao.selectBoard(boardId)
 //                }
 //                /* 노트가 존재한다면 note를 변경*/
-//
 //                savedBoard?.let {
 //                    board = it //쿼리한 노트 객체를 note에 저장
-//                    view.txt_title.setText(it.boardTitle)
+////                    view.txt_title.setText(it.boardTitle)
 //                    view.txt_content.setText(it.boardContent)
-//                    it.boardImg?.let { boardImg ->
-//                        view.img_profile.setImageURI(Uri.parse(boardImg))
-//                    }
 //                }
 //            }
-//
 //        }//end of let
 //
 //        //태그 선택
-//        lateinit var testButton1: Button
-//        lateinit var testButton2: Button
-//        lateinit var testButton3: Button
-//        testButton1 = view.button7
-//        testButton2 = view.button16
-//        testButton3 = view.button17
+//        var selectFee : Boolean = false
+//        var selectContents: Boolean =false
+//        var selectUsage : Boolean =false
 //
-//        //1열
-//        fun testClickBtn1(testButton1: Button, testButton2: Button,testButton3: Button){
+//        // 선택된 태그 값
+//        var subappName : String=""
+//        var fee :String ="" // 가격
+//        var contents: String="테스트 contemts" // 컨텐츠
+//        var usage: String="테스트 usage" // 지속 사용
 //
-//            var changeColor:Boolean =false
+//        // TODO: 엉망코드~!! 수정해야함 !
+//        lateinit var btn_fee1: Button
+//        lateinit var btn_fee2: Button
+//        lateinit var btn_fee3: Button
+//        btn_fee1 = view.btn_fee1
+//        btn_fee2 = view.btn_fee2
+//        btn_fee3 = view.btn_fee3
 //
-//            testButton1.setOnTouchListener(object : View.OnTouchListener {
+//        lateinit var btn_contents1: Button
+//        lateinit var btn_contents2: Button
+//        lateinit var btn_contents3: Button
+//        btn_contents1 = view.btn_contents1
+//        btn_contents2 = view.btn_contents2
+//        btn_contents3 = view.btn_contents3
+//
+//        lateinit var btn_usage1: Button
+//        lateinit var btn_usage2: Button
+//        btn_usage1 = view.btn_usage1
+//        btn_usage2 = view.btn_usage2
+//
+//
+//        fun selectFeeBtn(btn_fee1: Button, btn_fee2: Button, btn_fee3: Button){
+//            btn_fee1.setOnTouchListener(object : View.OnTouchListener {
 //                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
 //                    when (event?.action) {
 //                        MotionEvent.ACTION_DOWN -> {
-//                            if(changeColor) {
-//                                    testButton2.setBackgroundResource(R.drawable.button_review)
-//                                    testButton3.setBackgroundResource(R.drawable.button_review)
+//                            if(selectFee) {
+//                                btn_fee2.setBackgroundResource(R.drawable.button_review)
+//                                btn_fee3.setBackgroundResource(R.drawable.button_review)
 //
-//                                    testButton1.setBackgroundResource(R.drawable.button_review_click)
-//                                    changeColor = !changeColor
+//                                btn_fee1.setBackgroundResource(R.drawable.button_review_click)
+//                                fee= btn_fee1.text as String
+//                                selectFee = !selectFee
 //                            }
 //                            else{
-//                                changeColor = !changeColor
-//                                testButton1.setBackgroundResource(R.drawable.button_review)
+//                                selectFee = !selectFee
+//                                btn_fee1.setBackgroundResource(R.drawable.button_review)
 //                            }
-//
-//                            Log.d("changecolor", changeColor.toString())
 //                        }
 //                    }
 //                    //리턴값이 false면 seekbar 동작 안됨
@@ -128,23 +123,23 @@
 //                }
 //            })
 //
-//            testButton2.setOnTouchListener(object : View.OnTouchListener {
+//            btn_fee2.setOnTouchListener(object : View.OnTouchListener {
 //                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
 //                    when (event?.action) {
 //                        MotionEvent.ACTION_DOWN -> {
-//                            if(changeColor) {
-//                                testButton1.setBackgroundResource(R.drawable.button_review)
-//                                testButton3.setBackgroundResource(R.drawable.button_review)
+//                            if(selectFee) {
+//                                btn_fee1.setBackgroundResource(R.drawable.button_review)
+//                                btn_fee3.setBackgroundResource(R.drawable.button_review)
 //
-//                                testButton2.setBackgroundResource(R.drawable.button_review_click)
-//                                changeColor = !changeColor
+//                                btn_fee2.setBackgroundResource(R.drawable.button_review_click)
+//                                //선택 값
+//                                fee= btn_fee2.text as String
+//                                selectFee = !selectFee
 //                            }
 //                            else{
-//                                changeColor = !changeColor
-//                                testButton2.setBackgroundResource(R.drawable.button_review)
+//                                selectFee = !selectFee
+//                                btn_fee2.setBackgroundResource(R.drawable.button_review)
 //                            }
-//
-//                            Log.d("changecolor", changeColor.toString())
 //                        }
 //                    }
 //                    //리턴값이 false면 seekbar 동작 안됨
@@ -152,23 +147,23 @@
 //                }
 //            })
 //
-//            testButton3.setOnTouchListener(object : View.OnTouchListener {
+//            btn_fee3.setOnTouchListener(object : View.OnTouchListener {
 //                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
 //                    when (event?.action) {
 //                        MotionEvent.ACTION_DOWN -> {
-//                            if(changeColor) {
-//                                testButton1.setBackgroundResource(R.drawable.button_review)
-//                                testButton2.setBackgroundResource(R.drawable.button_review)
+//                            if(selectFee) {
+//                                btn_fee1.setBackgroundResource(R.drawable.button_review)
+//                                btn_fee2.setBackgroundResource(R.drawable.button_review)
 //
-//                                testButton3.setBackgroundResource(R.drawable.button_review_click)
-//                                changeColor = !changeColor
+//                                btn_fee3.setBackgroundResource(R.drawable.button_review_click)
+//                                //선택 값
+//                                fee= btn_fee3.text as String
+//                                selectFee = !selectFee
 //                            }
 //                            else{
-//                                changeColor = !changeColor
-//                                testButton3.setBackgroundResource(R.drawable.button_review)
+//                                selectFee = !selectFee
+//                                btn_fee3.setBackgroundResource(R.drawable.button_review)
 //                            }
-//
-//                            Log.d("changecolor", changeColor.toString())
 //                        }
 //                    }
 //                    //리턴값이 false면 seekbar 동작 안됨
@@ -176,39 +171,145 @@
 //                }
 //            })
 //        }
-//        testClickBtn1(testButton1,testButton2,testButton3)
+//        fun selectContentsBtn(btn_contents1: Button, btn_contents2: Button, btn_contents3: Button){
+//            btn_contents1.setOnTouchListener(object : View.OnTouchListener {
+//                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                    when (event?.action) {
+//                        MotionEvent.ACTION_DOWN -> {
+//                            if(selectContents) {
+//                                btn_contents2.setBackgroundResource(R.drawable.button_review)
+//                                btn_contents3.setBackgroundResource(R.drawable.button_review)
 //
-////        testButton.setOnTouchListener(object : View.OnTouchListener {
-////            var changeColor: Boolean = false
-////            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-////                when (event?.action) {
-////                    MotionEvent.ACTION_DOWN -> {
-////                        if(changeColor) {
-////                            testButton.setBackgroundColor(Color.BLUE)
-////                            changeColor = !changeColor
-////                        }
-////                        else{
-////                            changeColor = !changeColor
-////                            testButton.setBackgroundColor(Color.WHITE)
-////                        }
-////
-////                        Log.d("changecolor", changeColor.toString())
-////                    }
-////                }
-////                //리턴값이 false면 seekbar 동작 안됨
-////                return true //or false
-////            }
-////        })
+//                                btn_contents1.setBackgroundResource(R.drawable.button_review_click)
+//                                contents= btn_contents1.text as String
+//                                selectContents = !selectContents
+//                            }
+//                            else{
+//                                selectContents = !selectContents
+//                                btn_contents1.setBackgroundResource(R.drawable.button_review)
+//                            }
+//                        }
+//                    }
+//                    //리턴값이 false면 seekbar 동작 안됨
+//                    return true //or false
+//                }
+//            })
 //
+//            btn_contents2.setOnTouchListener(object : View.OnTouchListener {
+//                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                    when (event?.action) {
+//                        MotionEvent.ACTION_DOWN -> {
+//                            if(selectContents) {
+//                                btn_contents1.setBackgroundResource(R.drawable.button_review)
+//                                btn_contents3.setBackgroundResource(R.drawable.button_review)
+//
+//                                btn_contents2.setBackgroundResource(R.drawable.button_review_click)
+//                                //선택 값
+//                                contents= btn_contents2.text as String
+//                                selectContents = !selectContents
+//                            }
+//                            else{
+//                                selectContents = !selectContents
+//                                btn_contents2.setBackgroundResource(R.drawable.button_review)
+//                            }
+//                        }
+//                    }
+//                    //리턴값이 false면 seekbar 동작 안됨
+//                    return true //or false
+//                }
+//            })
+//
+//            btn_contents3.setOnTouchListener(object : View.OnTouchListener {
+//                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                    when (event?.action) {
+//                        MotionEvent.ACTION_DOWN -> {
+//                            if(selectContents) {
+//                                btn_contents1.setBackgroundResource(R.drawable.button_review)
+//                                btn_contents2.setBackgroundResource(R.drawable.button_review)
+//
+//                                btn_contents3.setBackgroundResource(R.drawable.button_review_click)
+//                                //선택 값
+//                                contents= btn_contents3.text as String
+//                                selectContents = !selectContents
+//                            }
+//                            else{
+//                                selectContents = !selectContents
+//                                btn_contents3.setBackgroundResource(R.drawable.button_review)
+//                            }
+//                        }
+//                    }
+//                    //리턴값이 false면 seekbar 동작 안됨
+//                    return true //or false
+//                }
+//            })
+//        }
+//        fun selectUsageBtn(btn_usage1: Button, btn_usage2: Button){
+//            btn_usage1.setOnTouchListener(object : View.OnTouchListener {
+//                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                    when (event?.action) {
+//                        MotionEvent.ACTION_DOWN -> {
+//                            if(selectUsage) {
+//                                btn_usage2.setBackgroundResource(R.drawable.button_review)
+//                                btn_usage1.setBackgroundResource(R.drawable.button_review_click)
+//                                usage= btn_usage1.text as String
+//                                selectUsage = !selectUsage
+//                            }
+//                            else{
+//                                selectUsage = !selectUsage
+//                                btn_usage1.setBackgroundResource(R.drawable.button_review)
+//                            }
+//                        }
+//                    }
+//                    //리턴값이 false면 seekbar 동작 안됨
+//                    return true //or false
+//                }
+//            })
+//
+//            btn_usage2.setOnTouchListener(object : View.OnTouchListener {
+//                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                    when (event?.action) {
+//                        MotionEvent.ACTION_DOWN -> {
+//                            if(selectUsage) {
+//                                btn_usage1.setBackgroundResource(R.drawable.button_review)
+//
+//                                btn_usage2.setBackgroundResource(R.drawable.button_review_click)
+//                                //선택 값
+//                                usage= btn_usage2.text as String
+//                                selectUsage = !selectUsage
+//                            }
+//                            else{
+//                                selectUsage = !selectUsage
+//                                btn_usage2.setBackgroundResource(R.drawable.button_review)
+//                            }
+//                        }
+//                    }
+//                    //리턴값이 false면 seekbar 동작 안됨
+//                    return true //or false
+//                }
+//            })
+//        }
+//
+//        selectFeeBtn(btn_fee1,btn_fee2,btn_fee3)
+//        selectContentsBtn(btn_contents1,btn_contents2,btn_contents3)
+//        selectUsageBtn(btn_usage1,btn_usage2)
 //
 //        //수정하고 저장하기 버튼을 클릭한 경우(DB에 수정사항 저장)
 //        view.btn_save.setOnClickListener {
 //            //입력한 noteTitle, noteContent 가져와서 변수에 할당
-//            board.boardTitle = view.txt_title.text.toString()
-//            board.boardContent = view.txt_content.text.toString()
 //
+//            //후기에 등록할 구독 앱
+//            val spinner_subapp_list : Spinner = view.spinner_subapp_list
+//            subappName = spinner_subapp_list.selectedItem.toString()
+//            Log.d("subappName:   ",subappName)
+//
+//            Log.d("입력한 값 : ", fee+" "+contents+" "+ usage)
+//            board.boardTitle = subappName
+//            board.boardContent = view.txt_content.text.toString()
+//            board.subFee = fee
+//            board.subContents=contents
+//            board.usage=usage
 //            /* 제목과 내용이 다 있는지를 검증 */
-//            if (board.boardTitle.isBlank() && board.boardContent.isBlank()) {
+//            if (board.boardContent.isBlank() && board.boardContent.isBlank()) {
 //                Toast.makeText(requireContext(), "제목과 내용을 입력해주세요", Toast.LENGTH_LONG).show()
 //            } else {
 //                var userId: String? = ""
@@ -220,9 +321,12 @@
 //                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
 //                    val board = BoardEntity(
 //                        boardId = board.boardId,
-//                        boardTitle = board.boardTitle,
 //                        boardContent = board.boardContent,
+//                        boardTitle = board.boardTitle,
 //                        boardImg = board.boardImg,
+//                        subFee = board.subFee,
+//                        usage = board.usage,
+//                        subContents = board.subContents,
 //                        userId = userId.toString()
 //                    )
 //                    if(updateYn.equals("Y")) {   // 신규글인지 수정인지 구분하여 저장
@@ -236,13 +340,5 @@
 //        }//end of view.btn_save.setOnClickListener
 //    }//end of onViewCreated
 //
-//    //이미지 피커에서 사진을 선택했을 때
-//    override fun onImagesSelected(uris: List<Uri>, tag: String?) {
-//        /* 사진이 선택되었을때 uris는 array 길이가 1개인 형태로 들어온다 */
-//        if (uris.isNotEmpty()) {
-//            /* 추후 디비저장을 위해 변수를 할당*/
-//            board.boardImg = uris[0].toString()//path를 db에 저장
-//            view?.img_profile?.setImageURI(uris[0]);//사진을 뷰에 설정
-//        }
-//    }//end of onImagesSelected
+//
 //}

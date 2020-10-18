@@ -12,7 +12,7 @@ import com.example.subsmanager2.entity.ContentsBoardEntity
 
 // 사용할 DB 선언 되어있는 파일.
 
-@Database(entities = arrayOf(AgricEntity::class, BoardEntity::class, ContentsBoardEntity::class), version = 5)
+@Database(entities = arrayOf(AgricEntity::class, BoardEntity::class, ContentsBoardEntity::class), version = 6)
 abstract class DatabaseModule : RoomDatabase() {
 
     /* Query 문에 사용하는 Dao가져오기. */
