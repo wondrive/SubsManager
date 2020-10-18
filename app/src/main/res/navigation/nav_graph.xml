@@ -160,8 +160,7 @@
         <action
             android:id="@+id/action_subsListFragment_to_subsWriteFragment"
             app:destination="@id/subsWriteFragment"
-            app:popUpTo="@id/subsListFragment"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/subsListFragment" />
     </fragment>
 
     <fragment
@@ -172,8 +171,7 @@
         <action
             android:id="@+id/action_subsDetailFragment_to_subsWriteFragment"
             app:destination="@id/subsWriteFragment"
-            app:popUpTo="@id/subsDetailFragment"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/subsDetailFragment" />
         <argument
             android:name="SUBS_ID"
             app:argType="long" />

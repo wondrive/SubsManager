@@ -2,18 +2,23 @@ package com.example.subsmanager2.subs
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.SubsDao
 import com.example.subsmanager2.database.DatabaseModule
+import com.example.subsmanager2.entity.SubsEntity
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_subs_detail.*
 import kotlinx.android.synthetic.main.fragment_subs_detail.view.*
+import kotlinx.android.synthetic.main.fragment_subs_detail.view.txt_subs_name
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -22,6 +27,7 @@ import kotlinx.coroutines.launch
  */
 class SubsDetailFragment : Fragment() {
 
+    val TAG = "SubsDetailFragment"
     //dao 참조
     private val subsDao by lazy { SubsDao() }
 
@@ -54,12 +60,18 @@ class SubsDetailFragment : Fragment() {
         /* DetailFragment에서 LiveData observe
            - DB에서 트랜잭션(Transaction)이 발생하면 UI를 갱신
         */
-        /*subsDao.selectLiveBoard(recipeId).observe(viewLifecycleOwner, Observer {
-            view.txt_recipe_title.setText(it.recipeTitle)
-            view.txt_user_id.setText(it.userId)
-            view.txt_recipe_content.setText(it.recipeContent)
-            it.recipeImg?.let { uri -> view.img_recipe.setImageURI(Uri.parse(uri)) }
-        })*/
+        subsDao.selectLiveSubs(subsId)?.observe(viewLifecycleOwner, Observer {
+            view.txt_subs_name.setText(it.subsName)
+            Log.d(TAG, "Subs_Detail 출력 ::: " + it.subsName)
+        })
+
+        /*val subs:SubsEntity? = subsDao.selectSubs(subsId)
+        if(subs != null) {
+            txt_subs_name.setText(subs.subsName)
+            Log.d(TAG, "Subs_Detail 성공 ::: " + subs.subsName)
+        } else {
+            Log.d(TAG, "Subs_Detail 실패 ::: ")
+        }*/
 
         /* 수정버튼 */
         view.btn_detail_edit.setOnClickListener {

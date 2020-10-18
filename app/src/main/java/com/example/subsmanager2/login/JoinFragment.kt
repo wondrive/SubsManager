@@ -9,16 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.subsmanager2.R
+import com.example.subsmanager2.dao.UserDao
 import com.example.subsmanager2.entity.UserEntity
 import com.example.subsmanager2.util.hideKeyboard
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_join.*
 import kotlinx.android.synthetic.main.fragment_join.view.*
-import kotlinx.android.synthetic.main.fragment_join.view.edit_id
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,7 +24,7 @@ class JoinFragment : Fragment() {
 
     //FirebaseAuth 객체의 공유 인스턴스를 가져오기
     val firebaseAuth by lazy { FirebaseAuth.getInstance() }
-    val firebaseRef by lazy { FirebaseDatabase.getInstance().getReference() }
+    private val userDao by lazy { UserDao() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +39,7 @@ class JoinFragment : Fragment() {
         //회원 가입 버튼을 클릭한 경우
         view.btn_join.setOnClickListener {
             //id, pw, pw_firm 값 가져오기
-            val id = view.edit_id.text.toString()
+            val id = view.edit_email.text.toString()
             val pw = view.edit_pw.text.toString()
             val pw_firm = view.edit_pw_confirm.text.toString()
             Log.d("debug","clicked join")
@@ -73,22 +70,24 @@ class JoinFragment : Fragment() {
                                 //var userId: String  = edit_id.text.toString().replace("@", "_").replace(".", "_") // 사용자 이메일에서 특수문자(@, .) 제거
                                 val currentDateTime = Calendar.getInstance().time   // 현재시간 추출
                                 var regDate: String = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(currentDateTime)   // 날짜만 형식대로 추출
-                                var dataInput = UserEntity(             // 엔터티가 가진 속성값 채워주기
-                                    edit_id.text.toString(),
+                                var user = UserEntity(             // 엔터티가 가진 속성값 채워주기
+                                    0,
+                                    edit_email.text.toString(),
                                     edit_nickname.text.toString(),
                                     regDate,
                                     "구독계의 꿈나무"          // ㅋㅋ 임시 데이터
                                 )
-                                firebaseRef.child("user").push().setValue(dataInput)
+                                //firebaseRef.child("user").push().setValue(user)
+                                userDao.insertUser(user)
 
                                 //입력 필드 초기화
-                                view.edit_id.text = null
+                                view.edit_email.text = null
                                 view.edit_pw.text = null
                                 view.edit_pw_confirm.text = null
                                 view.register_loader.visibility = View.GONE
 
                                 hideKeyboard()
-                                findNavController().navigate(R.id.action_global_agricListFragment)
+                                findNavController().navigate(R.id.action_global_subsListFragment)
                             }
                             /* 실패한 경우*/
                             task.addOnFailureListener {

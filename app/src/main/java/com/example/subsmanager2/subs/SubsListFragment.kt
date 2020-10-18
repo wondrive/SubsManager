@@ -9,6 +9,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.SubsDao
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_mypage.view.*
 import kotlinx.android.synthetic.main.fragment_subs_list.view.*
 
 /**
@@ -47,8 +49,12 @@ class SubsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var id: String = ""
+        FirebaseAuth.getInstance().currentUser?.let {
+            //id = it.email?:
+        }
         //subsDao.selectSubsList()
-        subsDao.selectSubsList().observe(viewLifecycleOwner, androidx.lifecycle.Observer{
+        subsDao.selectSubsList(id).observe(viewLifecycleOwner, androidx.lifecycle.Observer{
             subsAdapter.subsList = it//어댑터에 변경된 note 전달
             subsAdapter.notifyDataSetChanged()//어댑터에 변경 공지
         })
