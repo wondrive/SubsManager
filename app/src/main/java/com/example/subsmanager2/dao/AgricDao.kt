@@ -2,7 +2,7 @@ package com.example.subsmanager2.dao
 
 import androidx.room.Dao
 
-// 농산물 DAO
+//  DAO
 @Dao
 interface AgricDao {
 /*    // 이달의 List
