@@ -17,4 +17,11 @@
         <item>12월</item>
     </string-array>
 
+    <!-- 구독 앱 리스트 -->
+    <string-array name="subapplist">
+        <item>왓챠</item>
+        <item>유튜브 프리미엄</item>
+        <item>넷플릭스</item>
+    </string-array>
+
 </resources>
