@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/subsListFragment">
 
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.subsmanager2.login.SplashFragment"
         android:label=""
         tools:layout="@layout/fragment_splash" />
+
+    <!-- 로그인, 회원가입 -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.subsmanager2.login.LoginFragment"
@@ -19,12 +21,18 @@
             android:id="@+id/action_loginFragment_to_joinFragment"
             app:destination="@id/joinFragment" />
     </fragment>
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/joinFragment"
         android:name="com.example.subsmanager2.login.JoinFragment"
         android:label="회원가입"
         tools:layout="@layout/fragment_join" />
 
+    <!-- 메인페이지, 농산물 ==> 추후 삭제 -->
     <fragment
         android:id="@+id/agricListFragment"
         android:name="com.example.subsmanager2.agric.AgricListFragment"
@@ -36,6 +44,11 @@
             app:popUpTo="@id/agricListFragment"
             app:popUpToInclusive="false" />
     </fragment>
+    <action
+        android:id="@+id/action_global_agricListFragment"
+        app:destination="@id/agricListFragment"
+        app:popUpTo="@id/agricListFragment"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/agricSearchFragment"
         android:name="com.example.subsmanager2.search.AgricSearchFragment"
@@ -67,6 +80,8 @@
     </fragment>
 
 
+
+    <!-- 플랫폼 평가 게시판 -->
     <fragment
         android:id="@+id/boardListFragment"
         android:name="com.example.subsmanager2.board.BoardListFragment"
@@ -78,9 +93,14 @@
             app:popUpTo="@id/boardListFragment"
             app:popUpToInclusive="false" />
         <action
+            android:id="@+id/action_boardListFragment_to_platfromBoardFragment"
+            app:destination="@id/platfromBoardFragment" />
+        <action
+            android:id="@+id/action_boardListFragment_to_contentsBoardFragment"
+            app:destination="@id/contentsBoardFragment" />
+        <action
             android:id="@+id/action_boardListFragment_to_writeBoard"
-            app:destination="@id/writeBoard"
-            app:popUpTo="@id/boardListFragment" />
+            app:destination="@id/writeBoard" />
     </fragment>
     <fragment
         android:id="@+id/boardDetailFragment"
@@ -117,15 +137,87 @@
         tools:layout="@layout/fragment_mypage" />
 
 
-    <action
-        android:id="@+id/action_global_loginFragment"
-        app:destination="@id/loginFragment"
-        app:popUpTo="@id/loginFragment"
-        app:popUpToInclusive="true" />
+    <!-- 플랫폼 평가 게시판 -->
+    <fragment
+        android:id="@+id/platfromBoardFragment"
+        android:name="com.example.subsmanager2.board.platfromBoardFragment"
+        android:label="fragment_platfrom_board"
+        tools:layout="@layout/fragment_platfrom_board" >
+        <action
+            android:id="@+id/action_platfromBoardFragment_to_writeBoard2"
+            app:destination="@id/writeBoard" />
+    </fragment>
+    <fragment
+        android:id="@+id/contentsBoardFragment"
+        android:name="com.example.subsmanager2.board.contentsBoardFragment"
+        android:label="fragment_contents_board2"
+        tools:layout="@layout/fragment_contents_board2" >
+        <action
+            android:id="@+id/action_contentsBoardFragment_to_writeContentsBoard"
+            app:destination="@id/writeContentsBoard" />
+    </fragment>
+    <fragment
+        android:id="@+id/writeContentsBoard"
+        android:name="com.example.subsmanager2.writeContentsBoard"
+        android:label="fragment_write_contents_board"
+        tools:layout="@layout/fragment_write_contents_board" />
+        tools:layout="@layout/fragment_platfrom_board" />
+    <!--<fragment
+        android:id="@+id/contentsBoardFragment"
+        android:name="com.example.subsmanager2.board.contentsBoardFragment"
+        android:label="fragment_contents_board2"
+        tools:layout="@layout/fragment_contents_board2" />
+        app:popUpToInclusive="true" />-->
 
+
+    <!-- 구독앱 목록 -->
+    <fragment
+        android:id="@+id/subsListFragment"
+        android:name="com.example.subsmanager2.subs.SubsListFragment"
+        android:label="fragment_subs_list"
+        tools:layout="@layout/fragment_subs_list" >
+        <action
+            android:id="@+id/action_subsListFragment_to_subsDetailFragment"
+            app:destination="@id/subsDetailFragment"
+            app:popUpTo="@id/subsListFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_subsListFragment_to_subsWriteFragment"
+            app:destination="@id/subsWriteFragment"
+            app:popUpTo="@id/subsListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/subsDetailFragment"
+        android:name="com.example.subsmanager2.subs.SubsDetailFragment"
+        android:label="fragment_subs_detail"
+        tools:layout="@layout/fragment_subs_detail" >
+        <action
+            android:id="@+id/action_subsDetailFragment_to_subsWriteFragment"
+            app:destination="@id/subsWriteFragment"
+            app:popUpTo="@id/subsDetailFragment" />
+        <argument
+            android:name="SUBS_ID"
+            app:argType="long" />
+        <argument
+            android:name="USER_ID"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/subsWriteFragment"
+        android:name="com.example.subsmanager2.subs.SubsWriteFragment"
+        android:label="fragment_subs_write"
+        tools:layout="@layout/fragment_subs_write" >
+        <argument
+            android:name="SUBS_ID"
+            app:argType="long" />
+        <argument
+            android:name="UPDATE_YN"
+            app:argType="string" />
+    </fragment>
     <action
-        android:id="@+id/action_global_agricListFragment"
-        app:destination="@id/agricListFragment"
-        app:popUpTo="@id/agricListFragment"
-        app:popUpToInclusive="true" /><action android:id="@+id/action_global_loginFragment2" app:destination="@id/loginFragment"/>
+        android:id="@+id/action_global_subsListFragment"
+        app:destination="@id/subsListFragment"
+        app:popUpTo="@id/subsListFragment"
+        app:popUpToInclusive="true" />
 </navigation>

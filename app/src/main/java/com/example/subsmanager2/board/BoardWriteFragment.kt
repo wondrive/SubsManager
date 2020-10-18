@@ -1,18 +1,14 @@
 package com.example.subsmanager2.board
 
-import android.graphics.Color
-import android.net.Uri
+import android.content.ContentValues
 import android.os.Bundle
-import android.os.Debug
-import android.text.method.Touch.onTouchEvent
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -20,24 +16,26 @@ import com.example.subsmanager2.R
 import com.example.subsmanager2.database.DatabaseModule
 import com.example.subsmanager2.entity.BoardEntity
 import com.google.firebase.auth.FirebaseAuth
-import com.kroegerama.imgpicker.BottomSheetImagePicker
-import com.kroegerama.imgpicker.ButtonType
-import kotlinx.android.synthetic.main.fragment_board_detail.view.*
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_board_write.*
 import kotlinx.android.synthetic.main.fragment_board_write.view.*
+import kotlinx.android.synthetic.main.fragment_board_write.view.btn_save
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class BoardWriteFragment : DialogFragment() {
 
-    /* note 객체 생성 및 초기화. */
-    private var board = BoardEntity(boardContent = "", boardTitle = "",userId = "",subFee = "",usage = "",boardImg = "")
+    //FirebaseAuth realtime database
+    private var database: DatabaseReference = Firebase.database.reference
 
-        //noteDao 참조
+    /* note 객체 생성 및 초기화. */
+    private var board = BoardEntity(boardContent = "", boardTitle = "",userId = "",subFee = "",usage = "",subContents = "",boardCreateDt = "")
     private val dao by lazy { DatabaseModule.getDatabase(requireContext()).boardDao() }
 
     override fun onCreateView(
@@ -47,173 +45,320 @@ class BoardWriteFragment : DialogFragment() {
     ): View {
         /* 추가/수정 다이얼로그 위한 레이아웃(dialog_note_create.xml) inflate */
         val rootView = inflater.inflate(R.layout.fragment_board_write, container, false)
-
-
         return rootView
     }//end of onCreateView
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //tag?.toLongOrNull()?.let { boardId ->
-        val updateYn = arguments?.getString("UPDATE_YN") ?: "N"
-        if(updateYn.equals("Y")) {
-            val boardId = arguments?.getLong("BOARD_ID") ?: kotlin.run { throw Error("BOARD_ID가 없습니다.") }
-            viewLifecycleOwner.lifecycleScope.launch {
-                /* 미리 변수를 선언 */
-                var savedBoard: BoardEntity? = null
-                /* 노트를 쿼리.*/
-                withContext(Dispatchers.IO) {
-                    savedBoard = dao.selectBoard(boardId)
-                }
-                /* 노트가 존재한다면 note를 변경*/
+// 아마 나중에 삭제될 코드
+//        val updateYn = arguments?.getString("UPDATE_YN") ?: "N"
+//        if(updateYn.equals("Y")) {
+//            val boardId = arguments?.getLong("BOARD_ID") ?: kotlin.run { throw Error("BOARD_ID가 없습니다.") }
+//            viewLifecycleOwner.lifecycleScope.launch {
+//                /* 미리 변수를 선언 */
+//                var savedBoard: BoardEntity? = null
+//                /* 노트를 쿼리.*/
+//                withContext(Dispatchers.IO) {
+//                    savedBoard = dao.selectBoard(boardId)
+//                }
+//                /* 노트가 존재한다면 note를 변경*/
+//                savedBoard?.let {
+//                    board = it //쿼리한 노트 객체를 note에 저장
+////                    view.txt_title.setText(it.boardTitle)
+//                    view.txt_content.setText(it.boardContent)
+//                }
+//            }
+//        }//end of let
 
-                savedBoard?.let {
-                    board = it //쿼리한 노트 객체를 note에 저장
-//                    view.txt_title.setText(it.boardTitle)
-                    view.txt_content.setText(it.boardContent)
+        //platform_board의 index
+        var platform_board_id : Int = 0
+        var database: DatabaseReference = Firebase.database.reference
+        val platformBoardList = database.child("platform_board")
+
+        val data = platformBoardList.orderByKey().limitToLast(1)
+        data.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+            }
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (d in dataSnapshot.children) {
+                    platform_board_id= d.key?.toInt()!!
                 }
             }
+        })
 
-        }//end of let
+        //별점 값
+//        lateinit var ratingBar: RatingBar
 
         //태그 선택
-        lateinit var testButton1: Button
-        lateinit var testButton2: Button
-        lateinit var testButton3: Button
-        testButton1 = view.button18
-        testButton2 = view.button19
-        testButton3 = view.button20
-        var changeColorRow1 : Boolean = false
-        var changeColorRow2 : Boolean =false
-        var changeColorRow3 : Boolean =false
+        var selectFee : Boolean = false
+        var selectContents: Boolean =false
+        var selectUsage : Boolean =false
 
-        lateinit var testButton4: Button
-        lateinit var testButton5: Button
-        lateinit var testButton6: Button
-        testButton4 = view.button21
-        testButton5 = view.button22
-        testButton6 = view.button23
-
-        lateinit var testButton7: Button
-        lateinit var testButton8: Button
-        lateinit var testButton9: Button
-        testButton7 = view.button7
-        testButton8 = view.button16
-        testButton9 = view.button20
-
-        //
+        // 선택된 태그 값
+        var subappName : String=""
         var fee :String ="" // 가격
-        var contents: String="" // 컨텐츠
-        var usage: String="" // 지속 사용
+        var contents: String="테스트 contemts" // 컨텐츠
+        var usage: String="테스트 usage" // 지속 사용
 
-        fun getTableRow() {
-            testButton1.setOnTouchListener(object : View.OnTouchListener {
+        // TODO: 중복덕지코드~!! 수정해야함 !
+        lateinit var btn_fee1: Button
+        lateinit var btn_fee2: Button
+        lateinit var btn_fee3: Button
+        btn_fee1 = view.btn_fee1
+        btn_fee2 = view.btn_fee2
+        btn_fee3 = view.btn_fee3
+
+        lateinit var btn_contents1: Button
+        lateinit var btn_contents2: Button
+        lateinit var btn_contents3: Button
+        btn_contents1 = view.btn_contents1
+        btn_contents2 = view.btn_contents2
+        btn_contents3 = view.btn_contents3
+
+        lateinit var btn_usage1: Button
+        lateinit var btn_usage2: Button
+        btn_usage1 = view.btn_usage1
+        btn_usage2 = view.btn_usage2
+
+
+        fun selectFeeBtn(btn_fee1: Button, btn_fee2: Button, btn_fee3: Button){
+            btn_fee1.setOnTouchListener(object : View.OnTouchListener {
                 override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                     when (event?.action) {
                         MotionEvent.ACTION_DOWN -> {
-                            Log.d("table row  ", "table row 1")
+                            if(selectFee) {
+                                btn_fee2.setBackgroundResource(R.drawable.button_review)
+                                btn_fee3.setBackgroundResource(R.drawable.button_review)
+
+                                btn_fee1.setBackgroundResource(R.drawable.button_review_click)
+                                fee= btn_fee1.text as String
+                                selectFee = !selectFee
+                            }
+                            else{
+                                selectFee = !selectFee
+                                btn_fee1.setBackgroundResource(R.drawable.button_review)
+                            }
                         }
                     }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+
+            btn_fee2.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectFee) {
+                                btn_fee1.setBackgroundResource(R.drawable.button_review)
+                                btn_fee3.setBackgroundResource(R.drawable.button_review)
+
+                                btn_fee2.setBackgroundResource(R.drawable.button_review_click)
+                                //선택 값
+                                fee= btn_fee2.text as String
+                                selectFee = !selectFee
+                            }
+                            else{
+                                selectFee = !selectFee
+                                btn_fee2.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+
+            btn_fee3.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectFee) {
+                                btn_fee1.setBackgroundResource(R.drawable.button_review)
+                                btn_fee2.setBackgroundResource(R.drawable.button_review)
+
+                                btn_fee3.setBackgroundResource(R.drawable.button_review_click)
+                                //선택 값
+                                fee= btn_fee3.text as String
+                                selectFee = !selectFee
+                            }
+                            else{
+                                selectFee = !selectFee
+                                btn_fee3.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+        }
+        fun selectContentsBtn(btn_contents1: Button, btn_contents2: Button, btn_contents3: Button){
+            btn_contents1.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectContents) {
+                                btn_contents2.setBackgroundResource(R.drawable.button_review)
+                                btn_contents3.setBackgroundResource(R.drawable.button_review)
+
+                                btn_contents1.setBackgroundResource(R.drawable.button_review_click)
+                                contents= btn_contents1.text as String
+                                selectContents = !selectContents
+                            }
+                            else{
+                                selectContents = !selectContents
+                                btn_contents1.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+
+            btn_contents2.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectContents) {
+                                btn_contents1.setBackgroundResource(R.drawable.button_review)
+                                btn_contents3.setBackgroundResource(R.drawable.button_review)
+
+                                btn_contents2.setBackgroundResource(R.drawable.button_review_click)
+                                //선택 값
+                                contents= btn_contents2.text as String
+                                selectContents = !selectContents
+                            }
+                            else{
+                                selectContents = !selectContents
+                                btn_contents2.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+
+            btn_contents3.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectContents) {
+                                btn_contents1.setBackgroundResource(R.drawable.button_review)
+                                btn_contents2.setBackgroundResource(R.drawable.button_review)
+
+                                btn_contents3.setBackgroundResource(R.drawable.button_review_click)
+                                //선택 값
+                                contents= btn_contents3.text as String
+                                selectContents = !selectContents
+                            }
+                            else{
+                                selectContents = !selectContents
+                                btn_contents3.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+        }
+        fun selectUsageBtn(btn_usage1: Button, btn_usage2: Button){
+            btn_usage1.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectUsage) {
+                                btn_usage2.setBackgroundResource(R.drawable.button_review)
+                                btn_usage1.setBackgroundResource(R.drawable.button_review_click)
+                                usage= btn_usage1.text as String
+                                selectUsage = !selectUsage
+                            }
+                            else{
+                                selectUsage = !selectUsage
+                                btn_usage1.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
+                    return true //or false
+                }
+            })
+
+            btn_usage2.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    when (event?.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            if(selectUsage) {
+                                btn_usage1.setBackgroundResource(R.drawable.button_review)
+                                btn_usage2.setBackgroundResource(R.drawable.button_review_click)
+                                //선택 값
+                                usage= btn_usage2.text as String
+                                selectUsage = !selectUsage
+                            }
+                            else{
+                                selectUsage = !selectUsage
+                                btn_usage2.setBackgroundResource(R.drawable.button_review)
+                            }
+                        }
+                    }
+                    //리턴값이 false면 seekbar 동작 안됨
                     return true //or false
                 }
             })
         }
 
-        fun testClickBtn1(testButton1: Button, testButton2: Button,testButton3: Button){
-            var changeColor:Boolean =false
-            testButton1.setOnTouchListener(object : View.OnTouchListener {
-                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    when (event?.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            if(changeColor) {
-                                    testButton2.setBackgroundResource(R.drawable.button_review)
-                                    testButton3.setBackgroundResource(R.drawable.button_review)
+        selectFeeBtn(btn_fee1,btn_fee2,btn_fee3)
+        selectContentsBtn(btn_contents1,btn_contents2,btn_contents3)
+        selectUsageBtn(btn_usage1,btn_usage2)
 
-                                    testButton1.setBackgroundResource(R.drawable.button_review_click)
-                                    fee= testButton1.text as String
-                                    changeColor = !changeColor
-                                    Log.d("selectedItem ", fee.toString())
-                            }
-                            else{
-                                changeColor = !changeColor
-                                testButton1.setBackgroundResource(R.drawable.button_review)
-                            }
-
-                            Log.d("changecolor", changeColor.toString())
-                        }
-                    }
-                    //리턴값이 false면 seekbar 동작 안됨
-                    return true //or false
-                }
-            })
-
-            testButton2.setOnTouchListener(object : View.OnTouchListener {
-                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    when (event?.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            if(changeColor) {
-                                testButton1.setBackgroundResource(R.drawable.button_review)
-                                testButton3.setBackgroundResource(R.drawable.button_review)
-                                fee= testButton1.text as String
-                                testButton2.setBackgroundResource(R.drawable.button_review_click)
-                                changeColor = !changeColor
-                            }
-                            else{
-                                changeColor = !changeColor
-                                testButton2.setBackgroundResource(R.drawable.button_review)
-                            }
-
-                            Log.d("changecolor", changeColor.toString())
-                        }
-                    }
-                    //리턴값이 false면 seekbar 동작 안됨
-                    return true //or false
-                }
-            })
-
-            testButton3.setOnTouchListener(object : View.OnTouchListener {
-                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    when (event?.action) {
-                        MotionEvent.ACTION_DOWN -> {
-                            if(changeColor) {
-                                testButton1.setBackgroundResource(R.drawable.button_review)
-                                testButton2.setBackgroundResource(R.drawable.button_review)
-
-                                testButton3.setBackgroundResource(R.drawable.button_review_click)
-                                fee= testButton1.text as String
-                                changeColor = !changeColor
-                            }
-                            else{
-                                changeColor = !changeColor
-                                testButton3.setBackgroundResource(R.drawable.button_review)
-                            }
-
-                            Log.d("changecolor", changeColor.toString())
-                        }
-                    }
-                    //리턴값이 false면 seekbar 동작 안됨
-                    return true //or false
-                }
-            })
+        //TODO: 필수항목 입력시 작성하기 버튼이 활성화 됨
+        if(selectContents && selectFee && selectUsage){
+            btn_save.setBackgroundColor(R.drawable.button_review_click)
         }
 
+        //게시판 작성날짜 생성
+        fun setCreateDt(): String{
+            val cal = Calendar.getInstance()
+            cal.time = Date()
+            val df: DateFormat = SimpleDateFormat("yyyy-MM-dd")
+            return df.format(cal.time)
+        }
 
-        testClickBtn1(testButton1,testButton2,testButton3)
-        testClickBtn1(testButton4,testButton5,testButton6)
-        testClickBtn1(testButton7,testButton8,testButton9)
+        // firebase platform_board에 입력
+        // TODO: platform_board key는 id index로 처리한다[done]
+        fun writePlatformBoard(board:BoardEntity){
+            platform_board_id +=1
+            database.child("platform_board").child(platform_board_id.toString()).setValue(board)
+        }
 
-
-        //수정하고 저장하기 버튼을 클릭한 경우(DB에 수정사항 저장)
+        //작성하기 버튼을 눌렀을때
         view.btn_save.setOnClickListener {
-            //입력한 noteTitle, noteContent 가져와서 변수에 할당
-//            board.boardTitle = view.txt_title.text.toString()
+        // TODO: star rating
+
+//            val msg = ratingBar.rating.toString()
+//            Toast.makeText(this.context, "Rating is: "+msg, Toast.LENGTH_SHORT).show()
+
+            //후기에 등록할 구독 앱
+           val spinner_subapp_list : Spinner = view.spinner_subapp_list
+            subappName = spinner_subapp_list.selectedItem.toString()
+
+            board.boardTitle = subappName
             board.boardContent = view.txt_content.text.toString()
             board.subFee = fee
-            /* 제목과 내용이 다 있는지를 검증 */
-            if (board.boardContent.isBlank() && board.boardContent.isBlank()) {
-                Toast.makeText(requireContext(), "제목과 내용을 입력해주세요", Toast.LENGTH_LONG).show()
+            board.subContents=contents
+            board.usage=usage
+
+            /* 필수항목 작성 검증 */
+            if (selectContents || selectFee || selectUsage) {
+                Toast.makeText(requireContext(), "필수항목을 작성해주세요!", Toast.LENGTH_LONG).show()
             } else {
+
+                /*
+                * TODO: 한 userid는 중복된 플랫폼 리뷰를 쓸 수 없음
+                 */
                 var userId: String? = ""
                 FirebaseAuth.getInstance().currentUser?.let {
                     userId = it.email
@@ -221,20 +366,18 @@ class BoardWriteFragment : DialogFragment() {
 
                 /* 자동 스코프에 맞추어 코루틴을 실행*/
                 viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-                    Log.d("subFee : ", board.subFee.toString())
                     val board = BoardEntity(
                         boardId = board.boardId,
                         boardContent = board.boardContent,
                         boardTitle = board.boardTitle,
-                        boardImg = board.boardImg,
                         subFee = board.subFee,
-                        usage = "null",
-                        userId = userId.toString()
+                        usage = board.usage,
+                        subContents = board.subContents,
+                        userId = userId.toString(),
+                        boardCreateDt = setCreateDt()
                     )
-                    if(updateYn.equals("Y")) {   // 신규글인지 수정인지 구분하여 저장
-                        dao.updateBoard(board)
-                    } else {
-                        dao.insertBoard(board)//DB에 저장
+                    writePlatformBoard(board)
+                    dao.insertBoard(board)//DB에 저장
                     }
                 }
                 findNavController().popBackStack()
@@ -242,5 +385,3 @@ class BoardWriteFragment : DialogFragment() {
         }//end of view.btn_save.setOnClickListener
     }//end of onViewCreated
 
-
-}

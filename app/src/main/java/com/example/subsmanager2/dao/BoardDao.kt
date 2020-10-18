@@ -23,6 +23,11 @@ interface BoardDao {
     @Query("SELECT * FROM Board WHERE boardId = :boardId")
     fun selectLiveBoard(boardId: Long): LiveData<BoardEntity>
 
+
+    // 게시글 개수
+    @Query("SELECT COUNT(*) FROM Board")
+    fun countBoard(): Int
+
     @Update
     fun updateBoard(vararg board: BoardEntity)
 
@@ -33,4 +38,6 @@ interface BoardDao {
     fun deleteBoard(boardId: Long)
 
 }
+
+
 

@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         controller.addOnDestinationChangedListener { _, destination, _ ->
             /* 최종 destination에서 네비바 없애기*/
             if (arrayListOf(
-                    R.id.agricListFragment, R.id.agricSearchFragment, R.id.boardListFragment,
+                    R.id.subsListFragment, R.id.agricSearchFragment, R.id.boardListFragment,
                     R.id.mypageFragment
                 ).contains(destination.id)
             ) {

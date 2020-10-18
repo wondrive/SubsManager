@@ -43,7 +43,7 @@
 //        val boardId = arguments?.getLong("BOARD_ID") ?: kotlin.run { throw Error("BOARD_ID가 없습니다.") }
 //        val userId = arguments?.getString("USER_ID") ?: kotlin.run { throw Error("USER_ID가 없습니다.") }
 //
-//        // 본인 게시글일때만 수정, 삭제 버튼 보이게
+////        // 본인 게시글일때만 수정, 삭제 버튼 보이게
 //        FirebaseAuth.getInstance().currentUser?.let {
 //            if(it.email.equals(userId)) {
 //                view.btn_detail_edit.visibility = View.VISIBLE
