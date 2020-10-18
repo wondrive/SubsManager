@@ -1,21 +1,33 @@
 package com.example.subsmanager2.entity
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.squareup.moshi.Json
+import com.google.firebase.database.Exclude
 
 // 수동 등록 구독앱
-@Entity
-data class SubsEntity(    // 필요시 추후 변경
-    //@PrimaryKey(autoGenerate = true)
-    //var subsId: Long ?= null,   // 구독앱 고유 ID
-    var subsNickname:String,   // 구독앱 별칭======> 이걸 고유키로 써야할듯ㅠㅠ
-    var userId:String,          // 글쓴이 ID
-    var subsName:String,       // 구독앱 이름
-    var subsImg:String?,        // 이미지
-    var fee:String,            // 요금
+data class SubsEntity(    //
+    var subsId: Long            = 0L,           // 구독앱 고유 ID
+    var subsName:String         = "",       // 구독앱 이름
+    var subsCustomName:String   = "",       // 구독앱 별칭
+    var userId:String?          = "",            // 글쓴이 ID
+    //var subsImg:String?,          // 이미지 경로
+    var fee:String              = "",               // 요금
+    var feeDate: String         = "",          // 결제일
     //var feeName:String,        // 요금제 이름
-    var alarmYN:String,        // 알람 여부
-    var alarmDday:String,      // 알람 디데이
-    var alarmMethod:String      // 알람 방식 (팝업 or
-)
+    var alarmYN:Boolean         = false,          // 알람 여부
+    var alarmDday:String        = ""       // 알람 디데이
+    //var alarmMethod:String      // 알람 방식 (팝업 or
+) {
+    @Exclude
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+            "subsId" to subsId,
+            "subsName" to subsName,
+            "subsCustomName" to subsCustomName,
+            "userId" to userId,
+            //"subsImg" to subsImg,
+            "fee" to fee,
+            "feeDate" to feeDate,
+            "alarmYN" to alarmYN,
+            "alarmDday" to alarmDday
+        )
+    }
+}

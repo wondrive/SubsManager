@@ -17,4 +17,12 @@
         <item>12월</item>
     </string-array>
 
+
+    <!-- 알람 디데이 -->
+    <string-array name="spinner_alarm_d_day">
+        <item>1일 전</item>
+        <item>1주 전</item>
+        <item>2주 전</item>
+    </string-array>
+
 </resources>

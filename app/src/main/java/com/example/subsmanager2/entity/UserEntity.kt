@@ -1,13 +1,10 @@
 package com.example.subsmanager2.entity
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.google.firebase.database.IgnoreExtraProperties
 
-// 유저 객체라고 보면 됨
-
-@Entity
+// 유저 클래스
+@IgnoreExtraProperties
 data class UserEntity(
-    @PrimaryKey
     val userId: String,
     val userNickname: String,
     val regDate: String,
