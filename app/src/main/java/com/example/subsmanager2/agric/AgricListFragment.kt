@@ -38,28 +38,28 @@ class AgricListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var currentTime: Date = Calendar.getInstance().getTime()
+        /*var currentTime: Date = Calendar.getInstance().getTime()
         var monthFormat: SimpleDateFormat = SimpleDateFormat("M", Locale.getDefault())
         var month: String = monthFormat.format(currentTime)
         Log.i("SEARCH::MONTH", month+"월")
 
-        /*  서버에 검색 요청 resultViewModel.loadDataFromURL() 함수 호출*/
+        *//*  서버에 검색 요청 resultViewModel.loadDataFromURL() 함수 호출*//*
         resultViewModel.loadDataFromURL(selectAgric = "", selectMonth = month+"월")
 
         //서버에서 응답한 응답 데이터의 변화를 감지하기 위해 LiveData(resultList())에 observe 설정
         resultViewModel.resultList().observe(viewLifecycleOwner, Observer {
-            /* resultAdpater에 데이터에 변동됨을 알려줍니다. */
+            *//* resultAdpater에 데이터에 변동됨을 알려줍니다. *//*
             agricAdapter.agricList = it//검색한  List<FreshData>를  resultAdpater에 전달
             Log.i("AGRIC", "it: $it")
             agricAdapter.notifyDataSetChanged()
 
-            /* 로딩은 사라집니다. */
+            *//* 로딩은 사라집니다. *//*
             view.progress_loader.visibility = View.GONE
         })//end of observe
 
-        /* 리사이클러뷰에 어댑터 및 레이아웃메니저 설정 */
+        *//* 리사이클러뷰에 어댑터 및 레이아웃메니저 설정 *//*
         view.list_agric.adapter = agricAdapter
         view.list_agric.layoutManager = LinearLayoutManager(requireContext())
-
+*/
     } //end of onViewCreated
 }
