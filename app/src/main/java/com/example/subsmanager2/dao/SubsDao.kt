@@ -4,20 +4,13 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.subsmanager2.entity.AgricEntity
-import com.example.subsmanager2.entity.AgricWrapper
 import com.example.subsmanager2.entity.SubsEntity
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.database.*
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.auth.User
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import org.json.JSONObject
-import org.w3c.dom.Comment
 
 // 게시글 DAO (Data Access Object) : 데이터에 실제로 접근하는 명령 모음집
 class SubsDao {
@@ -38,9 +31,13 @@ class SubsDao {
     //resultList LiveData 선언
     private val resultList: MutableLiveData<List<SubsEntity>> = MutableLiveData()
     private val result: MutableLiveData<SubsEntity> = MutableLiveData()
+
     //resultList() getter 선언
     fun resultList(): LiveData<List<SubsEntity>> = resultList as MutableLiveData<List<SubsEntity>>
     fun result(): LiveData<SubsEntity> = result as MutableLiveData<SubsEntity>
+
+    var subsList = ArrayList<SubsEntity>()            // subs 담아줄 리스트
+
     // 구독앱 갯수 (pk로 사용. 추가시 증가, 삭제시 줄어들지 않음)
     fun countSubs(): Int {  // subs/subsCount  값 받아오기
         return 0;
@@ -48,7 +45,6 @@ class SubsDao {
 
     // 구독앱 목록
     fun selectSubsList(userId: String): LiveData<List<SubsEntity>> {
-        var subsList = ArrayList<SubsEntity>()            // subs 담아줄 리스트
         // 여러 문서 가져오기
         firestore.collection("subs").whereEqualTo("userId", userId).orderBy("subsId", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { documents ->
@@ -125,7 +121,7 @@ class SubsDao {
 
     // 업데이트
     fun updateSubs(subs: SubsEntity) {
-        firebaseRef.child("subs").child(subs.subsId.toString()).setValue(subs)
+        //firebaseRef.child("subs").child(subs.subsId.toString()).setValue(subs)
     }
 
     // 삭제

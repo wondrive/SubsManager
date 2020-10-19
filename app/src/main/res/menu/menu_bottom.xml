@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_home_outline"
         android:title="@string/nav_title_main"/>
     <item
-        android:id="@+id/agricSearchFragment"
+        android:id="@+id/recommendListFragment"
         android:icon="@drawable/ic_search_outline"
         android:title="@string/nav_title_search"
         />

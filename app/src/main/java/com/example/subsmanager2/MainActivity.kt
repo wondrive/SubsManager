@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         controller.addOnDestinationChangedListener { _, destination, _ ->
             /* 최종 destination에서 네비바 없애기*/
             if (arrayListOf(
-                    R.id.subsListFragment, R.id.agricSearchFragment, R.id.boardListFragment,
+                    R.id.subsListFragment, R.id.recommendListFragment, R.id.boardListFragment,
                     R.id.mypageFragment
                 ).contains(destination.id)
             ) {
@@ -36,20 +36,20 @@ class MainActivity : AppCompatActivity() {
 
         // 타이틀 바 없애기 위해 주척처리 했습니다.
         // Top Level Destination 설정. (뒤로가기 안보이게 하기)
-//        NavigationUI.setupActionBarWithNavController(
-//            this,
-//            controller,
-//            AppBarConfiguration(
-//                setOf(
-//                    R.id.splashFragment,
-//                    R.id.loginFragment,
-//                    R.id.agricListFragment,
-//                    R.id.agricSearchFragment,
-//                    R.id.boardListFragment,
-//                    R.id.mypageFragment
-//                )
-//            )
-//        )
+        /*NavigationUI.setupActionBarWithNavController(
+            this,
+            controller,
+            AppBarConfiguration(
+                setOf(
+                    R.id.splashFragment,
+                    R.id.loginFragment,
+                    R.id.agricListFragment,
+                    R.id.agricSearchFragment,
+                    R.id.boardListFragment,
+                    R.id.mypageFragment
+                )
+            )
+        )*/
     }
 
     // 뒤로가기 버튼 눌렀을 때, 안꺼지고 뒤로가기

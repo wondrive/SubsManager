@@ -220,4 +220,9 @@
         app:destination="@id/subsListFragment"
         app:popUpTo="@id/subsListFragment"
         app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/recommendListFragment"
+        android:name="com.example.subsmanager2.recommend.RecommendListFragment"
+        android:label="fragment_recommend_list"
+        tools:layout="@layout/fragment_recommend_list" />
 </navigation>

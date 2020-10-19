@@ -63,7 +63,7 @@ class LoginFragment : Fragment() {
                             view.progress_loader.visibility = View.GONE
 
                             //hideKeyboard()
-                            findNavController().navigate(R.id.action_global_agricListFragment)
+                            findNavController().navigate(R.id.action_global_subsListFragment)
                         }
                         /* 등록한 user가 아닌 경우*/
                         task.addOnFailureListener {

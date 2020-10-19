@@ -31,17 +31,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img_sub_app"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/item_txt_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
+                app:layout_constraintStart_toEndOf="@+id/img_sub_app">
 
                 <TextView
                     android:id="@+id/item_txt_nickname"
@@ -49,50 +39,52 @@
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp" />
 
-                <!--<TextView
+                <TextView
+                    android:id="@+id/item_txt_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor="@color/black" />
+
+                <TextView
                     android:id="@+id/item_txt_feedate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:textColor="@color/black" />-->
+                    android:textColor="@color/black" />
 
-                <!--<TextView
+                <TextView
                     android:id="@+id/item_txt_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:textColor="@color/black" />-->
+                    android:textColor="@color/black" />
+
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="알람"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/item_switch_alarm"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <Switch
                 android:id="@+id/item_switch_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:showText="true"
+                android:textOff="off"
+                android:textOn="on"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+
+            <!--<ImageView
                 android:id="@+id/img_sub_app"
                 android:layout_width="65dp"
                 android:layout_height="81dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/homecook_icon_background" />
+                app:srcCompat="@drawable/homecook_icon_background" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
