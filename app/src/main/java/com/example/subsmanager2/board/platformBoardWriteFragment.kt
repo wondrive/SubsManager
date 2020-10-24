@@ -13,12 +13,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.subsmanager2.R
+import com.example.subsmanager2.dao.PlatformBoardDao
 import com.example.subsmanager2.database.DatabaseModule
 import com.example.subsmanager2.entity.BoardEntity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firestore.*
 import kotlinx.android.synthetic.main.fragment_board_write.*
 import kotlinx.android.synthetic.main.fragment_board_write.view.*
 import kotlinx.android.synthetic.main.fragment_board_write.view.btn_save
@@ -29,14 +31,11 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BoardWriteFragment : DialogFragment() {
-
-    //FirebaseAuth realtime database
-    private var database: DatabaseReference = Firebase.database.reference
+class platformBoardWriteFragment : DialogFragment() {
 
     /* note 객체 생성 및 초기화. */
     private var board = BoardEntity(boardContent = "", boardTitle = "",userId = "",subFee = "",usage = "",subContents = "",boardCreateDt = "")
-    private val dao by lazy { DatabaseModule.getDatabase(requireContext()).boardDao() }
+    val boardDao = PlatformBoardDao()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,21 +69,6 @@ class BoardWriteFragment : DialogFragment() {
 //            }
 //        }//end of let
 
-        //platform_board의 index
-        var platform_board_id : Int = 0
-        var database: DatabaseReference = Firebase.database.reference
-        val platformBoardList = database.child("platform_board")
-
-        val data = platformBoardList.orderByKey().limitToLast(1)
-        data.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-            }
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (d in dataSnapshot.children) {
-                    platform_board_id= d.key?.toInt()!!
-                }
-            }
-        })
         //별점 값
 //        lateinit var ratingBar: RatingBar
 
@@ -326,22 +310,16 @@ class BoardWriteFragment : DialogFragment() {
             return df.format(cal.time)
         }
 
-        // firebase platform_board에 입력
-        // TODO: platform_board key는 id index로 처리한다[done]
-        fun writePlatformBoard(board:BoardEntity){
-            platform_board_id +=1
-            database.child("platform_board").child(platform_board_id.toString()).setValue(board)
-        }
 
         //작성하기 버튼을 눌렀을때
         view.btn_save.setOnClickListener {
-        // TODO: star rating
+            // TODO: star rating
 
 //            val msg = ratingBar.rating.toString()
 //            Toast.makeText(this.context, "Rating is: "+msg, Toast.LENGTH_SHORT).show()
 
             //후기에 등록할 구독 앱
-           val spinner_subapp_list : Spinner = view.spinner_subapp_list
+            val spinner_subapp_list : Spinner = view.spinner_subapp_list
             subappName = spinner_subapp_list.selectedItem.toString()
 
             board.boardTitle = subappName
@@ -366,7 +344,6 @@ class BoardWriteFragment : DialogFragment() {
                 /* 자동 스코프에 맞추어 코루틴을 실행*/
                 viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                     val board = BoardEntity(
-                        boardId = board.boardId,
                         boardContent = board.boardContent,
                         boardTitle = board.boardTitle,
                         subFee = board.subFee,
@@ -375,12 +352,11 @@ class BoardWriteFragment : DialogFragment() {
                         userId = userId.toString(),
                         boardCreateDt = setCreateDt()
                     )
-                    writePlatformBoard(board)
-                    dao.insertBoard(board)//DB에 저장
-                    }
+                    boardDao.writeBoard(data = board)
                 }
-                findNavController().popBackStack()
             }
-        }//end of view.btn_save.setOnClickListener
-    }//end of onViewCreated
+            findNavController().popBackStack()
+        }
+    }//end of view.btn_save.setOnClickListener
+}//end of onViewCreated
 

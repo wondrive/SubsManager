@@ -1,24 +1,58 @@
 package com.example.subsmanager2.board
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.subsmanager2.R
+import com.example.subsmanager2.dao.PlatformBoardDao
 import com.example.subsmanager2.entity.BoardEntity
+import com.example.subsmanager2.entity.SubsEntity
+import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.list_item_board.view.*
 
-class PlatformBoardAdapter(var boardList: List<BoardEntity> = emptyList()) :
-    RecyclerView.Adapter<PlatformBoardAdapter.ItemViewHolder>() {
-    //note size 반환
-    //ToDO 반환 아이템은 최대 3개
+//class PlatformBoardAdapter(var boardList: List<BoardEntity> = emptyList()) :
+class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewHolder>() {
+
+    val boardDao = PlatformBoardDao()
+    var boardList = ArrayList<BoardEntity>()
+
     override fun getItemCount() = boardList.size
     var debug = printDebug()
     fun printDebug(){
         Log.d("debug",boardList.size.toString())
+    }
+
+    //TODO : descending 수정해야힘
+    init {  // firebase에서 boardlist 불러온 뒤 Entity로 변환해 ArrayList에 담음
+        boardDao. db.collection("platform_board")
+            .get()
+            .addOnSuccessListener { result ->
+                boardList.clear()
+                for (document in result) {
+                    val board = document.toObject(BoardEntity::class.java)
+                    boardList?.add(board)
+                    Log.d("board : ",board.boardTitle)
+                }
+                notifyDataSetChanged()
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
+    }
+
+    //리뷰한 구독 앱 사진 등록
+    fun setSubAppIcon(appName:String?, img_sub_app: ImageView) {
+        when (appName){
+            "넷플릭스" ->img_sub_app.setImageResource(R.drawable.watcha)
+            "왓챠" ->img_sub_app.setImageResource(R.drawable.netflix)
+            "유튜브 프리미엄" ->img_sub_app.setImageResource(R.drawable.youtube)
+        }
     }
 
     /*뷰홀더 생성하여 반환*/
@@ -33,7 +67,7 @@ class PlatformBoardAdapter(var boardList: List<BoardEntity> = emptyList()) :
     //뷰홀더에 데이터를 바인딩
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         //뷰홀더에 데이터를 바인딩하는 bindItems() 메서드 호출
-        holder.bindItems(boardList[position])
+        holder.bindItems(boardList.get(position))
     }
 
     //ItemViewHolder 클래스 선언
@@ -41,10 +75,13 @@ class PlatformBoardAdapter(var boardList: List<BoardEntity> = emptyList()) :
         //아이템 뷰(list_item_note.xml)에 데이터 바인딩(noteTitle, noteImage)
         fun bindItems(board: BoardEntity) {
             /* 게시글 맵핑하기 */
+            itemView.item_txt_title.text = board.boardTitle
             itemView.item_txt_content.text = board.boardContent
             itemView.item_txt_fee.text="구독료 : "+board.subFee
-            itemView.item_txt_useage.text="지속 사용 여부 : "
-            itemView.item_txt_contents.text="컨텐츠 : "
+            itemView.item_txt_useage.text="지속 사용 여부 : " +board.usage
+            itemView.item_txt_contents.text="컨텐츠 : " +board.subContents
+            setSubAppIcon(board.boardTitle,itemView.img_sub_app)
+
 
             /* List 화면에서 아이템 뷰를 누르면 DetailFragment로 넘어감 */
             itemView.setOnClickListener {
@@ -60,5 +97,4 @@ class PlatformBoardAdapter(var boardList: List<BoardEntity> = emptyList()) :
             }//end of setOnClickListener
         }//end of bindItems
     }//end of ItemViewHolder
-
 }

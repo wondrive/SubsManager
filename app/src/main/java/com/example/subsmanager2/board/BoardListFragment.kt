@@ -12,7 +12,6 @@ import com.example.subsmanager2.R
 import com.example.subsmanager2.database.DatabaseModule
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_board_list.view.*
-import kotlinx.android.synthetic.main.fragment_board_list.view.fab_add_note
 
 /**
  * A simple [Fragment] subclass.
@@ -59,10 +58,7 @@ class BoardListFragment : Fragment() {
         rootView.platformlist.adapter = boardAdapter
         rootView.platformlist.layoutManager = LinearLayoutManager(requireContext())
 
-        //게시글 작성
-        rootView.fab_add_note.setOnClickListener {
-            findNavController().navigate(R.id.action_boardListFragment_to_writeBoard)
-        }
+
         //플랫폼 게시판 전체보기
         rootView.btn_show_all_platform.setOnClickListener{
             findNavController().navigate(R.id.action_boardListFragment_to_platfromBoardFragment)
