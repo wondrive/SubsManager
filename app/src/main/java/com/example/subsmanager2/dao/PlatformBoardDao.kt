@@ -1,12 +1,7 @@
 package com.example.subsmanager2.dao
 
-import android.content.ContentValues
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.subsmanager2.entity.BoardEntity
-import com.example.subsmanager2.entity.SubsEntity
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FieldValue
@@ -14,17 +9,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 // 게시글 DAO (Data Access Object) : 데이터에 실제로 접근하는 명령 모음집
 class PlatformBoardDao {
 
     val TAG = "PlatformBoardDao"
-
-    //FirebaseAuth 객체의 공유 인스턴스를 가져오기
-    val firebaseRef by lazy { FirebaseDatabase.getInstance().getReference() }
-    val firestore by lazy { FirebaseFirestore.getInstance() }
 
     val db by lazy {Firebase.firestore}
 
@@ -62,8 +51,6 @@ class PlatformBoardDao {
                 Log.d(TAG, "get failed with ", exception)
             }
     }
-
-    // 작성된 게시글 모두 가져오기
 
 
 }

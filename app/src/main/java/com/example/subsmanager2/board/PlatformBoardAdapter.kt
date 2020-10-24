@@ -28,9 +28,10 @@ class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewH
         Log.d("debug",boardList.size.toString())
     }
 
-    //TODO : descending 수정해야힘
-    init {  // firebase에서 boardlist 불러온 뒤 Entity로 변환해 ArrayList에 담음
+    init {
         boardDao. db.collection("platform_board")
+                // 최신순으로 데이터를 가져옴
+            .orderBy("boardId",Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
                 boardList.clear()
