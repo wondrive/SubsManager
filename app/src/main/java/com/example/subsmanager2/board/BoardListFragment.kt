@@ -25,7 +25,6 @@ class BoardListFragment : Fragment() {
     * TODO : 좋아요, 별점 기능 구현
     * */
 
-
     /* boardDao를 Lazy 키워드를 이용하여 처음 호출될때 초기화하도록 설정 */
     val boardDao by lazy { DatabaseModule.getDatabase(requireContext()).boardDao() }
 
@@ -55,9 +54,9 @@ class BoardListFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_board_list, container, false)
 
         /* 어댑터 초기화*/
+        // platform adapter 
         rootView.platformlist.adapter = boardAdapter
         rootView.platformlist.layoutManager = LinearLayoutManager(requireContext())
-
 
         //플랫폼 게시판 전체보기
         rootView.btn_show_all_platform.setOnClickListener{
@@ -73,25 +72,10 @@ class BoardListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        var numOfBoard = boardDao.countBoard()
-        //TODO : 최대 3개까지 보여줘야함 ! (작성중)
-        if(numOfBoard>3) {
-                boardDao.selectBoard().observe(viewLifecycleOwner, androidx.lifecycle.Observer{
-                boardAdapter.boardList = it//어댑터에 변경된 note 전달
-                boardAdapter.notifyDataSetChanged()//어댑터에 변경 공지
-            })
-        }
-
-        boardDao.selectBoard().observe(viewLifecycleOwner, androidx.lifecycle.Observer{
-            boardAdapter.boardList = it//어댑터에 변경된 note 전달
-            boardAdapter.notifyDataSetChanged()//어댑터에 변경 공지
-        })
     }//end of onViewCreated
     override fun onStart() {
         super.onStart()
     }
-
     override fun onDestroy() {
         super.onDestroy()
     }
