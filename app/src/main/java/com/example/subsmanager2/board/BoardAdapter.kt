@@ -91,8 +91,8 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.ItemViewHolder>() {
     //platform board 리뷰한 구독 앱 사진 등록
     fun setSubAppIcon(appName:String?, img_sub_app: ImageView) {
         when (appName){
-            "넷플릭스" ->img_sub_app.setImageResource(R.drawable.watcha)
-            "왓챠" ->img_sub_app.setImageResource(R.drawable.netflix)
+            "넷플릭스" ->img_sub_app.setImageResource(R.drawable.netflix)
+            "왓챠" ->img_sub_app.setImageResource(R.drawable.watcha)
             "유튜브 프리미엄" ->img_sub_app.setImageResource(R.drawable.youtube)
         }
     }

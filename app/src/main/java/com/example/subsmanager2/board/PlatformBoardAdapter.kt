@@ -50,8 +50,8 @@ class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewH
     //리뷰한 구독 앱 사진 등록
     fun setSubAppIcon(appName:String?, img_sub_app: ImageView) {
         when (appName){
-            "넷플릭스" ->img_sub_app.setImageResource(R.drawable.watcha)
-            "왓챠" ->img_sub_app.setImageResource(R.drawable.netflix)
+            "넷플릭스" ->img_sub_app.setImageResource(R.drawable.netflix)
+            "왓챠" ->img_sub_app.setImageResource(R.drawable.watcha)
             "유튜브 프리미엄" ->img_sub_app.setImageResource(R.drawable.youtube)
         }
     }
@@ -81,6 +81,7 @@ class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewH
             itemView.item_txt_fee.text="구독료 : "+board.subFee
             itemView.item_txt_useage.text="지속 사용 여부 : " +board.usage
             itemView.item_txt_contents.text="컨텐츠 : " +board.subContents
+            itemView.item_rating_score.text="평가 : "+board.ratingScore
             setSubAppIcon(board.boardTitle,itemView.img_sub_app)
 
 
