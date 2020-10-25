@@ -77,20 +77,14 @@ dependencies {
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'
     implementation 'ru.gildor.coroutines:kotlin-coroutines-okhttp:1.0'
     //Firebase
-    //implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation 'com.google.firebase:firebase-auth-ktx:19.4.0'
-    //implementation 'com.google.firebase:firebase-auth:18.0.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:19.4.0'       // auth
     implementation 'com.google.firebase:firebase-messaging:20.1.7'
     implementation 'com.google.firebase:firebase-inappmessaging-display-ktx:19.0.7'
-
-    //implementation 'com.google.firebase:firebase-database:18.0.0'
     implementation 'com.google.firebase:firebase-database-ktx:19.4.0'
-    //implementation 'com.google.firebase:firebase-firestore:20.0.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:20.0.0'
-
+    implementation 'com.google.firebase:firebase-firestore-ktx:20.0.0'  // firestore
     implementation 'com.google.firebase:firebase-analytics-ktx:17.5.0'
-    //implementation platform('com.google.firebase:firebase-bom:25.12.0')
-
+    implementation platform('com.google.firebase:firebase-bom:25.12.0') // storage(사진 올리기)
+    implementation 'com.google.firebase:firebase-storage-ktx'           // storage(사진 올리기)
 
     //json
     implementation 'com.google.code.gson:gson:2.8.5'
