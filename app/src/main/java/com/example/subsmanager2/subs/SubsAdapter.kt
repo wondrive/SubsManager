@@ -26,7 +26,7 @@ class SubsAdapter : RecyclerView.Adapter<SubsAdapter.ItemViewHolder>() {
 
     override fun getItemCount() = subsList.size
 
-    // 새로 추가한 부분 2020-10-19 by 정승원          @혜린 @진아
+    // 새로 추가한 부분 2020-10-19 by 정승원          @혜린 @진아: 참고 잘 했습니다 ^^
     init {  // firebase에서 subs 불러온 뒤 Entity로 변환해 ArrayList에 담음
         subsDao.firestore?.collection("subs").orderBy("subsId", Query.Direction.DESCENDING)
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
@@ -81,7 +81,6 @@ class SubsAdapter : RecyclerView.Adapter<SubsAdapter.ItemViewHolder>() {
                 subs.alarmYN = itemView.item_switch_alarm.isChecked
                 subsDao.updateSubs(subs)
             }
-
         }//end of bindItems
     }//end of ItemViewHolder
 }

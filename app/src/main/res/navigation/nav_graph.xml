@@ -144,8 +144,8 @@
         android:label="fragment_platfrom_board"
         tools:layout="@layout/fragment_platfrom_board" >
         <action
-            android:id="@+id/action_platfromBoardFragment_to_writeBoard2"
-            app:destination="@id/writeBoard" />
+            android:id="@+id/action_platfromBoardFragment_to_platformBoardWriteFragment"
+            app:destination="@id/platformBoardWriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/contentsBoardFragment"
@@ -225,4 +225,9 @@
         android:name="com.example.subsmanager2.recommend.RecommendListFragment"
         android:label="fragment_recommend_list"
         tools:layout="@layout/fragment_recommend_list" />
+    <fragment
+        android:id="@+id/platformBoardWriteFragment"
+        android:name="com.example.subsmanager2.board.platformBoardWriteFragment"
+        android:label="fragment_platform_board_write"
+        tools:layout="@layout/fragment_platform_board_write" />
 </navigation>
