@@ -54,7 +54,7 @@ class BoardListFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_board_list, container, false)
 
         /* 어댑터 초기화*/
-        // platform adapter 
+        // platform adapter
         rootView.platformlist.adapter = boardAdapter
         rootView.platformlist.layoutManager = LinearLayoutManager(requireContext())
 
