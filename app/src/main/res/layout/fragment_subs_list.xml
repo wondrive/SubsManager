@@ -42,7 +42,7 @@ tools:context=".subs.SubsListFragment">
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="32dp"
             android:text="총 구독료 : 99,999￦"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -73,18 +73,18 @@ tools:context=".subs.SubsListFragment">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/fab_add_note"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@android:drawable/ic_input_add"
-    app:backgroundTint="@android:color/white"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.878"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.917"
-    app:layout_scrollFlags="scroll|enterAlways" />
+        android:id="@+id/fab_add_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.878"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.917"
+        app:layout_scrollFlags="scroll|enterAlways" />
 
 <!-- app:layout_anchor="@id/bottom_app_bar"-->
 </androidx.constraintlayout.widget.ConstraintLayout>

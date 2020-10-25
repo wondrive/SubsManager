@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        app:cardBackgroundColor="@color/skyblue"
+        app:cardBackgroundColor="@color/light_gray"
         app:cardCornerRadius="16dp"
         app:contentPadding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,67 +26,73 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/linearLayout6"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:orientation="vertical"
-                app:layout_constraintStart_toEndOf="@+id/img_sub_app">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_sub_app"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/item_txt_nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/item_txt_name"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/item_txt_subs_name"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/item_txt_feedate"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/item_txt_plan_name"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:textColor="@color/black" />
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/img_sub_app"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.542"
+                app:srcCompat="@drawable/homecook_icon_background" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/item_txt_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:text="TextView"
                     android:textColor="@color/black" />
 
-
+                <RatingBar
+                    android:id="@+id/item_rating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:saveEnabled="true"
+                    android:theme="@style/RatingBar" />
             </LinearLayout>
-
-            <Switch
-                android:id="@+id/item_switch_alarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:showText="true"
-                android:textOff="off"
-                android:textOn="on"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <!--<ImageView
-                android:id="@+id/img_sub_app"
-                android:layout_width="65dp"
-                android:layout_height="81dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/homecook_icon_background" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

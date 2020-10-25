@@ -17,6 +17,13 @@
         <item>12월</item>
     </string-array>
 
+    <!-- 카테고리 검색 -->
+    <string-array name="spinner_category">
+        <item>영화/드라마</item>
+        <item>음악</item>
+        <item>도서</item>
+    </string-array>
+
     <!-- 구독 앱 리스트 -->
     <string-array name="subapplist">
         <item>왓챠</item>
