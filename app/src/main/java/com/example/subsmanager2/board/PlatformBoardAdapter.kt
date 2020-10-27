@@ -81,7 +81,7 @@ class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewH
             itemView.item_txt_fee.text="구독료 : "+board.subFee
             itemView.item_txt_useage.text="지속 사용 여부 : " +board.usage
             itemView.item_txt_contents.text="컨텐츠 : " +board.subContents
-            itemView.item_rating_score.text="평가 : "+board.ratingScore
+//            itemView.item_rating_score.text="평가 : "+board.ratingScore
             setSubAppIcon(board.boardTitle,itemView.img_sub_app)
 
 

@@ -43,7 +43,7 @@ class platformBoardWriteFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         /* 추가/수정 다이얼로그 위한 레이아웃(dialog_note_create.xml) inflate */
-        val rootView = inflater.inflate(R.layout.fragment_board_write, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_platform_board_write, container, false)
         return rootView
     }//end of onCreateView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

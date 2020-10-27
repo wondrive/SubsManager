@@ -95,12 +95,6 @@
         <action
             android:id="@+id/action_boardListFragment_to_platfromBoardFragment"
             app:destination="@id/platfromBoardFragment" />
-        <action
-            android:id="@+id/action_boardListFragment_to_contentsBoardFragment"
-            app:destination="@id/contentsBoardFragment" />
-        <action
-            android:id="@+id/action_boardListFragment_to_writeBoard"
-            app:destination="@id/writeBoard" />
     </fragment>
     <fragment
         android:id="@+id/boardDetailFragment"
@@ -110,24 +104,8 @@
         <argument
             android:name="BOARD_ID"
             app:argType="long" />
-        <action
-            android:id="@+id/action_boardDetailFragment_to_writeBoard"
-            app:destination="@id/writeBoard"
-            app:popUpTo="@id/boardDetailFragment" />
         <argument
             android:name="USER_ID"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/writeBoard"
-        android:name="com.example.subsmanager2.board.BoardWriteFragment"
-        android:label="게시판 등록"
-        tools:layout="@layout/fragment_board_write" >
-        <argument
-            android:name="BOARD_ID"
-            app:argType="long" />
-        <argument
-            android:name="UPDATE_YN"
             app:argType="string" />
     </fragment>
     <fragment
@@ -146,15 +124,6 @@
         <action
             android:id="@+id/action_platfromBoardFragment_to_platformBoardWriteFragment"
             app:destination="@id/platformBoardWriteFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/contentsBoardFragment"
-        android:name="com.example.subsmanager2.board.contentsBoardFragment"
-        android:label="fragment_contents_board2"
-        tools:layout="@layout/fragment_contents_board2" >
-        <action
-            android:id="@+id/action_contentsBoardFragment_to_writeContentsBoard"
-            app:destination="@id/writeContentsBoard" />
     </fragment>
     <fragment
         android:id="@+id/writeContentsBoard"
