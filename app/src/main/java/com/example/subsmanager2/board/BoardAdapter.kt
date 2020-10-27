@@ -13,11 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.PlatformBoardDao
 import com.example.subsmanager2.entity.BoardEntity
-import com.google.firebase.database.Query
-import kotlinx.android.synthetic.main.list_item_board.view.*
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.firestore.FieldValue
+import kotlinx.android.synthetic.main.list_item_platform_board.view.*
 
 /*
 firestore의 데이터 읽기 수행
@@ -100,7 +96,7 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.ItemViewHolder>() {
     /*뷰홀더 생성하여 반환*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item_board, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_platform_board, parent, false)
 
         /* 뷰를 데이터와 맵핑하기위해 생성한 뷰홀더를 반환*/
         return ItemViewHolder(itemView)

@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.PlatformBoardDao
 import com.example.subsmanager2.entity.BoardEntity
-import com.example.subsmanager2.entity.SubsEntity
 import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.list_item_board.view.*
+import kotlinx.android.synthetic.main.list_item_platform_board.view.*
 
 //class PlatformBoardAdapter(var boardList: List<BoardEntity> = emptyList()) :
 class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewHolder>() {
@@ -59,7 +58,7 @@ class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewH
     /*뷰홀더 생성하여 반환*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_item_board, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_platform_board, parent, false)
 
         /* 뷰를 데이터와 맵핑하기위해 생성한 뷰홀더를 반환*/
         return ItemViewHolder(itemView)

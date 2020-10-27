@@ -21,9 +21,8 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firestore.*
-import kotlinx.android.synthetic.main.fragment_board_write.*
-import kotlinx.android.synthetic.main.fragment_board_write.view.*
-import kotlinx.android.synthetic.main.fragment_board_write.view.btn_save
+import kotlinx.android.synthetic.main.fragment_platform_board_write.*
+import kotlinx.android.synthetic.main.fragment_platform_board_write.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
