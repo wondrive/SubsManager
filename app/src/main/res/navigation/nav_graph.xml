@@ -95,6 +95,10 @@
         <action
             android:id="@+id/action_boardListFragment_to_platfromBoardFragment"
             app:destination="@id/platfromBoardFragment" />
+        <action
+            android:id="@+id/action_boardListFragment_to_contentsBoardFragment"
+            app:destination="@id/contensBoardFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/boardDetailFragment"
@@ -132,6 +136,17 @@
         android:label="fragment_contents_board2"
         tools:layout="@layout/fragment_contents_board2" />
         app:popUpToInclusive="true" />-->
+
+    <!--컨텐츠 평가 게시판-->
+    <fragment
+        android:id="@+id/contensBoardFragment"
+        android:name="com.example.subsmanager2.board.contentsBoardFragment"
+        android:label="fragment_contents_board"
+        tools:layout="@layout/fragment_contents_board" >
+        <action
+            android:id="@+id/action_contentsBoardFragment_to_contentsBoardWriteFragment"
+            app:destination="@id/contentsBoardWriteFragment" />
+    </fragment>
 
 
     <!-- 구독앱 목록 -->
@@ -194,4 +209,9 @@
         android:name="com.example.subsmanager2.board.platformBoardWriteFragment"
         android:label="fragment_platform_board_write"
         tools:layout="@layout/fragment_platform_board_write" />
+    <fragment
+        android:id="@+id/contentsBoardWriteFragment"
+        android:name="com.example.subsmanager2.board.contentsBoardWriteFragment"
+        android:label="fragment_contents_board_write"
+        tools:layout="@layout/fragment_contents_board_write" />
 </navigation>

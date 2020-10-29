@@ -31,6 +31,15 @@
         <item>넷플릭스</item>
     </string-array>
 
+    <!--컨텐츠 리스트-->
+    <string-array name="contentslist">
+        <item>거짓말의 거짓말</item>
+        <item>구미호뎐</item>
+        <item>18 어게인</item>
+        <item>도도솔솔라라솔</item>
+        <item>사생활</item>
+    </string-array>
+
     <!-- 알람 디데이 -->
     <string-array name="spinner_alarm_d_day">
         <item>1일 전</item>

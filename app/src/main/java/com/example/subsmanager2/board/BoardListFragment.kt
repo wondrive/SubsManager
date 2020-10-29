@@ -63,8 +63,9 @@ class BoardListFragment : Fragment() {
             findNavController().navigate(R.id.action_boardListFragment_to_platfromBoardFragment)
         }
         //컨텐츠 게시판 전체보기
-//        rootView.btn_show_all_contents.setOnClickListener{
-//        }
+        rootView.btn_show_all_contents.setOnClickListener{
+            findNavController().navigate(R.id.action_boardListFragment_to_contentsBoardFragment)
+        }
 
         return rootView// 생성한 fragment_list 뷰 반환
     }//end of onCreateView
