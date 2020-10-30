@@ -13,7 +13,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.ContentsBoardDao
-import com.example.subsmanager2.entity.BoardEntity
 import com.example.subsmanager2.entity.ContentsBoardEntity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase

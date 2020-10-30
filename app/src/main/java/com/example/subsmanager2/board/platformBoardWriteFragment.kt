@@ -2,8 +2,6 @@ package com.example.subsmanager2.board
 
 import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -15,17 +13,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.PlatformBoardDao
 import com.example.subsmanager2.database.DatabaseModule
-import com.example.subsmanager2.entity.BoardEntity
+import com.example.subsmanager2.entity.PlatformBoardEntity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import com.google.firestore.*
 import kotlinx.android.synthetic.main.fragment_platform_board_write.*
 import kotlinx.android.synthetic.main.fragment_platform_board_write.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,7 +26,7 @@ import java.util.*
 class platformBoardWriteFragment : DialogFragment() {
 
     /* note 객체 생성 및 초기화. */
-    private var board = BoardEntity(boardContent = "", boardTitle = "",userId = "",subFee = "",usage = "",subContents = "",boardCreateDt = "")
+    private var board = PlatformBoardEntity(boardContent = "", boardTitle = "",userId = "",subFee = "",usage = "",subContents = "",boardCreateDt = "",ratingScore="")
     val boardDao = PlatformBoardDao()
 
     override fun onCreateView(
@@ -68,8 +61,17 @@ class platformBoardWriteFragment : DialogFragment() {
 //            }
 //        }//end of let
 
-        //별점 값
-//        lateinit var ratingBar: RatingBar
+        //별점
+        lateinit var rating_bar: RatingBar
+        lateinit var txt_rating_bar: TextView
+        var ratingScore =""
+        rating_bar = view.rating_bar
+        txt_rating_bar =view.txt_rating_bar
+
+        rating_bar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+            txt_rating_bar.text = rating.toString()
+            ratingScore=rating.toString()
+        }
 
         //태그 선택
         var selectFee : Boolean = false
@@ -342,14 +344,15 @@ class platformBoardWriteFragment : DialogFragment() {
 
                 /* 자동 스코프에 맞추어 코루틴을 실행*/
                 viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-                    val board = BoardEntity(
+                    val board = PlatformBoardEntity(
                         boardContent = board.boardContent,
                         boardTitle = board.boardTitle,
                         subFee = board.subFee,
                         usage = board.usage,
                         subContents = board.subContents,
                         userId = userId.toString(),
-                        boardCreateDt = setCreateDt()
+                        boardCreateDt = setCreateDt(),
+                        ratingScore = ratingScore
                     )
                     boardDao.writeBoard(data = board)
                 }

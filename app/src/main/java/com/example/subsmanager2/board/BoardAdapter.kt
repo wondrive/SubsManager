@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.PlatformBoardDao
-import com.example.subsmanager2.entity.BoardEntity
+import com.example.subsmanager2.entity.PlatformBoardEntity
 import kotlinx.android.synthetic.main.list_item_platform_board.view.*
 
 /*
@@ -22,7 +22,7 @@ firestore의 데이터 읽기 수행
 class BoardAdapter : RecyclerView.Adapter<BoardAdapter.ItemViewHolder>() {
 
     val platformBoardDao = PlatformBoardDao()
-    var platformBoardList = ArrayList<BoardEntity>()
+    var platformBoardList = ArrayList<PlatformBoardEntity>()
 
     //TODO: 반환 아이템은 최대 3개[done]
     private var platformBoardItemCount = 0
@@ -50,7 +50,7 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.ItemViewHolder>() {
                             .addOnSuccessListener { result ->
                                 platformBoardList.clear()
                                 for (document in result) {
-                                    val board = document.toObject(BoardEntity::class.java)
+                                    val board = document.toObject(PlatformBoardEntity::class.java)
                                     platformBoardList?.add(board)
                                     Log.d("board : ",board.boardTitle)
                                 }
@@ -67,7 +67,7 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.ItemViewHolder>() {
                             .addOnSuccessListener { result ->
                                 platformBoardList.clear()
                                 for (document in result) {
-                                    val board = document.toObject(BoardEntity::class.java)
+                                    val board = document.toObject(PlatformBoardEntity::class.java)
                                     platformBoardList?.add(board)
                                     Log.d("not board id: ", board.boardId.toString())
                                 }
@@ -110,13 +110,14 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.ItemViewHolder>() {
 
     //ItemViewHolder 클래스 선언
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindItems(board: BoardEntity) {
+        fun bindItems(board: PlatformBoardEntity) {
             /* 게시글 맵핑하기 */
             itemView.item_txt_title.text = board.boardTitle
             itemView.item_txt_content.text = board.boardContent
             itemView.item_txt_fee.text="구독료 : "+board.subFee
             itemView.item_txt_useage.text="지속 사용 여부 : " +board.usage
             itemView.item_txt_contents.text="컨텐츠 : " +board.subContents
+            itemView.item_txt_rating.text="평가 : "+board.ratingScore
             setSubAppIcon(board.boardTitle,itemView.img_sub_app)
 
             /* List 화면에서 아이템 뷰를 누르면 DetailFragment로 넘어감 */

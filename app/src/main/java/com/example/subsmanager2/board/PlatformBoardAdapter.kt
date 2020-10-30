@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.PlatformBoardDao
-import com.example.subsmanager2.entity.BoardEntity
+import com.example.subsmanager2.entity.PlatformBoardEntity
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.list_item_platform_board.view.*
 
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.list_item_platform_board.view.*
 class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewHolder>() {
 
     val boardDao = PlatformBoardDao()
-    var boardList = ArrayList<BoardEntity>()
+    var boardList = ArrayList<PlatformBoardEntity>()
 
     override fun getItemCount() = boardList.size
     var debug = printDebug()
@@ -35,7 +35,7 @@ class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewH
             .addOnSuccessListener { result ->
                 boardList.clear()
                 for (document in result) {
-                    val board = document.toObject(BoardEntity::class.java)
+                    val board = document.toObject(PlatformBoardEntity::class.java)
                     boardList?.add(board)
                     Log.d("board : ",board.boardTitle)
                 }
@@ -73,14 +73,14 @@ class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewH
     //ItemViewHolder 클래스 선언
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //아이템 뷰(list_item_note.xml)에 데이터 바인딩(noteTitle, noteImage)
-        fun bindItems(board: BoardEntity) {
+        fun bindItems(board: PlatformBoardEntity) {
             /* 게시글 맵핑하기 */
             itemView.item_txt_title.text = board.boardTitle
             itemView.item_txt_content.text = board.boardContent
             itemView.item_txt_fee.text="구독료 : "+board.subFee
             itemView.item_txt_useage.text="지속 사용 여부 : " +board.usage
             itemView.item_txt_contents.text="컨텐츠 : " +board.subContents
-//            itemView.item_rating_score.text="평가 : "+board.ratingScore
+            itemView.item_txt_rating.text="평가 : "+board.ratingScore
             setSubAppIcon(board.boardTitle,itemView.img_sub_app)
 
 

@@ -1,7 +1,7 @@
 package com.example.subsmanager2.dao
 
 import android.util.Log
-import com.example.subsmanager2.entity.BoardEntity
+import com.example.subsmanager2.entity.PlatformBoardEntity
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FieldValue
@@ -18,8 +18,7 @@ class PlatformBoardDao {
     val db by lazy {Firebase.firestore}
 
     // 게시글 작성 & platform_board_count 값을 증가해야함
-    fun writeBoard( data: BoardEntity){
-
+    fun writeBoard( data: PlatformBoardEntity){
         var boardId : Int = 0
 
         db.collection("count")

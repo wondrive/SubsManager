@@ -61,6 +61,12 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:id="@+id/item_txt_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+
+                <TextView
                     android:id="@+id/item_txt_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
