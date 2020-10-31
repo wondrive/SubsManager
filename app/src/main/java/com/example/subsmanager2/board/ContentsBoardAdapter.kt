@@ -87,7 +87,7 @@ class ContentsBoardAdapter : RecyclerView.Adapter<ContentsBoardAdapter.ItemViewH
             /* List 화면에서 아이템 뷰를 누르면 DetailFragment로 넘어감 */
             itemView.setOnClickListener {
                 Navigation.findNavController(itemView).navigate(
-                    R.id.action_boardListFragment_to_boardDetailFragment,
+                    R.id.action_boardListFragment_to_fragmentPlatformBoardDetail,
                     Bundle().apply {
                         /* //현재 선택한 Board의 id(primary key)
                           - noteIdx가 없는 리스트는 존재할 수 없으므로 강제 언래핑(Unwrapping)*/
