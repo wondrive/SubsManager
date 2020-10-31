@@ -13,5 +13,7 @@ data class ContentsBoardEntity(    // ID, 제목, 내용, 글쓴이, 이미지, 
     var contentsStory:String = "",         // 스토리
     var contentsAct:String = "",         // 연기력
     var contentsRestart:String = "",         // 재탕여부
-    var boardCreateDt:String=""      // 작성날짜
+    var boardCreateDt:String="",         // 작성날짜
+    var ratingScore:String="" //별점
+
 )
