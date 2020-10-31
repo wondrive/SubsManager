@@ -112,7 +112,7 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.ItemViewHolder>() {
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(board: PlatformBoardEntity) {
             /* 게시글 맵핑하기 */
-            itemView.item_txt_title.text = board.boardTitle
+            itemView.item_txt_platform.text = board.boardTitle
             itemView.item_txt_content.text = board.boardContent
             itemView.item_txt_fee.text="구독료 : "+board.subFee
             itemView.item_txt_useage.text="지속 사용 여부 : " +board.usage
@@ -123,7 +123,8 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.ItemViewHolder>() {
             /* List 화면에서 아이템 뷰를 누르면 DetailFragment로 넘어감 */
             itemView.setOnClickListener {
                 Navigation.findNavController(itemView).navigate(
-                    R.id.action_boardListFragment_to_boardDetailFragment,
+                    //platform detail로 이동
+                    R.id.action_boardListFragment_to_fragmentPlatformBoardDetail,
                     Bundle().apply {
                         /* //현재 선택한 Board의 id(primary key)
                           - noteIdx가 없는 리스트는 존재할 수 없으므로 강제 언래핑(Unwrapping)*/

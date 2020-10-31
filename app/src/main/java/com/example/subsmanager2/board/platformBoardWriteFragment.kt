@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.PlatformBoardDao
-import com.example.subsmanager2.database.DatabaseModule
 import com.example.subsmanager2.entity.PlatformBoardEntity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_platform_board_write.*
@@ -39,27 +38,6 @@ class platformBoardWriteFragment : DialogFragment() {
         return rootView
     }//end of onCreateView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-// 아마 나중에 삭제될 코드
-//        val updateYn = arguments?.getString("UPDATE_YN") ?: "N"
-//        if(updateYn.equals("Y")) {
-//            val boardId = arguments?.getLong("BOARD_ID") ?: kotlin.run { throw Error("BOARD_ID가 없습니다.") }
-//            viewLifecycleOwner.lifecycleScope.launch {
-//                /* 미리 변수를 선언 */
-//                var savedBoard: BoardEntity? = null
-//                /* 노트를 쿼리.*/
-//                withContext(Dispatchers.IO) {
-//                    savedBoard = dao.selectBoard(boardId)
-//                }
-//                /* 노트가 존재한다면 note를 변경*/
-//                savedBoard?.let {
-//                    board = it //쿼리한 노트 객체를 note에 저장
-////                    view.txt_title.setText(it.boardTitle)
-//                    view.txt_content.setText(it.boardContent)
-//                }
-//            }
-//        }//end of let
 
         //별점
         lateinit var rating_bar: RatingBar
@@ -312,12 +290,15 @@ class platformBoardWriteFragment : DialogFragment() {
         }
 
 
+
+        //어댑터 생성
+        var boardAdapter = PlatformBoardAdapter()
         //작성하기 버튼을 눌렀을때
         view.btn_save.setOnClickListener {
             // TODO: star rating
 
-//            val msg = ratingBar.rating.toString()
-//            Toast.makeText(this.context, "Rating is: "+msg, Toast.LENGTH_SHORT).show()
+//          val msg = ratingBar.rating.toString()
+//          Toast.makeText(this.context, "Rating is: "+msg, Toast.LENGTH_SHORT).show()
 
             //후기에 등록할 구독 앱
             val spinner_subapp_list : Spinner = view.spinner_subapp_list
@@ -333,7 +314,6 @@ class platformBoardWriteFragment : DialogFragment() {
             if (selectContents || selectFee || selectUsage) {
                 Toast.makeText(requireContext(), "필수항목을 작성해주세요!", Toast.LENGTH_LONG).show()
             } else {
-
                 /*
                 * TODO: 한 userid는 중복된 플랫폼 리뷰를 쓸 수 없음
                  */
@@ -358,6 +338,7 @@ class platformBoardWriteFragment : DialogFragment() {
                 }
             }
             findNavController().popBackStack()
+
         }
     }//end of view.btn_save.setOnClickListener
 }//end of onViewCreated

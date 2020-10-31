@@ -17,7 +17,7 @@ class PlatformBoardDao {
 
     val db by lazy {Firebase.firestore}
 
-    // 게시글 작성 & platform_board_count 값을 증가해야함
+    // 게시글 Create & platform_board_count 값을 증가해야함
     fun writeBoard( data: PlatformBoardEntity){
         var boardId : Int = 0
 
@@ -26,13 +26,11 @@ class PlatformBoardDao {
             .get()
             .addOnSuccessListener { document ->
                 if (document != null) {
-                    Log.d("board id : ", document.get("count").toString())
                     boardId = Integer.parseInt(document.get("count").toString())
                     boardId +=1
 
                     //wirte
                     data.boardId = boardId.toLong()
-                    Log.d("data,boardId:",data.boardId.toString())
                     db.collection("platform_board")
                         .document(data.boardId.toString())
                         .set(data)
