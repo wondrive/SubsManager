@@ -31,6 +31,7 @@ class BoardListFragment : Fragment() {
     //어댑터 생성
     val boardAdapter = BoardAdapter()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

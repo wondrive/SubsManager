@@ -80,7 +80,7 @@ class ContentsBoardAdapter : RecyclerView.Adapter<ContentsBoardAdapter.ItemViewH
             itemView.content_txt_story.text="스토리 : "+board.contentsStory
             itemView.content_txt_restart.text="재시청 여부 : " +board.contentsRestart
             itemView.content_txt_act.text="연기력 : " +board.contentsAct
-//            itemView.item_rating_score.text="평가 : "+board.ratingScore
+            itemView.content_txt_rating.text="평가 : "+board.ratingScore
             setSubAppIcon(board.boardTitle,itemView.img_sub_app)
 
 

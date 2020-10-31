@@ -1,13 +1,12 @@
 package com.example.subsmanager2.board
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -19,6 +18,8 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_contents_board_write.*
 import kotlinx.android.synthetic.main.fragment_contents_board_write.view.*
 import kotlinx.android.synthetic.main.fragment_contents_board_write.view.btn_save
+import kotlinx.android.synthetic.main.fragment_contents_board_write.view.rating_bar
+import kotlinx.android.synthetic.main.fragment_contents_board_write.view.txt_content
 import kotlinx.android.synthetic.main.fragment_join.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,7 +29,7 @@ import java.util.*
 
 class contentsBoardWriteFragment : DialogFragment() {
 
-    private var board = ContentsBoardEntity(boardContent = "", userId = "", boardTitle = "", contentsStory = "", contentsAct = "", contentsRestart = "", boardCreateDt = "")
+    private var board = ContentsBoardEntity(boardContent = "", userId = "", boardTitle = "", contentsStory = "", contentsAct = "", contentsRestart = "", boardCreateDt = "", ratingScore = "")
     val boardDao = ContentsBoardDao()
 
     override fun onCreateView(
@@ -43,6 +44,20 @@ class contentsBoardWriteFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //별점
+        lateinit var rating_bar: RatingBar
+        lateinit var txt_rating_bar: TextView
+        var ratingScore = ""
+        rating_bar = view.rating_bar
+        txt_rating_bar = view.txt_rating_bar
+
+        rating_bar.setOnRatingBarChangeListener {ratingBar, rating, fromUser ->
+            txt_rating_bar.text = rating.toString()
+            ratingScore = rating.toString()
+            Log.d("ratingscore", ratingScore)
+
+        }
 
         var selectStory : Boolean = false
         var selectAct : Boolean = false
@@ -295,7 +310,8 @@ class contentsBoardWriteFragment : DialogFragment() {
                         contentsAct = board.contentsAct,
                         contentsRestart = board.contentsRestart,
                         userId = userId.toString(),
-                        boardCreateDt = setCreateDt()
+                        boardCreateDt = setCreateDt(),
+                        ratingScore = ratingScore
                     )
                     boardDao.contensWriteBoard(data = board)
                 }
