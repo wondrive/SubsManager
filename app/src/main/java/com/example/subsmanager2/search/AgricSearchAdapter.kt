@@ -15,6 +15,8 @@ class AgricSearchAdapter() : RecyclerView.Adapter<AgricSearchAdapter.ItemViewHol
     // 받아온 데이터를 저장할 list
     var agricList: List<AgricEntity> = ArrayList()
 
+
+
     // 어뎁터에서 관리할 아이템 갯수 반환
     override fun getItemCount() = agricList.size
 

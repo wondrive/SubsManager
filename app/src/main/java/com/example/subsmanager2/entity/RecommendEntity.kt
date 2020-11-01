@@ -8,7 +8,7 @@ data class RecommendEntity(    //
     var planName:String     = "",
     var subsName:String     = "",
     var fee:String          = "",
-    var boardRating:Double  = 0.0,
+    var boardRating:Float  = 0.0F,
     var imgUrl:String       = ""
 ) {
     @Exclude
