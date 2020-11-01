@@ -38,6 +38,7 @@ class RecommendListFragment : Fragment() {
         rootView.list_recommend.layoutManager = LinearLayoutManager(requireContext())
 
         //recommendAdapter.recommendList = recommendDao.selectRecommendList("영화/드라마")
+        //recommendAdapter.notifyDataSetChanged()
 
         return rootView
     }
@@ -51,10 +52,10 @@ class RecommendListFragment : Fragment() {
             val selectCategory = view.spinner_category.selectedItem.toString()
             Log.i(TAG, "검색조건 : "+selectCategory)
 
-
+            //recommendAdapter.recommendList.clear()
             // Dao에서 리스트 뽑아 바인딩
             //recommendAdapter.recommendList = recommendDao.selectRecommendList(selectCategory = selectCategory)
-            //Log.i(TAG, "검색결과 : "+recommendAdapter.recommendList)
+            Log.i(TAG, "검색결과 : "+recommendAdapter.recommendList)
             //recommendAdapter.notifyDataSetChanged()
 
             /* 검색 완료 후 로딩바 사라지기 . */
