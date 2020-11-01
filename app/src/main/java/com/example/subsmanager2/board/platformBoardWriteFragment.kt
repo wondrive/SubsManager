@@ -2,8 +2,6 @@ package com.example.subsmanager2.board
 
 import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -14,18 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.PlatformBoardDao
-import com.example.subsmanager2.database.DatabaseModule
-import com.example.subsmanager2.entity.BoardEntity
+import com.example.subsmanager2.entity.PlatformBoardEntity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import com.google.firestore.*
 import kotlinx.android.synthetic.main.fragment_platform_board_write.*
 import kotlinx.android.synthetic.main.fragment_platform_board_write.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,7 +25,7 @@ import java.util.*
 class platformBoardWriteFragment : DialogFragment() {
 
     /* note 객체 생성 및 초기화. */
-    private var board = BoardEntity(boardContent = "", boardTitle = "",userId = "",subFee = "",usage = "",subContents = "",boardCreateDt = "")
+    private var board = PlatformBoardEntity(boardContent = "", boardTitle = "",userId = "",subFee = "",usage = "",subContents = "",boardCreateDt = "",ratingScore="")
     val boardDao = PlatformBoardDao()
 
     override fun onCreateView(
@@ -46,30 +38,18 @@ class platformBoardWriteFragment : DialogFragment() {
         return rootView
     }//end of onCreateView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-// 아마 나중에 삭제될 코드
-//        val updateYn = arguments?.getString("UPDATE_YN") ?: "N"
-//        if(updateYn.equals("Y")) {
-//            val boardId = arguments?.getLong("BOARD_ID") ?: kotlin.run { throw Error("BOARD_ID가 없습니다.") }
-//            viewLifecycleOwner.lifecycleScope.launch {
-//                /* 미리 변수를 선언 */
-//                var savedBoard: BoardEntity? = null
-//                /* 노트를 쿼리.*/
-//                withContext(Dispatchers.IO) {
-//                    savedBoard = dao.selectBoard(boardId)
-//                }
-//                /* 노트가 존재한다면 note를 변경*/
-//                savedBoard?.let {
-//                    board = it //쿼리한 노트 객체를 note에 저장
-////                    view.txt_title.setText(it.boardTitle)
-//                    view.txt_content.setText(it.boardContent)
-//                }
-//            }
-//        }//end of let
+        //별점
+        lateinit var rating_bar: RatingBar
+        lateinit var txt_rating_bar: TextView
+        var ratingScore =""
+        rating_bar = view.rating_bar
+        txt_rating_bar =view.txt_rating_bar
 
-        //별점 값
-//        lateinit var ratingBar: RatingBar
+        rating_bar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+            txt_rating_bar.text = rating.toString()
+            ratingScore=rating.toString()
+        }
 
         //태그 선택
         var selectFee : Boolean = false
@@ -310,12 +290,15 @@ class platformBoardWriteFragment : DialogFragment() {
         }
 
 
+
+        //어댑터 생성
+        var boardAdapter = PlatformBoardAdapter()
         //작성하기 버튼을 눌렀을때
         view.btn_save.setOnClickListener {
             // TODO: star rating
 
-//            val msg = ratingBar.rating.toString()
-//            Toast.makeText(this.context, "Rating is: "+msg, Toast.LENGTH_SHORT).show()
+//          val msg = ratingBar.rating.toString()
+//          Toast.makeText(this.context, "Rating is: "+msg, Toast.LENGTH_SHORT).show()
 
             //후기에 등록할 구독 앱
             val spinner_subapp_list : Spinner = view.spinner_subapp_list
@@ -331,7 +314,6 @@ class platformBoardWriteFragment : DialogFragment() {
             if (selectContents || selectFee || selectUsage) {
                 Toast.makeText(requireContext(), "필수항목을 작성해주세요!", Toast.LENGTH_LONG).show()
             } else {
-
                 /*
                 * TODO: 한 userid는 중복된 플랫폼 리뷰를 쓸 수 없음
                  */
@@ -342,19 +324,21 @@ class platformBoardWriteFragment : DialogFragment() {
 
                 /* 자동 스코프에 맞추어 코루틴을 실행*/
                 viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-                    val board = BoardEntity(
+                    val board = PlatformBoardEntity(
                         boardContent = board.boardContent,
                         boardTitle = board.boardTitle,
                         subFee = board.subFee,
                         usage = board.usage,
                         subContents = board.subContents,
                         userId = userId.toString(),
-                        boardCreateDt = setCreateDt()
+                        boardCreateDt = setCreateDt(),
+                        ratingScore = ratingScore
                     )
                     boardDao.writeBoard(data = board)
                 }
             }
             findNavController().popBackStack()
+
         }
     }//end of view.btn_save.setOnClickListener
 }//end of onViewCreated

@@ -33,7 +33,7 @@
                 app:layout_constraintStart_toEndOf="@+id/img_sub_app">
 
                 <TextView
-                    android:id="@+id/item_txt_title"
+                    android:id="@+id/item_txt_platform"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TextView" />
@@ -59,6 +59,12 @@
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/item_txt_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
 
                 <TextView
                     android:id="@+id/item_txt_fee"

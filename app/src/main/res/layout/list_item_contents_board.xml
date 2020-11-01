@@ -16,6 +16,7 @@
         app:cardCornerRadius="16dp"
         app:contentPadding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.88"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -59,6 +60,12 @@
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/content_txt_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
 
                 <TextView
                     android:id="@+id/content_txt_restart"

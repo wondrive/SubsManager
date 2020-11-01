@@ -88,29 +88,18 @@
         android:label="플랫폼 평가 게시판"
         tools:layout="@layout/fragment_board_list">
         <action
-            android:id="@+id/action_boardListFragment_to_boardDetailFragment"
-            app:destination="@id/boardDetailFragment"
-            app:popUpTo="@id/boardListFragment"
-            app:popUpToInclusive="false" />
-        <action
             android:id="@+id/action_boardListFragment_to_platfromBoardFragment"
             app:destination="@id/platfromBoardFragment" />
         <action
             android:id="@+id/action_boardListFragment_to_contentsBoardFragment"
             app:destination="@id/contensBoardFragment" />
+        <action
+            android:id="@+id/action_boardListFragment_to_fragmentPlatformBoardDetail"
+            app:destination="@id/fragmentPlatformBoardDetail" />
+        <action
+            android:id="@+id/action_boardListFragment_to_fragmentContentsBoardDetail"
+            app:destination="@+id/fragmentContentBoardDetail" />
 
-    </fragment>
-    <fragment
-        android:id="@+id/boardDetailFragment"
-        android:name="com.example.subsmanager2.board.BoardDetailFragment"
-        android:label="게시판 상세보기"
-        tools:layout="@layout/fragment_board_detail">
-        <argument
-            android:name="BOARD_ID"
-            app:argType="long" />
-        <argument
-            android:name="USER_ID"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/mypageFragment"
@@ -128,6 +117,9 @@
         <action
             android:id="@+id/action_platfromBoardFragment_to_platformBoardWriteFragment"
             app:destination="@id/platformBoardWriteFragment" />
+        <action
+            android:id="@+id/action_platfromBoardFragment_to_fragmentPlatformBoardDetail"
+            app:destination="@id/fragmentPlatformBoardDetail" />
     </fragment><![CDATA[
     tools:layout="@layout/fragment_platfrom_board" />
     ]]><!--<fragment
@@ -146,6 +138,9 @@
         <action
             android:id="@+id/action_contentsBoardFragment_to_contentsBoardWriteFragment"
             app:destination="@id/contentsBoardWriteFragment" />
+        <action
+            android:id="@+id/action_contentsBoardFragment_to_fragmentContentsBoardDetail"
+            app:destination="@+id/fragmentContentBoardDetail" />
     </fragment>
 
 
@@ -214,4 +209,14 @@
         android:name="com.example.subsmanager2.board.contentsBoardWriteFragment"
         android:label="fragment_contents_board_write"
         tools:layout="@layout/fragment_contents_board_write" />
+    <fragment
+        android:id="@+id/fragmentPlatformBoardDetail"
+        android:name="com.example.subsmanager2.board.FragmentPlatformBoardDetail"
+        android:label="fragment_platform_board_detail"
+        tools:layout="@layout/fragment_platform_board_detail" />
+    <fragment
+        android:id="@+id/fragmentContentBoardDetail"
+        android:name="com.example.subsmanager2.board.FragmentContentsBoardDetail"
+        android:label="fragment_contents_board_detail"
+        tools:layout="@layout/fragment_contents_board_detail" />
 </navigation>
