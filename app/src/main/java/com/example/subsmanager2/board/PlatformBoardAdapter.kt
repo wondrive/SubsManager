@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.PlatformBoardDao
 import com.example.subsmanager2.entity.PlatformBoardEntity
+import com.example.subsmanager2.entity.SubsEntity
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.list_item_platform_board.view.*
 
@@ -28,18 +29,32 @@ class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewH
         boardDao.db.collection("platform_board")
             // 최신순으로 데이터를 가져옴
             .orderBy("boardId", Query.Direction.DESCENDING)
-            .get()
-            .addOnSuccessListener { result ->
+            .addSnapshotListener(){ querySnapshot, firebaseFirestoreException ->
+                // ArrayList 비워줌
                 boardList.clear()
-                for (document in result) {
-                    val board = document.toObject(PlatformBoardEntity::class.java)
-                    boardList?.add(board)
+                for (snapshot in querySnapshot!!.documents) {
+                    val board = snapshot.toObject(PlatformBoardEntity::class.java)
+                    if (board != null) {
+                        boardList?.add(board)
+                    }
                 }
                 notifyDataSetChanged()
             }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
-            }
+
+
+
+//            .get()
+//            .addOnSuccessListener { result ->
+//                boardList.clear()
+//                for (document in result) {
+//                    val board = document.toObject(PlatformBoardEntity::class.java)
+//                    boardList?.add(board)
+//                }
+//                notifyDataSetChanged()
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.w(TAG, "Error getting documents.", exception)
+//            }
     }
 
     //리뷰한 구독 앱 사진 등록
@@ -66,8 +81,6 @@ class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewH
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         //뷰홀더에 데이터를 바인딩하는 bindItems() 메서드 호출
         holder.bindItems(boardList.get(position))
-
-
     }
 
 
@@ -89,6 +102,7 @@ class PlatformBoardAdapter : RecyclerView.Adapter<PlatformBoardAdapter.ItemViewH
                 // 클릭한 아이템의 인덱스
                 var index = adapterPosition
                 if (index != NO_POSITION) {
+
                     Navigation.findNavController(itemView).navigate(
                         R.id.action_platfromBoardFragment_to_fragmentPlatformBoardDetail,
                         //아 ~ 테스형 ~ 정답은 가까이에 있었군요 ~ 승원씨가 작성한 agricAdapter가 Bundle로 id값 넘기는걸 이제 봤어 테스형 ~

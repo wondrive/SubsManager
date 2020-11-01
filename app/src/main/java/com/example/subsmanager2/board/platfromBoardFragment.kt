@@ -18,26 +18,29 @@ class platfromBoardFragment : Fragment() {
 
     //어댑터 생성
     var boardAdapter = PlatformBoardAdapter()
+    var rootView:View?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         //fragment_list 인플레이션
-        val rootView = inflater.inflate(R.layout.fragment_platfrom_board, container, false)
-
+        rootView = inflater.inflate(R.layout.fragment_platfrom_board, container, false)
         //게시글 작성
-        rootView.fab_add_note.setOnClickListener {
+        rootView?.fab_add_note?.setOnClickListener {
             findNavController().navigate(R.id.action_platfromBoardFragment_to_platformBoardWriteFragment)
         }
-
-        /* 어댑터 초기화*/
-        rootView.platformlist.adapter = boardAdapter
-        rootView.platformlist.layoutManager = LinearLayoutManager(requireContext())
-
         return rootView// 생성한 fragment_list 뷰 반환
-
     }//end of onCreateView
+
+    override fun onResume() {
+        super.onResume()
+        /* 어댑터 초기화*/
+        Log.d("this is","platformboard")
+
+        rootView?.platformlist?.adapter = boardAdapter
+        rootView?.platformlist?.layoutManager = LinearLayoutManager(requireContext())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,4 +54,3 @@ class platfromBoardFragment : Fragment() {
         super.onDestroy()
     }
 }
-
