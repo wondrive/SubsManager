@@ -102,13 +102,12 @@ class RecommendAdapter : RecyclerView.Adapter<RecommendAdapter.ItemViewHolder>()
     //ItemViewHolder 클래스 선언
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(recommend: RecommendEntity) {
-
             recommend?.let {
                 Log.i(TAG, "bindItems ::: " + recommend)
                 /* 게시글 맵핑하기 */
                 itemView.item_txt_plan_name.text = recommend.planName
                 itemView.item_txt_subs_name.text = recommend.subsName
-                itemView.item_rating.rating = recommend.boardRating
+                itemView.item_rating.rating = recommend.boardRating.toFloat()
                 itemView.item_txt_fee.text = recommend.fee+"￦"
 
                 // 이미지 추후 처리
