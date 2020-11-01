@@ -46,19 +46,30 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.ItemViewHolder>() {
                             // 최신순으로 데이터를 3개 가져옴
                             .orderBy("boardId", com.google.firebase.firestore.Query.Direction.DESCENDING)
                             .limit(3)
-                            .get()
-                            .addOnSuccessListener { result ->
+                            .addSnapshotListener(){ querySnapshot, firebaseFirestoreException ->
+                                // ArrayList 비워줌
                                 platformBoardList.clear()
-                                for (document in result) {
-                                    val board = document.toObject(PlatformBoardEntity::class.java)
-                                    platformBoardList?.add(board)
-                                    Log.d("board : ",board.boardTitle)
+                                for (snapshot in querySnapshot!!.documents) {
+                                    val board = snapshot.toObject(PlatformBoardEntity::class.java)
+                                    if (board != null) {
+                                        platformBoardList?.add(board)
+                                    }
                                 }
                                 notifyDataSetChanged()
                             }
-                            .addOnFailureListener { exception ->
-                                Log.w(TAG, "Error getting documents.", exception)
-                            }
+//                            .get()
+//                            .addOnSuccessListener { result ->
+//                                platformBoardList.clear()
+//                                for (document in result) {
+//                                    val board = document.toObject(PlatformBoardEntity::class.java)
+//                                    platformBoardList?.add(board)
+//                                    Log.d("board : ",board.boardTitle)
+//                                }
+//                                notifyDataSetChanged()
+//                            }
+//                            .addOnFailureListener { exception ->
+//                                Log.w(TAG, "Error getting documents.", exception)
+//                            }
                     }
                     // 작성된 게시글이 3개 이하일 때
                     else {

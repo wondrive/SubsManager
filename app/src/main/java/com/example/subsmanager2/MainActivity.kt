@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    val testdata:Int =0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,7 +25,9 @@ class MainActivity : AppCompatActivity() {
         controller.addOnDestinationChangedListener { _, destination, _ ->
             /* 최종 destination에서 네비바 없애기*/
             if (arrayListOf(
-                    R.id.subsListFragment, R.id.recommendListFragment, R.id.boardListFragment,
+                    R.id.subsListFragment,
+                    R.id.recommendListFragment,
+                    R.id.boardListFragment,
                     R.id.mypageFragment
                 ).contains(destination.id)
             ) {
