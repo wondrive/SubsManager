@@ -141,7 +141,7 @@ class contentsBoardWriteFragment : DialogFragment() {
                                 btn_story2.setBackgroundResource(R.drawable.button_review)
 
                                 btn_story3.setBackgroundResource(R.drawable.button_review_click)
-                                story = btn_story1.text as String
+                                story = btn_story3.text as String
                                 selectStory = !selectStory
                             } else {
                                 selectStory = !selectStory
@@ -210,7 +210,7 @@ class contentsBoardWriteFragment : DialogFragment() {
                                 btn_acting2.setBackgroundResource(R.drawable.button_review)
 
                                 btn_acting3.setBackgroundResource(R.drawable.button_review_click)
-                                acting = btn_acting1.text as String
+                                acting = btn_acting3.text as String
                                 selectAct = !selectAct
                             } else {
                                 selectAct = !selectAct
