@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.DiffUtil.DiffResult.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.ContentsBoardDao
@@ -83,18 +84,17 @@ class ContentsBoardAdapter : RecyclerView.Adapter<ContentsBoardAdapter.ItemViewH
             itemView.content_txt_rating.text="평가 : "+board.ratingScore
             setSubAppIcon(board.boardTitle,itemView.img_sub_app)
 
-
             /* List 화면에서 아이템 뷰를 누르면 DetailFragment로 넘어감 */
             itemView.setOnClickListener {
-                Navigation.findNavController(itemView).navigate(
-                    R.id.action_boardListFragment_to_fragmentPlatformBoardDetail,
-                    Bundle().apply {
-                        /* //현재 선택한 Board의 id(primary key)
-                          - noteIdx가 없는 리스트는 존재할 수 없으므로 강제 언래핑(Unwrapping)*/
-                        putLong("BOARD_ID", board.boardId!!)
-                        putString("USER_ID", board.userId!!)
-                        putString("UPDATE_YN", "Y")
-                    })
+
+                var index = adapterPosition
+                if(index != NO_POSITION) {
+                    Navigation.findNavController(itemView).navigate(
+                        R.id.action_contentsBoardFragment_to_fragmentContentsBoardDetail,
+                        Bundle().apply{
+                            putString("boardId", board.boardId.toString()!!)
+                        })
+                }
             }//end of setOnClickListener
         }//end of bindItems
     }//end of ItemViewHolder

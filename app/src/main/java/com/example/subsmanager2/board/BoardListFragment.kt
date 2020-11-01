@@ -30,6 +30,7 @@ class BoardListFragment : Fragment() {
 
     //어댑터 생성
     val boardAdapter = BoardAdapter()
+    val boardAdapter2 = BoardAdapter2()
 
 
     override fun onCreateView(
@@ -58,6 +59,9 @@ class BoardListFragment : Fragment() {
         // platform adapter
         rootView.platformlist.adapter = boardAdapter
         rootView.platformlist.layoutManager = LinearLayoutManager(requireContext())
+        //contents adapter
+        rootView.contentslist.adapter = boardAdapter2
+        rootView.contentslist.layoutManager = LinearLayoutManager(requireContext())
 
         //플랫폼 게시판 전체보기
         rootView.btn_show_all_platform.setOnClickListener{
