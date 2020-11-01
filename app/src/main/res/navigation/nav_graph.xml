@@ -166,16 +166,15 @@
         android:name="com.example.subsmanager2.subs.SubsDetailFragment"
         android:label="fragment_subs_detail"
         tools:layout="@layout/fragment_subs_detail" >
-        <action
-            android:id="@+id/action_subsDetailFragment_to_subsWriteFragment"
-            app:destination="@id/subsWriteFragment"
-            app:popUpTo="@id/subsDetailFragment" />
         <argument
             android:name="SUBS_ID"
             app:argType="long" />
         <argument
             android:name="USER_ID"
             app:argType="string" />
+        <action
+            android:id="@+id/action_subsDetailFragment_to_fragmentSubsUpdate"
+            app:destination="@id/fragmentSubsUpdate" />
     </fragment>
     <fragment
         android:id="@+id/subsWriteFragment"
@@ -219,4 +218,9 @@
         android:name="com.example.subsmanager2.board.FragmentContentsBoardDetail"
         android:label="fragment_contents_board_detail"
         tools:layout="@layout/fragment_contents_board_detail" />
+    <fragment
+        android:id="@+id/fragmentSubsUpdate"
+        android:name="com.example.subsmanager2.subs.FragmentSubsUpdate"
+        android:label="fragment_subs_update"
+        tools:layout="@layout/fragment_subs_update" />
 </navigation>
