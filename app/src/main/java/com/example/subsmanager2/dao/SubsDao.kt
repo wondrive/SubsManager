@@ -9,6 +9,8 @@ import com.google.firebase.database.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
@@ -16,6 +18,9 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 class SubsDao {
 
     val TAG = "SubsDao"
+
+    //db
+    val db by lazy { Firebase.firestore}
 
     // JSON 라이브러리 모시(moshi) 플러그인
     val moshi by lazy {
@@ -121,17 +126,20 @@ class SubsDao {
 
     // 업데이트
     fun updateSubs(subs: SubsEntity) {
-        //firebaseRef.child("subs").child(subs.subsId.toString()).setValue(subs)
+        db.collection("subs")
+            .document(subs.subsId.toString())
+            .set(subs)
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
     }
 
     // 삭제
     fun deleteSubs(subsId: Long) {
-        /*firebaseRef.child("subs").child(subsId.toString()).setValue(null)*/
-
-        /*db.collection("cities").document("DC")
+        db.collection("subs")
+            .document(subsId.toString())
             .delete()
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }*/
+            .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }
     }
 
 }

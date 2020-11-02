@@ -6,37 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".subs.SubsDetailFragment">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="50dp"
-        app:cardCornerRadius="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/txt_subs_custom_name"
-                android:layout_width="192dp"
-                android:layout_height="34dp"
-                android:layout_marginTop="40dp"
-                android:text="Loading..."
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:textStyle="bold|italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!--<ImageView
+        <!--<ImageView
                 android:id="@+id/img_agric"
                 android:layout_width="179dp"
                 android:layout_height="128dp"
@@ -45,183 +26,161 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_agric_name" />-->
 
-            <ScrollView
-                android:layout_width="343dp"
-                android:layout_height="494dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_subs_custom_name">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내가 구독중인 서비스"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:text="이달 사용량"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/orange"
+                    android:textSize="18sp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/txt_usage"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </TableRow>
 
-                        <TextView
-                            android:id="@+id/textView13"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:text="구독 서비스"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                        <TextView
-                            android:id="@+id/txt_subs_name"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:text="TextView"
-                            android:textSize="14sp" />
-                    </LinearLayout>
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="구독 서비스"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/orange"
+                    android:textSize="18sp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/txt_subs_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </TableRow>
 
-                        <TextView
-                            android:id="@+id/textView12"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:text="정기 결제일"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                        <TextView
-                            android:id="@+id/txt_charge_date"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:text="TextView"
-                            android:textSize="14sp" />
-                    </LinearLayout>
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="정기 결제일"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/orange"
+                    android:textSize="18sp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/txt_charge_date"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
 
-                        <TextView
-                            android:id="@+id/textView14"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:text="구독료"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/colorAccent"
-                            android:textStyle="bold" />
+            </TableRow>
 
-                        <TextView
-                            android:id="@+id/txt_fee"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:text="TextView" />
-                    </LinearLayout>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="구독료"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/orange"
+                    android:textSize="18sp" />
 
-                        <TextView
-                            android:id="@+id/textView17"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:text="알람 D-day"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/colorAccent"
-                            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txt_fee"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
 
-                        <TextView
-                            android:id="@+id/txt_alarm_d_day"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:text="TextView" />
-                    </LinearLayout>
+            </TableRow>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:orientation="horizontal">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                        <TextView
-                            android:id="@+id/textView15"
-                            android:layout_width="35dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:text="이달 사용량"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/colorAccent"
-                            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:text="알람 D-day"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/orange"
+                    android:textSize="18sp" />
 
-                        <TextView
-                            android:id="@+id/txt_usage"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="5"
-                            android:text="TextView" />
-                    </LinearLayout>
-                </LinearLayout>
-            </ScrollView>
+                <TextView
+                    android:id="@+id/txt_alarm_d_day"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout2"
+            </TableRow>
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout">
+
+            <Button
+                android:id="@+id/btn_detail_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="32dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/scrollview">
+                android:layout_marginRight="10dp"
+                android:background="@drawable/button_review"
+                android:text="수정" />
 
-                <Button
-                    android:id="@+id/btn_detail_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginRight="50dp"
-                    android:text="수정" />
-
-                <Button
-                    android:id="@+id/btn_detail_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:backgroundTint="@color/colorAccent"
-                    android:text="삭제" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_detail_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_review"
+                android:text="삭제" />
+        </LinearLayout>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import com.example.subsmanager2.dao.SubsDao
 import com.example.subsmanager2.database.DatabaseModule
 import com.example.subsmanager2.entity.SubsEntity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_subs_detail.*
 import kotlinx.android.synthetic.main.fragment_subs_detail.view.*
 import kotlinx.android.synthetic.main.fragment_subs_detail.view.txt_subs_name
@@ -28,8 +29,13 @@ import kotlinx.coroutines.launch
 class SubsDetailFragment : Fragment() {
 
     val TAG = "SubsDetailFragment"
+
     //dao 참조
     private val subsDao by lazy { SubsDao() }
+
+    private var subsId:Long =0
+    private var userId:String=""
+    private var updateYn:String=""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,8 +49,9 @@ class SubsDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // arguments에서 SUBS_ID 추출
-        val subsId = arguments?.getLong("SUBS_ID") ?: kotlin.run { throw Error("SUBS_ID가 없습니다.") }
-        val userId = arguments?.getString("USER_ID") ?: kotlin.run { throw Error("USER_ID가 없습니다.") }
+        subsId = arguments?.getLong("SUBS_ID") ?: kotlin.run { throw Error("SUBS_ID가 없습니다.") }
+        userId = arguments?.getString("USER_ID") ?: kotlin.run { throw Error("USER_ID가 없습니다.") }
+        updateYn = arguments?.getString("UPDATE_YN")?:kotlin.run { throw  Error("Update_YN이 없습니다.") }
 
         // 본인 게시글일때만 수정, 삭제 버튼 보이게
         FirebaseAuth.getInstance().currentUser?.let {
@@ -59,35 +66,47 @@ class SubsDetailFragment : Fragment() {
 
         /* DetailFragment에서 LiveData observe
            - DB에서 트랜잭션(Transaction)이 발생하면 UI를 갱신
+           - (박진아 작성: 음.. LiveData observe에 대한 개념이 없어서 바로 firestore과 연결하는 것으로 구현했습니다☔︎
         */
-        subsDao.selectLiveSubs(subsId)?.observe(viewLifecycleOwner, Observer {
-            view.txt_subs_name.setText(it.subsName)
-            Log.d(TAG, "Subs_Detail 출력 ::: " + it.subsName)
-        })
+//        subsDao.selectLiveSubs(subsId)?.observe(viewLifecycleOwner, Observer {
+//            view.txt_subs_name.text=it.subsName
+//            Log.d(TAG, "Subs_Detail 출력 ::: " + it.subsName)
+//        })
 
-        /*val subs:SubsEntity? = subsDao.selectSubs(subsId)
-        if(subs != null) {
-            txt_subs_name.setText(subs.subsName)
-            Log.d(TAG, "Subs_Detail 성공 ::: " + subs.subsName)
-        } else {
-            Log.d(TAG, "Subs_Detail 실패 ::: ")
-        }*/
+        //데이터 파싱
+        val firestore by lazy { FirebaseFirestore.getInstance() }
+        var subs = SubsEntity()
+        firestore.collection("subs").whereEqualTo("subsId", subsId)
+            .get()
+            .addOnSuccessListener { documentSnapshot ->
+                for(document in documentSnapshot!!) {
+                    Log.d(TAG, "Subs_Detail  ::: " + document.data)
+                    subs = document.toObject(SubsEntity::class.java)
+                    view.txt_subs_name.text=subs.subsName
+                    view.txt_charge_date.text=subs.feeDate
+                    view.txt_fee.text=subs.fee
+                    view.txt_alarm_d_day.text=subs.alarmDday
+                    view.txt_usage.text="미정"
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Subs 상세 읽기 실패: ", exception)
+            }
 
-        /* 수정버튼 */
+        // 데이터 수정 -- 작업중입니다.^^
         view.btn_detail_edit.setOnClickListener {
             //childFragmentManager:  Fragment에서 다른 Fragment를 만들 때(DetailFragment에서 DialFragment 만들 때)
             //RecipeWriteFragment().show(childFragmentManager, recipeId.toString())
-
-            findNavController().navigate(R.id.action_subsDetailFragment_to_subsRegisterFragment,
+            findNavController().navigate(R.id.action_subsDetailFragment_to_fragmentSubsUpdate,
                 Bundle().apply {
                     putLong("SUBS_ID", subsId!!)
-                    putString("UPDATE_YN", "Y")
+                    putString("UPDATE_YN",updateYn!!)
+                    putString("USER_ID",userId!!)
                 })
         }
 
-        /* Note 삭제버튼 */
+        // 데이터 삭제
         view.btn_detail_delete.setOnClickListener {
-            /* 삭제*/
             lifecycleScope.launch(Dispatchers.IO){
                 subsDao.deleteSubs(subsId)
             }

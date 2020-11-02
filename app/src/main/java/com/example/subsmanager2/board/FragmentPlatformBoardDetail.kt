@@ -28,12 +28,6 @@ class FragmentPlatformBoardDetail : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val rootView=inflater.inflate(R.layout.fragment_platform_board_detail, container, false)
-        return rootView
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         //adapter bundle로 넘긴 데이터 추출
         val boardId = arguments?.getString("boardId") ?: kotlin.run { throw Error("boardId이 없습니다.") }
@@ -47,18 +41,28 @@ class FragmentPlatformBoardDetail : Fragment() {
                 if (document != null) {
                     val board = document.toObject(PlatformBoardEntity::class.java)
                     if (board != null) {
-                        view.item_txt_platform.text=board.boardTitle
-                        view.item_txt_content.text=board.boardContent
-                        view.item_txt_useage.text=board.usage
-                        view.item_txt_rating.text=board.ratingScore
-                        view.item_txt_fee.text=board.subFee
-                        view.item_txt_user_id.text=board.userId
+
+                        rootView.item_txt_platform.text=board.boardTitle
+                        rootView.item_txt_content.text=board.boardContent
+                        rootView.item_txt_useage.text=board.usage
+                        rootView.item_txt_rating.text=board.ratingScore
+                        rootView.item_txt_fee.text=board.subFee
+                        rootView.item_txt_user_id.text=board.userId
                     }
                 }
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "get failed with ", exception)
             }
+
+        return rootView
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
     }
 
 }

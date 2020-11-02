@@ -88,11 +88,6 @@
         android:label="플랫폼 평가 게시판"
         tools:layout="@layout/fragment_board_list">
         <action
-            android:id="@+id/action_boardListFragment_to_boardDetailFragment"
-            app:destination="@id/boardDetailFragment"
-            app:popUpTo="@id/boardListFragment"
-            app:popUpToInclusive="false" />
-        <action
             android:id="@+id/action_boardListFragment_to_platfromBoardFragment"
             app:destination="@id/platfromBoardFragment" />
         <action
@@ -122,7 +117,17 @@
         <action
             android:id="@+id/action_platfromBoardFragment_to_platformBoardWriteFragment"
             app:destination="@id/platformBoardWriteFragment" />
-    </fragment>
+        <action
+            android:id="@+id/action_platfromBoardFragment_to_fragmentPlatformBoardDetail"
+            app:destination="@id/fragmentPlatformBoardDetail" />
+    </fragment><![CDATA[
+    tools:layout="@layout/fragment_platfrom_board" />
+    ]]><!--<fragment
+        android:id="@+id/contentsBoardFragment"
+        android:name="com.example.subsmanager2.board.contentsBoardFragment"
+        android:label="fragment_contents_board2"
+        tools:layout="@layout/fragment_contents_board2" />
+        app:popUpToInclusive="true" />-->
 
     <!--컨텐츠 평가 게시판-->
     <fragment
@@ -175,6 +180,9 @@
         <argument
             android:name="USER_ID"
             app:argType="string" />
+        <action
+            android:id="@+id/action_subsDetailFragment_to_fragmentSubsUpdate"
+            app:destination="@id/fragmentSubsUpdate" />
     </fragment>
     <fragment
         android:id="@+id/subsRegisterFragment"
@@ -236,4 +244,14 @@
         android:name="com.example.subsmanager2.subs.CenterAuthAPIFragment"
         android:label="fragment_center_auth_a_p_i"
         tools:layout="@layout/fragment_center_auth_a_p_i" />
+    <fragment
+        android:id="@+id/fragmentContentBoardDetail"
+        android:name="com.example.subsmanager2.board.FragmentContentsBoardDetail"
+        android:label="fragment_contents_board_detail"
+        tools:layout="@layout/fragment_contents_board_detail" />
+    <fragment
+        android:id="@+id/fragmentSubsUpdate"
+        android:name="com.example.subsmanager2.subs.FragmentSubsUpdate"
+        android:label="fragment_subs_update"
+        tools:layout="@layout/fragment_subs_update" />
 </navigation>

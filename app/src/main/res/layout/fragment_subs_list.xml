@@ -39,14 +39,15 @@ tools:context=".subs.SubsListFragment">
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/item_txt_total_fee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="총 구독료 : 99,999￦"
+            android:text="총 구독료 : ￦"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
+
     </LinearLayout>
 
     <ScrollView

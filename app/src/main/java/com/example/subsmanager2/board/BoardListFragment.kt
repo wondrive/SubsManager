@@ -19,9 +19,6 @@ import kotlinx.android.synthetic.main.fragment_board_list.view.*
 class BoardListFragment : Fragment() {
 
     /*
-    * TODO : 로그인 여부 확인하기 [done]
-    * TODO : 컨텐츠 게시판 작성 xml생성 [done]
-    * TODO : 컨텐츠 게시판 작성 UI수정
     * TODO : 좋아요, 별점 기능 구현
     * */
 

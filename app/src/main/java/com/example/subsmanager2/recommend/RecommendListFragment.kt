@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_recommend_list.view.progress_load
 class RecommendListFragment : Fragment() {
 
     val TAG = "RecommendListFragment"
-    val recommendDao = RecommendDao()
     val recommendAdapter = RecommendAdapter()   //어댑터 생성
 
     override fun onCreateView(
@@ -51,6 +50,7 @@ class RecommendListFragment : Fragment() {
         view.btn_search.setOnClickListener {
             val selectCategory = view.spinner_category.selectedItem.toString()
             Log.i(TAG, "검색조건 : "+selectCategory)
+            recommendAdapter.setSearchWord(selectCategory)
 
             //recommendAdapter.recommendList.clear()
             // Dao에서 리스트 뽑아 바인딩

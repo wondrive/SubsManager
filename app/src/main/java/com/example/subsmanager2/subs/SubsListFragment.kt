@@ -55,11 +55,6 @@ class SubsListFragment : Fragment() {
         rootView.fab_register_openbanking.setOnClickListener {
             findNavController().navigate(R.id.action_subsListFragment_to_subsRegisterOpenBankingFragment)
         }
-        // 수동 등록 버튼
-        rootView.fab_register.setOnClickListener {
-            findNavController().navigate(R.id.action_subsListFragment_to_subsRegisterFragment)
-        }
-
         return rootView
     }
 
@@ -111,5 +106,5 @@ class SubsListFragment : Fragment() {
             isFabOpen = true
         }
     }
-    
+
 }
