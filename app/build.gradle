@@ -76,6 +76,8 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:1.9.3"
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'
     implementation 'ru.gildor.coroutines:kotlin-coroutines-okhttp:1.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.8.1'
 
 
     //Firebase
@@ -97,5 +99,69 @@ dependencies {
     // 외부 이미지 가져오기
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+
+
+    /**
+     *  오픈소스명 : retrofit
+     *  오픈소스용도 : 통신
+     *  오픈소스라이선스 : Apache 2.0
+     *  오픈소스 주소 : https://github.com/square/retrofit
+     */
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
+
+    /**
+     *  오픈소스명 : timber
+     *  오픈소스용도 : 로깅
+     *  오픈소스라이선스 : Apache 2.0
+     *  오픈소스 주소 : https://github.com/JakeWharton/timber
+     *  참고사항 : %s를 사용한 println 기능이 가능하고, 클래스명을 태그정보로 자동 출력
+     */
+    implementation 'com.jakewharton.timber:timber:4.6.0'
+
+    /**
+     *  오픈소스명 : TedPermission
+     *  오픈소스용도 : 앱권한 체크
+     *  오픈소스라이선스 : Apache 2.0
+     *  오픈소스 주소 : https://github.com/ParkSangGwon/TedPermission
+     */
+    implementation 'gun0912.ted:tedpermission:2.2.2'
+
+
+    /**
+     *  오픈소스명 : CustomActivityOnCrash
+     *  오픈소스용도 : 오류처리
+     *  오픈소스라이선스 : Apache 2.0
+     *  오픈소스 주소 : https://github.com/Ereza/CustomActivityOnCrash
+     *  참고사항 : UncaughtExceptionHandler를 등록하여 오류시 별도의 커스터마이징된 화면으로 이동
+     */
+    implementation 'cat.ereza:customactivityoncrash:2.2.0'
+
+    /**
+     *  오픈소스명 : AutoFitTextView
+     *  오픈소스용도 : 텍스트뷰 표시
+     *  오픈소스라이선스 : Apache 2.0
+     *  오픈소스 주소 : https://github.com/grantland/android-autofittextview
+     */
+    implementation 'me.grantland:autofittextview:0.2.1'
+
+    /**
+     *  오픈소스명 : Ambilwarna
+     *  오픈소스용도 : 색상 피커
+     *  오픈소스라이선스 : Apache 2.0
+     *  오픈소스 주소 : https://github.com/yukuku/ambilwarna
+     */
+    implementation 'com.github.yukuku:ambilwarna:2.0.1'
+
+    /**
+     *  오픈소스명 : libphonenumber
+     *  오픈소스용도 : 전화번호 유틸
+     *  오픈소스라이선스 : Apache 2.0
+     *  오픈소스 주소 : https://github.com/googlei18n/libphonenumber
+     *  참고사항 : 국제전화코드를 제거하거나 변형할때 유용
+     */
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.8.3'
 
 }

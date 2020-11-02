@@ -88,6 +88,11 @@
         android:label="플랫폼 평가 게시판"
         tools:layout="@layout/fragment_board_list">
         <action
+            android:id="@+id/action_boardListFragment_to_boardDetailFragment"
+            app:destination="@id/boardDetailFragment"
+            app:popUpTo="@id/boardListFragment"
+            app:popUpToInclusive="false" />
+        <action
             android:id="@+id/action_boardListFragment_to_platfromBoardFragment"
             app:destination="@id/platfromBoardFragment" />
         <action
@@ -117,17 +122,7 @@
         <action
             android:id="@+id/action_platfromBoardFragment_to_platformBoardWriteFragment"
             app:destination="@id/platformBoardWriteFragment" />
-        <action
-            android:id="@+id/action_platfromBoardFragment_to_fragmentPlatformBoardDetail"
-            app:destination="@id/fragmentPlatformBoardDetail" />
-    </fragment><![CDATA[
-    tools:layout="@layout/fragment_platfrom_board" />
-    ]]><!--<fragment
-        android:id="@+id/contentsBoardFragment"
-        android:name="com.example.subsmanager2.board.contentsBoardFragment"
-        android:label="fragment_contents_board2"
-        tools:layout="@layout/fragment_contents_board2" />
-        app:popUpToInclusive="true" />-->
+    </fragment>
 
     <!--컨텐츠 평가 게시판-->
     <fragment
@@ -156,8 +151,12 @@
             app:popUpTo="@id/subsListFragment"
             app:popUpToInclusive="false" />
         <action
-            android:id="@+id/action_subsListFragment_to_subsWriteFragment"
-            app:destination="@id/subsWriteFragment"
+            android:id="@+id/action_subsListFragment_to_subsRegisterFragment"
+            app:destination="@id/subsRegisterFragment"
+            app:popUpTo="@id/subsListFragment" />
+        <action
+            android:id="@+id/action_subsListFragment_to_subsRegisterOpenBankingFragment"
+            app:destination="@id/subsRegisterOpenBankingFragment"
             app:popUpTo="@id/subsListFragment" />
     </fragment>
 
@@ -167,8 +166,8 @@
         android:label="fragment_subs_detail"
         tools:layout="@layout/fragment_subs_detail" >
         <action
-            android:id="@+id/action_subsDetailFragment_to_subsWriteFragment"
-            app:destination="@id/subsWriteFragment"
+            android:id="@+id/action_subsDetailFragment_to_subsRegisterFragment"
+            app:destination="@id/subsRegisterFragment"
             app:popUpTo="@id/subsDetailFragment" />
         <argument
             android:name="SUBS_ID"
@@ -178,10 +177,10 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/subsWriteFragment"
-        android:name="com.example.subsmanager2.subs.SubsWriteFragment"
-        android:label="fragment_subs_write"
-        tools:layout="@layout/fragment_subs_write" >
+        android:id="@+id/subsRegisterFragment"
+        android:name="com.example.subsmanager2.subs.SubsRegisterFragment"
+        android:label="fragment_subs_register"
+        tools:layout="@layout/fragment_subs_register">
         <argument
             android:name="SUBS_ID"
             app:argType="long" />
@@ -198,7 +197,11 @@
         android:id="@+id/recommendListFragment"
         android:name="com.example.subsmanager2.recommend.RecommendListFragment"
         android:label="fragment_recommend_list"
-        tools:layout="@layout/fragment_recommend_list" />
+        tools:layout="@layout/fragment_recommend_list" >
+        <action
+            android:id="@+id/action_recommendListFragment_self"
+            app:destination="@id/recommendListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/platformBoardWriteFragment"
         android:name="com.example.subsmanager2.board.platformBoardWriteFragment"
@@ -210,13 +213,27 @@
         android:label="fragment_contents_board_write"
         tools:layout="@layout/fragment_contents_board_write" />
     <fragment
-        android:id="@+id/fragmentPlatformBoardDetail"
-        android:name="com.example.subsmanager2.board.FragmentPlatformBoardDetail"
-        android:label="fragment_platform_board_detail"
-        tools:layout="@layout/fragment_platform_board_detail" />
+        android:id="@+id/subsRegisterOpenBankingFragment"
+        android:name="com.example.subsmanager2.subs.SubsRegisterOpenBankingFragment"
+        android:label="fragment_subs_register_open_banking"
+        tools:layout="@layout/fragment_subs_register_open_banking" >
+        <action
+            android:id="@+id/action_subsRegisterOpenBankingFragment_to_centerAuthAPIFragment"
+            app:destination="@id/centerAuthAPIFragment"
+            app:popUpTo="@id/subsRegisterOpenBankingFragment" />
+        <action
+            android:id="@+id/action_subsRegisterOpenBankingFragment_to_centerAuthFragment"
+            app:destination="@id/centerAuthFragment"
+            app:popUpTo="@id/subsRegisterOpenBankingFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/fragmentContentBoardDetail"
-        android:name="com.example.subsmanager2.board.FragmentContentsBoardDetail"
-        android:label="fragment_contents_board_detail"
-        tools:layout="@layout/fragment_contents_board_detail" />
+        android:id="@+id/centerAuthFragment"
+        android:name="com.example.subsmanager2.subs.CenterAuthFragment"
+        android:label="fragment_center_auth"
+        tools:layout="@layout/fragment_center_auth" />
+    <fragment
+        android:id="@+id/centerAuthAPIFragment"
+        android:name="com.example.subsmanager2.subs.CenterAuthAPIFragment"
+        android:label="fragment_center_auth_a_p_i"
+        tools:layout="@layout/fragment_center_auth_a_p_i" />
 </navigation>

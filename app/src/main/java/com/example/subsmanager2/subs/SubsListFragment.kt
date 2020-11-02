@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.SubsDao
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_subs_list.*
 import kotlinx.android.synthetic.main.fragment_subs_list.view.*
 
 /**
@@ -23,6 +26,10 @@ class SubsListFragment : Fragment() {
     //어댑터 생성
     val subsAdapter = SubsAdapter()
 
+    var isFabOpen = false;
+    private var fab_open: Animation? = null;
+    private var fab_close: Animation? = null;
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,15 +39,27 @@ class SubsListFragment : Fragment() {
         /* 어댑터 초기화*/
         rootView.list_subs.adapter = subsAdapter
         rootView.list_subs.layoutManager = LinearLayoutManager(requireContext())
-
         if(subsAdapter != null) {
             rootView.txt_notice.visibility = View.GONE
         }
 
+        /* Fab 애니메이션 초기화 */
+        fab_open = AnimationUtils.loadAnimation(context, R.anim.fab_open)
+        fab_close = AnimationUtils.loadAnimation(context, R.anim.fab_close)
+
         /* 구독앱 추가 버튼 누르면 */
-        rootView.fab_add_note.setOnClickListener {
-            findNavController().navigate(R.id.action_subsListFragment_to_subsWriteFragment)
+        rootView.fab_main.setOnClickListener {
+            toggleFab();
         }
+        // 자동 등록 버튼 (은행연동, OpenBanking)
+        rootView.fab_register_openbanking.setOnClickListener {
+            findNavController().navigate(R.id.action_subsListFragment_to_subsRegisterOpenBankingFragment)
+        }
+        // 수동 등록 버튼
+        rootView.fab_register.setOnClickListener {
+            findNavController().navigate(R.id.action_subsListFragment_to_subsRegisterFragment)
+        }
+
         return rootView
     }
 
@@ -73,4 +92,24 @@ class SubsListFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
     }
+
+    fun toggleFab() {
+        if(isFabOpen) { // 열려있었음->닫힐때
+            fab_main.setBackgroundColor(resources.getColor(R.color.light_grey))
+            fab_register.startAnimation(fab_close)
+            fab_register_openbanking.startAnimation(fab_close)
+            fab_register.setClickable(false)
+            fab_register_openbanking.setClickable(false)
+            isFabOpen = false
+        }
+        else {  // 닫혀있었음 -> 열릴때
+            fab_main.setBackgroundColor(resources.getColor(R.color.white))
+            fab_register.startAnimation(fab_open)
+            fab_register_openbanking.startAnimation(fab_open)
+            fab_register.setClickable(true)
+            fab_register_openbanking.setClickable(true)
+            isFabOpen = true
+        }
+    }
+    
 }

@@ -8,7 +8,7 @@ data class PlanOfficialEntity(    //
     var subsId: Long        = 0L,
     var name:String         = "",
     var fee:String          = "",
-    var boardRating:Double  = 0.0
+    var boardRating:Float  = 0.0F
 ) {
     @Exclude
     fun toMap(): Map<String, Any?> {

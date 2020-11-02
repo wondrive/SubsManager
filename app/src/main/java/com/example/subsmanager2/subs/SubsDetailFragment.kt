@@ -78,7 +78,7 @@ class SubsDetailFragment : Fragment() {
             //childFragmentManager:  Fragment에서 다른 Fragment를 만들 때(DetailFragment에서 DialFragment 만들 때)
             //RecipeWriteFragment().show(childFragmentManager, recipeId.toString())
 
-            findNavController().navigate(R.id.action_subsDetailFragment_to_subsWriteFragment,
+            findNavController().navigate(R.id.action_subsDetailFragment_to_subsRegisterFragment,
                 Bundle().apply {
                     putLong("SUBS_ID", subsId!!)
                     putString("UPDATE_YN", "Y")

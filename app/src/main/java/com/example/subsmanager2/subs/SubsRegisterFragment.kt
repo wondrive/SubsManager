@@ -15,12 +15,12 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.android.synthetic.main.fragment_subs_write.view.*
+import kotlinx.android.synthetic.main.fragment_subs_register.view.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class SubsWriteFragment : Fragment() {
+class SubsRegisterFragment : Fragment() {
 
     /* subs 객체 생성 및 초기화. */
     private var subs = SubsEntity(subsId = 0L, subsName = "", subsCustomName = "", userId = "", alarmYN = true, alarmDday = "", fee = "", feeDate = "")
@@ -33,7 +33,7 @@ class SubsWriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_subs_write, container, false)
+        return inflater.inflate(R.layout.fragment_subs_register, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +42,7 @@ class SubsWriteFragment : Fragment() {
         //tag?.toLongOrNull()?.let { recipeId ->
         val updateYn = arguments?.getString("UPDATE_YN") ?: "N"
         if(updateYn.equals("Y")) {
-            val subsId = arguments?.getLong("RECIPE_ID") ?: kotlin.run { throw Error("RECIPE_ID가 없습니다.") }
+            val subsId = arguments?.getLong("SUBS_ID") ?: kotlin.run { throw Error("SUBS_ID가 없습니다.") }
             viewLifecycleOwner.lifecycleScope.launch {
                 /* 미리 변수를 선언 */
                 var savedSubs: SubsEntity? = null
