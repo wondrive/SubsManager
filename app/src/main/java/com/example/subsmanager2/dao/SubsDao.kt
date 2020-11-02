@@ -126,12 +126,17 @@ class SubsDao {
 
     // 업데이트
     fun updateSubs(subs: SubsEntity) {
-        //firebaseRef.child("subs").child(subs.subsId.toString()).setValue(subs)
+        db.collection("subs")
+            .document(subs.subsId.toString())
+            .set(subs)
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
     }
 
     // 삭제
     fun deleteSubs(subsId: Long) {
-        db.collection("subs").document(subsId.toString())
+        db.collection("subs")
+            .document(subsId.toString())
             .delete()
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully deleted!") }
             .addOnFailureListener { e -> Log.w(TAG, "Error deleting document", e) }

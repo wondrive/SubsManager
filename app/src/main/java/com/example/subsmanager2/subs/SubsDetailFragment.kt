@@ -33,6 +33,10 @@ class SubsDetailFragment : Fragment() {
     //dao 참조
     private val subsDao by lazy { SubsDao() }
 
+    private var subsId:Long =0
+    private var userId:String=""
+    private var updateYn:String=""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,9 +49,9 @@ class SubsDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // arguments에서 SUBS_ID 추출
-        val subsId = arguments?.getLong("SUBS_ID") ?: kotlin.run { throw Error("SUBS_ID가 없습니다.") }
-        val userId = arguments?.getString("USER_ID") ?: kotlin.run { throw Error("USER_ID가 없습니다.") }
-        val updateYn = arguments?.getString("UPDATE_YN")?:kotlin.run { throw  Error("Update_YN이 없습니다.") }
+        subsId = arguments?.getLong("SUBS_ID") ?: kotlin.run { throw Error("SUBS_ID가 없습니다.") }
+        userId = arguments?.getString("USER_ID") ?: kotlin.run { throw Error("USER_ID가 없습니다.") }
+        updateYn = arguments?.getString("UPDATE_YN")?:kotlin.run { throw  Error("Update_YN이 없습니다.") }
 
         // 본인 게시글일때만 수정, 삭제 버튼 보이게
         FirebaseAuth.getInstance().currentUser?.let {
@@ -93,12 +97,12 @@ class SubsDetailFragment : Fragment() {
         view.btn_detail_edit.setOnClickListener {
             //childFragmentManager:  Fragment에서 다른 Fragment를 만들 때(DetailFragment에서 DialFragment 만들 때)
             //RecipeWriteFragment().show(childFragmentManager, recipeId.toString())
-
-//            findNavController().navigate(R.id.action_subsDetailFragment_to_fragmentSubsUpdate,
-//                Bundle().apply {
-//                    putLong("SUBS_ID", subsId!!)
-//                    putString("UPDATE_YN", "Y")
-//                })
+            findNavController().navigate(R.id.action_subsDetailFragment_to_fragmentSubsUpdate,
+                Bundle().apply {
+                    putLong("SUBS_ID", subsId!!)
+                    putString("UPDATE_YN",updateYn!!)
+                    putString("USER_ID",userId!!)
+                })
         }
 
         // 데이터 삭제

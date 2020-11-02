@@ -42,6 +42,7 @@
                         android:layout_height="wrap_content"
                         android:text="서비스명"
                         android:textSize="18sp" />
+
                     <EditText
                         android:id="@+id/edit_subs_name"
                         android:layout_width="wrap_content"
@@ -130,6 +131,7 @@
                         android:id="@+id/switch_alarm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:checked="false"
                         android:showText="true"
                         android:textOff="off"
                         android:textOn="on" />
