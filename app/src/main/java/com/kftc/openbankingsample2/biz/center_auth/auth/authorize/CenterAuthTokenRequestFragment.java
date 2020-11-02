@@ -11,12 +11,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.center_auth.AbstractCenterAuthMainFragment;
 import com.kftc.openbankingsample2.biz.center_auth.CenterAuthConst;
 import com.kftc.openbankingsample2.biz.center_auth.CenterAuthHomeFragment;
 import com.kftc.openbankingsample2.biz.center_auth.http.CenterAuthApiRetrofitAdapter;
 import com.kftc.openbankingsample2.biz.center_auth.util.CenterAuthUtils;
+import com.kftc.openbankingsample2.biz.main.HomeFragment;
 import com.kftc.openbankingsample2.common.util.Utils;
 
 import java.util.HashMap;
@@ -100,6 +101,7 @@ public class CenterAuthTokenRequestFragment extends AbstractCenterAuthMainFragme
         });
 
         // 취소
-        view.findViewById(R.id.btnCancel).setOnClickListener(v -> onBackPressed());
+        //view.findViewById(R.id.btnCancel).setOnClickListener(v -> onBackPressed());
+        view.findViewById(R.id.btnCancel).setOnClickListener(v -> startFragment(CenterAuthHomeFragment.class, null, R.string.fragment_id_center));
     }
 }

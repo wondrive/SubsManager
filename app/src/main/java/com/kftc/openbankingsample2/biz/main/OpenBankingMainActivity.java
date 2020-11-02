@@ -2,13 +2,14 @@ package com.kftc.openbankingsample2.biz.main;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 
 /**
  * 메인 Activity. 모든 프래그먼트는 이 메인 activity를 안에서 구현된다.
  */
-public class MainActivity extends AbstractMainActivity {
+public class OpenBankingMainActivity extends AbstractMainActivity {
 
     // context
     private Context context;
@@ -23,6 +24,7 @@ public class MainActivity extends AbstractMainActivity {
         args = getIntent().getExtras();
         if (args == null) args = new Bundle();
 
+        Log.i("OpenBankinMain 태그 여깅깅", "activity: "+this + ", context:"+getApplicationContext()+", baseContext: "+getBaseContext());
         initView();
     }
 

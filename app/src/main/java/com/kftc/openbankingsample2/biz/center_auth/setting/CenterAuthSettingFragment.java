@@ -10,12 +10,12 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
+import com.example.subsmanager2.R;
 import com.google.android.material.snackbar.Snackbar;
-import com.kftc.openbankingsample2.R;
 import com.kftc.openbankingsample2.biz.center_auth.CenterAuthConst;
 import com.kftc.openbankingsample2.biz.main.Const;
 import com.kftc.openbankingsample2.biz.main.HomeFragment;
-import com.kftc.openbankingsample2.biz.main.MainActivity;
+import com.kftc.openbankingsample2.biz.main.OpenBankingMainActivity;
 import com.kftc.openbankingsample2.common.application.AppData;
 import com.kftc.openbankingsample2.common.setting.AbstractSettingFragment;
 import com.kftc.openbankingsample2.common.util.Utils;
@@ -164,7 +164,7 @@ public class CenterAuthSettingFragment extends AbstractSettingFragment {
             // 필드명을 한글 또는 영문으로 변환시에는 앱을 재시작할지 물어본다.
             if (preference.getKey().equals(Const.IS_DEV_LANG)) {
                 if (getActivity() != null) {
-                    MainActivity activity = (MainActivity) getActivity();
+                    OpenBankingMainActivity activity = (OpenBankingMainActivity) getActivity();
                     Snackbar.make(getActivity().findViewById(R.id.flContent), "설정을 적용하려면 앱을 재시작해야 합니다.", Snackbar.LENGTH_INDEFINITE)
                             .setAction("확인", v -> {
                                 KmDialogDefault dialog = new KmDialogDefault(context);

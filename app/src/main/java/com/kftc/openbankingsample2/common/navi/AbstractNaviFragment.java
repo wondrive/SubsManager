@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.kftc.openbankingsample2.R;
-import com.kftc.openbankingsample2.biz.main.MainActivity;
+import com.example.subsmanager2.R;
+import com.kftc.openbankingsample2.biz.main.OpenBankingMainActivity;
 
 import timber.log.Timber;
 
@@ -19,13 +19,13 @@ public class AbstractNaviFragment extends Fragment {
 
     // context
     private Context context;
-    protected MainActivity activity;
+    protected OpenBankingMainActivity activity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-        activity = (MainActivity) getActivity();
+        activity = (OpenBankingMainActivity) getActivity();
     }
 
     public void startChildFragment(@NonNull Class fragmentClass) {

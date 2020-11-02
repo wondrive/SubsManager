@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.main.HomeFragment;
 import com.kftc.openbankingsample2.biz.self_auth.api.SelfAuthAPIFragment;
 import com.kftc.openbankingsample2.biz.self_auth.auth.SelfAuthFragment;

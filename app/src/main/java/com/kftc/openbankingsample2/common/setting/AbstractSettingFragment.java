@@ -9,9 +9,9 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceFragmentCompat;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.center_auth.CenterAuthHomeFragment;
-import com.kftc.openbankingsample2.biz.main.MainActivity;
+import com.kftc.openbankingsample2.biz.main.OpenBankingMainActivity;
 import com.kftc.openbankingsample2.common.http.KmProgressBar;
 import com.kftc.openbankingsample2.common.util.view.onKeyBackPressedListener;
 
@@ -19,7 +19,7 @@ abstract public class AbstractSettingFragment extends PreferenceFragmentCompat i
 
     // context
     private Context context;
-    protected MainActivity activity;
+    protected OpenBankingMainActivity activity;
 
     // progress
     private KmProgressBar progressBar;
@@ -30,7 +30,7 @@ abstract public class AbstractSettingFragment extends PreferenceFragmentCompat i
         context = getContext();
 
         // 메인액티빅티 개체 연결
-        activity = (MainActivity) getActivity();
+        activity = (OpenBankingMainActivity) getActivity();
     }
 
     @Override
@@ -38,7 +38,7 @@ abstract public class AbstractSettingFragment extends PreferenceFragmentCompat i
         super.onActivityCreated(savedInstanceState);
 
         // 메인액티빅티 개체 연결
-        activity = (MainActivity) getActivity();
+        activity = (OpenBankingMainActivity) getActivity();
 
         // 네이게이션 메뉴버튼 보여주기
         // TODO: 2019-08-06 네비게이션 메뉴는 보여주지 말자. 메뉴가 단순함.

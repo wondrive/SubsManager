@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.common.data.BankAccount;
 import com.kftc.openbankingsample2.common.util.view.recyclerview.KmRecyclerViewArrayAdapter;
 import com.kftc.openbankingsample2.common.util.view.recyclerview.KmRecyclerViewHolder;

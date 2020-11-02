@@ -1,6 +1,7 @@
 package com.kftc.openbankingsample2.biz.center_auth;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +10,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.MainActivity;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.center_auth.api.CenterAuthAPIFragment;
 import com.kftc.openbankingsample2.biz.center_auth.auth.CenterAuthFragment;
 import com.kftc.openbankingsample2.biz.main.HomeFragment;
+import com.kftc.openbankingsample2.biz.main.OpenBankingMainActivity;
 
 /**
  * 센터인증 메인화면
@@ -56,6 +59,8 @@ public class CenterAuthHomeFragment extends AbstractCenterAuthMainFragment {
 
     @Override
     public void onBackPressed() {
-        startFragment(HomeFragment.class, args, R.string.fragment_id_home);
+        //startFragment(HomeFragment.class, args, R.string.fragment_id_home);
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
     }
 }

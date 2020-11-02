@@ -12,8 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.kftc.openbankingsample2.BuildConfig;
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.BuildConfig;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.center_auth.AbstractCenterAuthMainFragment;
 import com.kftc.openbankingsample2.biz.center_auth.CenterAuthHomeFragment;
 import com.kftc.openbankingsample2.biz.self_auth.SelfAuthHomeFragment;
@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import timber.log.Timber;
+
 
 /**
  * 센터인증과 자체인증을 선택하는 앱의 메인화면
@@ -50,7 +51,8 @@ public class HomeFragment extends AbstractCenterAuthMainFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        initView();
+        //initView();
+        startFragment(CenterAuthHomeFragment.class, args, R.string.fragment_id_center);
         return view;
     }
 
@@ -64,7 +66,7 @@ public class HomeFragment extends AbstractCenterAuthMainFragment {
 
         // 하단 버전표시
         try {
-            Date date = new Date(BuildConfig.TIMESTAMP);
+            Date date = new Date(1604241041365L);
             String dateStr = new SimpleDateFormat("yyyyMMdd", Locale.KOREA).format(date);
 
             PackageInfo pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);

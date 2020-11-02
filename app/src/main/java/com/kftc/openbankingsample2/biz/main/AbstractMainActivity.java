@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.center_auth.AbstractCenterAuthMainFragment;
 import com.kftc.openbankingsample2.biz.center_auth.setting.CenterAuthSettingFragment;
 import com.kftc.openbankingsample2.biz.self_auth.AbstractSelfAuthMainFragment;
@@ -58,7 +58,7 @@ public abstract class AbstractMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.openbank_activity_main);
         context = this;
         initView();
     }

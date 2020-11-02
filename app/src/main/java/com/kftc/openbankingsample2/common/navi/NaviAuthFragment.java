@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.center_auth.auth.authorize.CenterAuthAuthorizeFragment;
 import com.kftc.openbankingsample2.biz.center_auth.auth.authorize_account.CenterAuthAuthorizeAccountFragment;
 

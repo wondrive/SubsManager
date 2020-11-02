@@ -10,9 +10,10 @@ import android.view.WindowManager;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.subsmanager2.R;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-import com.kftc.openbankingsample2.R;
+
 
 import java.util.List;
 
@@ -92,7 +93,7 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     void goNext() {
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, OpenBankingMainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -7,7 +7,7 @@ import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.center_auth.util.CenterAuthUtils;
 import com.kftc.openbankingsample2.biz.self_auth.util.SelfAuthUtils;
 import com.kftc.openbankingsample2.common.Scope;
@@ -78,8 +78,10 @@ public class AppData extends Application {
 
     // 환경설정값을 읽어들인다. CenterAuthSettingFragment.class 에서 저장되는 값과 동일한 저장공간을 사용하기 위해서 PreferenceManager 의 저장공간을 선택한다.
     public static SharedPreferences getPref() {
-        Log.i("[AppData]", "getApplicationContext()333: " + getAppContext().getApplicationContext().toString());
         return appContext.getSharedPreferences(appContext.getPackageName() + "_preferences", Context.MODE_PRIVATE);
+    }
+    public static SharedPreferences getPref(Context mContext) {
+        return appContext.getSharedPreferences(appContext.getPackageName() + "_preferences", mContext.MODE_PRIVATE);
     }
 
     public static Context getAppContext() {

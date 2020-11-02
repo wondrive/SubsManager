@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 
 import androidx.core.content.ContextCompat;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 
 public class KmProgressBar {
 

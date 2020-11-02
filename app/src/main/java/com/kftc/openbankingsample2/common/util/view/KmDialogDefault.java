@@ -26,7 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.common.util.Utils;
 
 @SuppressWarnings({"UnusedReturnValue", "WeakerAccess", "SameParameterValue", "unused"})

@@ -34,21 +34,21 @@
         <EditTextPreference
             android:key="CENTER_AUTH_CLIENT_ID_TEST"
             android:title="CLIENT ID"
-            android:defaultValue="KxvHs6w5RLvByYmLrj3vCeD9Y9fWknzvLHetOhUE"/>
+            android:defaultValue="ZlIgtVv0kFe9UKX9eEGogD25V7jywrprBF8x6bem"/>
         <EditTextPreference
             android:key="CENTER_AUTH_CLIENT_SECRET_TEST"
             android:title="CLIENT SECRET"
-            android:defaultValue="zQAYEFbWYiJegqOyqQC8Vs86Jom6PqohX82llSKg"/>
+            android:defaultValue="u6XnkPQo6ovMzOSpksi02ucBWPAVl3VkOJQfxVGg"/>
         <EditTextPreference
             android:key="CENTER_AUTH_CLIENT_USE_CODE_TEST"
             android:title="이용기관코드"
-            android:defaultValue="T991589220"/>
+            android:defaultValue="T991666890"/>
         <Preference
             android:summary="이용기관코드는 '개발자사이트'->'마이페이지'->'회원정보 변경'에서 확인이 가능합니다."/>
         <EditTextPreference
             android:key="CENTER_AUTH_REDIRECT_URI_TEST"
             android:title="REDIRECT URI"
-            android:defaultValue="https://www.kftc.or.kr"/>
+            android:defaultValue="http://localhost:8880/html/callback.html"/>
         <Preference
             android:summary="콜백 주소는 '개발자사이트'->'마이페이지'->'내 앱 관리'에서 설정하신 콜백 주소와 일치하여야 합니다."/>
 

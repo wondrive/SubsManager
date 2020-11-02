@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.center_auth.AbstractCenterAuthMainFragment;
 import com.kftc.openbankingsample2.biz.center_auth.CenterAuthHomeFragment;
 import com.kftc.openbankingsample2.biz.center_auth.auth.authorize.CenterAuthAuthorizeFragment;
@@ -42,7 +42,8 @@ public class CenterAuthFragment extends AbstractCenterAuthMainFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_center_auth, container, false);
-        initView();
+        //initView();
+        startFragment(CenterAuthAuthorizeFragment.class, args, R.string.fragment_id_auth_authorize);
         return view;
     }
 

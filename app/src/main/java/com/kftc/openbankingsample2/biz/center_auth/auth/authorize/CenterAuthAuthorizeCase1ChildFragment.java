@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.center_auth.CenterAuthConst;
 import com.kftc.openbankingsample2.biz.center_auth.util.CenterAuthUtils;
 import com.kftc.openbankingsample2.common.util.Utils;
@@ -79,7 +79,7 @@ public class CenterAuthAuthorizeCase1ChildFragment extends AbstractCenterAuthAut
         //super.initColor(view);
 
         // CASE1 실행
-        view.findViewById(R.id.btnNext).setOnClickListener(v -> {
+        //view.findViewById(R.id.btnNext).setOnClickListener(v -> {
 
             // 화면에 있는 테이블 데이터를 앱에 저장하기
             CenterAuthUtils.saveFormData(view, R.id.auth2Case1FormTable);
@@ -154,7 +154,7 @@ public class CenterAuthAuthorizeCase1ChildFragment extends AbstractCenterAuthAut
                         }
                     });*/
 
-        });
+        //});
     }
 
     @Override

@@ -70,6 +70,7 @@
                     android:padding="5dip">
                     <me.grantland.widget.AutofitTextView
                         style="@style/FormLabel02"
+                        android:textColor="@color/md_red_400"
                         android:layout_height="match_parent"
                         android:text="@string/fintech_use_num" />
                     <LinearLayout

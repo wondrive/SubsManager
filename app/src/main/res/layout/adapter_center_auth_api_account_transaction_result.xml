@@ -7,6 +7,7 @@
     <LinearLayout android:id="@+id/llMainLayout" style="@style/MainLayout">
 
         <View
+            android:background="@color/md_grey_300"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
@@ -14,6 +15,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:gravity="center_vertical"
+            android:background="@color/md_white_1000"
             android:layout_height="50dp">
 
             <TableRow android:layout_marginTop="5dp">

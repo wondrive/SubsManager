@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.subsmanager2.R;
 import com.google.gson.Gson;
-import com.kftc.openbankingsample2.R;
 import com.kftc.openbankingsample2.biz.center_auth.AbstractCenterAuthMainFragment;
 import com.kftc.openbankingsample2.biz.center_auth.CenterAuthConst;
 import com.kftc.openbankingsample2.biz.center_auth.api.CenterAuthAPIFragment;
@@ -88,6 +88,7 @@ public class CenterAuthAPIAccountTransactionResultFragment extends AbstractCente
         recyclerView.addItemDecoration(new KmRecyclerViewDividerHeight(30));
 
         view.findViewById(R.id.btnNext).setOnClickListener(v -> goNext());
+        view.findViewById(R.id.btnCancel).setOnClickListener(v -> onBackPressed());
 
         initData();
     }

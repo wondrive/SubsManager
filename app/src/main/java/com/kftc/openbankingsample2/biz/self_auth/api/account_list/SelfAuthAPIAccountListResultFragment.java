@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.self_auth.AbstractSelfAuthMainFragment;
 import com.kftc.openbankingsample2.biz.self_auth.api.SelfAuthAPIFragment;
 import com.kftc.openbankingsample2.biz.self_auth.api.user_me.SelfAuthAPIUserMeResultAdapter;

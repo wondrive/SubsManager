@@ -21,13 +21,16 @@ class SubsRegisterOpenBankingFragment : Fragment() {
         // Inflate the layout for this fragment
         var rootView = inflater.inflate(R.layout.fragment_subs_register_open_banking, container, false)
 
-        rootView.btnAuthToken.setOnClickListener {
+
+        /*rootView.btnAuthToken.setOnClickListener {
             findNavController().navigate(R.id.action_subsRegisterOpenBankingFragment_to_centerAuthFragment)
         }
 
         rootView.btnAPICallMenu.setOnClickListener {
             findNavController().navigate(R.id.action_subsRegisterOpenBankingFragment_to_centerAuthAPIFragment)
-        }
+        }*/
+
+
 
         return rootView
     }

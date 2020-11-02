@@ -9,7 +9,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
     <TextView android:id="@+id/tvSubTitle" style="@style/SubTitleText"
         android:text="(0)최초인증(CASE1) : 처음 오픈플래폼에 접속하는 사용자의 가입 및 인증 처리(본인인증 + ARS 조회/출금동의)"/>
     <TextView android:id="@+id/tvSubTitle2" style="@style/SubTitleText" android:visibility="gone"
-        android:text="(0)최초인증(CASE1) : 기 등록된 계좌를 재확인하고 토클재발급. 사용자정보 미보유시(본인인증 + 계좌내역확인)"/>
+        android:text="(0)최초인증(CASE1) : 기 등록된 계좌를 재확인하고 토큰재발급. 사용자정보 미보유시(본인인증 + 계좌내역확인)"/>
 </LinearLayout>
 
 <!--메인-->

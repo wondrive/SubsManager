@@ -31,6 +31,17 @@
 
 
     <!-- 오픈뱅킹 -->
+
+    <!-- 버튼 스타일 (메인-Deprecated) -->
+    <style name="ButtonMainDeprecated">
+        <item name="android:textColor">#BBBBBB</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:minWidth">200dp</item>
+        <item name="android:minHeight">45dp</item>
+        <item name="android:background">@drawable/button_shape_03</item>
+    </style>
+
     <!-- 버튼 스타일 (타입 01) -->
     <style name="Button01">
         <item name="android:textColor">#F8F8F8</item>

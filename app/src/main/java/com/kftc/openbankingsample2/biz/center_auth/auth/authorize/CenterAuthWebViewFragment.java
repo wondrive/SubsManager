@@ -29,9 +29,10 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.center_auth.AbstractCenterAuthMainFragment;
 import com.kftc.openbankingsample2.biz.center_auth.CenterAuthConst;
+import com.kftc.openbankingsample2.biz.center_auth.CenterAuthHomeFragment;
 import com.kftc.openbankingsample2.biz.center_auth.util.CenterAuthUtils;
 import com.kftc.openbankingsample2.common.util.Utils;
 
@@ -332,11 +333,12 @@ public class CenterAuthWebViewFragment extends AbstractCenterAuthMainFragment {
     // 프로바이더 페이지의 뒤로가기를 사용할 경우
     @Override
     public void onBackPressed() {
-        if (webView.canGoBack()) {
+        startFragment(CenterAuthHomeFragment.class, null, R.string.fragment_id_center);
+        /*if (webView.canGoBack()) {
             webView.goBack();
         } else {
             super.onBackPressed();
-        }
+        }*/
     }
 
     void goNext() {

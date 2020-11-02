@@ -10,7 +10,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.self_auth.AbstractSelfAuthMainFragment;
 import com.kftc.openbankingsample2.biz.self_auth.SelfAuthConst;
 import com.kftc.openbankingsample2.biz.self_auth.http.SelfAuthApiRetrofitAdapter;

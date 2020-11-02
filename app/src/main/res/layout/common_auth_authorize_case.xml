@@ -7,17 +7,21 @@
     <TableRow
         android:padding="5dip">
         <me.grantland.widget.AutofitTextView
+            style="@style/FormLabel01"
             android:text="@string/response_type" />
         <TextView
-            android:id="@+id/tvResponseType" />
+            android:id="@+id/tvResponseType"
+            style="@style/FormValue01" />
     </TableRow>
 
     <TableRow
         android:padding="5dip">
         <me.grantland.widget.AutofitTextView
+            style="@style/FormLabel01"
             android:layout_width="0dp"
             android:text="@string/client_id" />
         <TextView
+            style="@style/FormValue01"
             android:id="@+id/tvClientId"
             android:textIsSelectable="true"
             android:singleLine="true" />
@@ -26,8 +30,10 @@
     <TableRow
         android:padding="5dip">
         <me.grantland.widget.AutofitTextView
+            style="@style/FormLabel01"
             android:text="@string/redirect_uri" />
         <TextView
+            style="@style/FormValue01"
             android:id="@+id/tvRedirectUri"
             android:singleLine="true" />
     </TableRow>
@@ -35,14 +41,17 @@
     <TableRow
         android:padding="5dip">
         <me.grantland.widget.AutofitTextView
+            style="@style/FormLabel01"
             android:layout_height="match_parent"
             android:text="@string/scope" />
-        <LinearLayout>
+        <LinearLayout style="@style/FormValue01">
             <EditText
+                style="@style/FormValue01"
                 android:singleLine="true"
                 android:id="@+id/et_ANW_SCOPE"/>
             <Button
                 android:id="@+id/btnScope"
+                style="@style/ButtonFold"
                 android:layout_width="50dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="1dp"
@@ -55,16 +64,20 @@
     <TableRow
         android:padding="5dip">
         <me.grantland.widget.AutofitTextView
+            style="@style/FormLabel01"
             android:text="@string/client_info" />
         <EditText
+            style="@style/FormValue01"
             android:id="@+id/et_ANW_CLIENT_INFO" />
     </TableRow>
 
     <TableRow
         android:padding="5dip">
         <me.grantland.widget.AutofitTextView
+            style="@style/FormLabel01"
             android:text="@string/state" />
         <EditText
+            style="@style/FormValue01"
             android:singleLine="true"
             android:id="@+id/et_ANW_STATE" />
     </TableRow>
@@ -72,16 +85,20 @@
     <TableRow
         android:padding="5dip">
         <me.grantland.widget.AutofitTextView
+            style="@style/FormLabel01"
             android:text="@string/auth_type" />
         <TextView
-            android:id="@+id/tvAuthType" />
+            android:id="@+id/tvAuthType"
+            style="@style/FormValue01" />
     </TableRow>
 
     <TableRow
         android:padding="5dip">
         <me.grantland.widget.AutofitTextView
+            style="@style/FormLabel01"
             android:text="@string/lang" />
         <EditText
+            style="@style/FormValue01"
             android:inputType="text"
             android:id="@+id/et_ANW_LANG"/>
     </TableRow>
@@ -89,8 +106,10 @@
     <TableRow
         android:padding="5dip">
         <me.grantland.widget.AutofitTextView
+            style="@style/FormLabel01"
             android:text="@string/account_hold_auth_yn" />
         <EditText
+            style="@style/FormValue01"
             android:id="@+id/et_ANW_ACCOUNT_HOLD_AUTH_YN"/>
     </TableRow>
 

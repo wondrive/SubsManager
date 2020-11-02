@@ -1,217 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".subs.CenterAuthFragment">
+    android:layout_height="match_parent">
 
     <!--서브타이틀-->
-    <LinearLayout
-        android:id="@+id/llSubTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvSubTitle"
-            android:text="(0)최초인증(CASE1) : 처음 오픈플래폼에 접속하는 사용자의 가입 및 인증 처리(본인인증 + ARS 조회/출금동의)" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvSubTitle2"
-            android:text="(0)최초인증(CASE1) : 기 등록된 계좌를 재확인하고 토클재발급. 사용자정보 미보유시(본인인증 + 계좌내역확인)"
-            android:visibility="gone" />
+    <LinearLayout android:id="@+id/llSubTitle" style="@style/SubTitleLayout">
+        <TextView android:id="@+id/tvSubTitle" style="@style/SubTitleText"
+            android:text="계좌등록 및 토큰발급"/>
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llSubTitle">
+    <!--메인-->
+    <ScrollView android:id="@+id/svMainScroll" style="@style/MainScrollView">
+        <LinearLayout android:id="@+id/llMainLayout" style="@style/MainLayout">
 
-        <TableLayout
-            android:id="@+id/auth2Case1FormTable"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnAuthNewWebAuth2"
+                style="@style/Button01"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="50dp"
+                android:text="신규 계좌등록 후 토큰발급" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <Button
+                android:id="@+id/btnAuthNewWebAuthAcnt2"
+                style="@style/Button01"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:text="기존 계좌확인 후 토큰발급" />
 
-                <Button
-                    android:id="@+id/btnNext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="확인" />
-            </TableRow>
+            <Button
+                android:id="@+id/btnAuthToken"
+                style="@style/Button01"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:text="OOB 토큰발급(2-legged)" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="반환형태" />
-
-                <TextView
-                    android:id="@+id/tvResponseType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="이용기관ID" />
-
-                <TextView
-                    android:id="@+id/tvClientId"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="콜백URL" />
-
-                <TextView
-                    android:id="@+id/tvRedirectUri"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="토큰권한범위" />
-
-                <TextView
-                    android:id="@+id/et_ANW_SCOPE"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="이용기관 임의정보" />
-
-                <TextView
-                    android:id="@+id/et_ANW_CLIENT_INFO"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="난수값" />
-
-                <TextView
-                    android:id="@+id/et_ANW_STATE"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="사용자 인증 타입구분" />
-
-                <TextView
-                    android:id="@+id/tvAuthType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="언어" />
-
-                <TextView
-                    android:id="@+id/et_ANW_LANG"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="계좌소유인증 사용여부" />
-
-                <TextView
-                    android:id="@+id/et_ANW_ACCOUNT_HOLD_AUTH_YN"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
-            </TableRow>
-        </TableLayout>
-
-
-        <!--하단버튼 (확인)-->
+        </LinearLayout>
     </ScrollView>
 
+    <!--하단버튼-->
+    <LinearLayout android:id="@+id/llBottomButton" style="@style/BottomButtonLayout" android:visibility="gone">
+        <Button android:id="@+id/btnCancel" style="@style/BottomCancelButton"/>
+        <Button android:id="@+id/btnNext" style="@style/BottomNextButton"/>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

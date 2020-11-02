@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.self_auth.AbstractSelfAuthMainFragment;
 import com.kftc.openbankingsample2.biz.self_auth.SelfAuthConst;
 import com.kftc.openbankingsample2.biz.self_auth.api.SelfAuthAPIFragment;

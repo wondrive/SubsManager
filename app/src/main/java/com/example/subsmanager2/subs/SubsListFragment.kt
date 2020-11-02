@@ -1,6 +1,8 @@
 package com.example.subsmanager2.subs
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.SubsDao
 import com.google.firebase.auth.FirebaseAuth
+import com.kftc.openbankingsample2.biz.main.OpenBankingMainActivity
 import kotlinx.android.synthetic.main.fragment_subs_list.*
 import kotlinx.android.synthetic.main.fragment_subs_list.view.*
 
@@ -53,7 +56,9 @@ class SubsListFragment : Fragment() {
         }
         // 자동 등록 버튼 (은행연동, OpenBanking)
         rootView.fab_register_openbanking.setOnClickListener {
-            findNavController().navigate(R.id.action_subsListFragment_to_subsRegisterOpenBankingFragment)
+            //findNavController().navigate(R.id.action_subsListFragment_to_subsRegisterOpenBankingFragment)
+            var intent = Intent(activity, OpenBankingMainActivity::class.java)
+            startActivity(intent)
         }
         return rootView
     }

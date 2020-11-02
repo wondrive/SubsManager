@@ -15,11 +15,12 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.subsmanager2.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.center_auth.CenterAuthConst;
 import com.kftc.openbankingsample2.biz.self_auth.SelfAuthConst;
 import com.kftc.openbankingsample2.common.data.AccessToken;
@@ -48,7 +49,7 @@ public abstract class AbstractMainFragment extends Fragment implements onKeyBack
 
     // context
     private Context context;
-    protected MainActivity activity;
+    protected OpenBankingMainActivity activity;
 
     // progress
     private KmProgressBar progressBar;
@@ -64,7 +65,7 @@ public abstract class AbstractMainFragment extends Fragment implements onKeyBack
         context = getContext();
 
         // 메인액티빅티 개체 연결
-        activity = (MainActivity) getActivity();
+        activity = (OpenBankingMainActivity) getActivity();
     }
 
     @Override
@@ -72,7 +73,7 @@ public abstract class AbstractMainFragment extends Fragment implements onKeyBack
         super.onActivityCreated(savedInstanceState);
 
         // 메인액티빅티 개체 연결
-        activity = (MainActivity) getActivity();
+        activity = (OpenBankingMainActivity) getActivity();
 
         // 네이게이션 메뉴버튼 안보여주기
         lockNavi(true);

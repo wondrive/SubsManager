@@ -20,7 +20,8 @@
             <ImageView
                 android:id="@+id/ivNaviClose"
                 android:layout_width="48dp"
-                android:layout_height="48dp" />
+                android:layout_height="48dp"
+                android:contentDescription="TODO" android:src="@drawable/btn_close_bk" />
 
         </LinearLayout>
 
@@ -93,6 +94,7 @@
                         android:id="@+id/rbAuth"
                         android:layout_width="match_parent"
                         android:layout_height="74dp"
+                        android:button="@drawable/empty"
                         android:gravity="center"
                         android:text="사용자인증"
                         android:textSize="14dp"/>
@@ -101,6 +103,7 @@
                         android:id="@+id/rbApi"
                         android:layout_width="match_parent"
                         android:layout_height="74dp"
+                        android:button="@drawable/empty"
                         android:gravity="center"
                         android:text="API"
                         android:textSize="14dp"/>
@@ -109,6 +112,7 @@
                         android:id="@+id/rbSetting"
                         android:layout_width="match_parent"
                         android:layout_height="74dp"
+                        android:button="@drawable/empty"
                         android:gravity="center"
                         android:text="설정"
                         android:textSize="14dp"/>
@@ -117,6 +121,7 @@
                         android:id="@+id/rbOpenLicense"
                         android:layout_width="match_parent"
                         android:layout_height="74dp"
+                        android:button="@drawable/empty"
                         android:gravity="center"
                         android:text="오픈소스\n라이선스"
                         android:textSize="14dp"/>

@@ -9,9 +9,9 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.google.gson.Gson;
-import com.kftc.openbankingsample2.R;
+import com.example.subsmanager2.R;
 import com.kftc.openbankingsample2.biz.main.AbstractMainFragment;
-import com.kftc.openbankingsample2.biz.main.MainActivity;
+import com.kftc.openbankingsample2.biz.main.OpenBankingMainActivity;
 import com.kftc.openbankingsample2.biz.self_auth.util.SelfAuthUtils;
 import com.kftc.openbankingsample2.common.Scope;
 import com.kftc.openbankingsample2.common.application.AppData;
@@ -28,7 +28,7 @@ public class AbstractSelfAuthMainFragment extends AbstractMainFragment {
 
     // context
     private Context context;
-    protected MainActivity activity;
+    protected OpenBankingMainActivity activity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class AbstractSelfAuthMainFragment extends AbstractMainFragment {
         context = getContext();
 
         // 메인액티빅티 개체 연결
-        activity = (MainActivity) getActivity();
+        activity = (OpenBankingMainActivity) getActivity();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class AbstractSelfAuthMainFragment extends AbstractMainFragment {
         super.onActivityCreated(savedInstanceState);
 
         // 메인액티빅티 개체 연결
-        activity = (MainActivity) getActivity();
+        activity = (OpenBankingMainActivity) getActivity();
 
     }
 
