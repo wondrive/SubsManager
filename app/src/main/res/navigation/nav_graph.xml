@@ -99,7 +99,6 @@
         <action
             android:id="@+id/action_boardListFragment_to_fragmentContentsBoardDetail"
             app:destination="@+id/fragmentContentBoardDetail" />
-
     </fragment>
     <fragment
         android:id="@+id/mypageFragment"
@@ -120,14 +119,7 @@
         <action
             android:id="@+id/action_platfromBoardFragment_to_fragmentPlatformBoardDetail"
             app:destination="@id/fragmentPlatformBoardDetail" />
-    </fragment><![CDATA[
-    tools:layout="@layout/fragment_platfrom_board" />
-    ]]><!--<fragment
-        android:id="@+id/contentsBoardFragment"
-        android:name="com.example.subsmanager2.board.contentsBoardFragment"
-        android:label="fragment_contents_board2"
-        tools:layout="@layout/fragment_contents_board2" />
-        app:popUpToInclusive="true" />-->
+    </fragment>
 
     <!--컨텐츠 평가 게시판-->
     <fragment
@@ -182,7 +174,8 @@
             app:argType="string" />
         <action
             android:id="@+id/action_subsDetailFragment_to_fragmentSubsUpdate"
-            app:destination="@id/fragmentSubsUpdate" />
+            app:destination="@id/fragmentSubsUpdate"
+            app:popUpTo="@id/subsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/subsRegisterFragment"
@@ -224,31 +217,17 @@
         android:id="@+id/subsRegisterOpenBankingFragment"
         android:name="com.example.subsmanager2.subs.SubsRegisterOpenBankingFragment"
         android:label="fragment_subs_register_open_banking"
-        tools:layout="@layout/fragment_subs_register_open_banking" >
-        <action
-            android:id="@+id/action_subsRegisterOpenBankingFragment_to_centerAuthAPIFragment"
-            app:destination="@id/centerAuthAPIFragment"
-            app:popUpTo="@id/subsRegisterOpenBankingFragment" />
-        <action
-            android:id="@+id/action_subsRegisterOpenBankingFragment_to_centerAuthFragment"
-            app:destination="@id/centerAuthFragment"
-            app:popUpTo="@id/subsRegisterOpenBankingFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/centerAuthFragment"
-        android:name="com.example.subsmanager2.subs.CenterAuthFragment"
-        android:label="fragment_center_auth"
-        tools:layout="@layout/fragment_center_auth" />
-    <fragment
-        android:id="@+id/centerAuthAPIFragment"
-        android:name="com.example.subsmanager2.subs.CenterAuthAPIFragment"
-        android:label="fragment_center_auth_a_p_i"
-        tools:layout="@layout/fragment_center_auth_a_p_i" />
+        tools:layout="@layout/fragment_subs_register_open_banking" />
     <fragment
         android:id="@+id/fragmentContentBoardDetail"
         android:name="com.example.subsmanager2.board.FragmentContentsBoardDetail"
         android:label="fragment_contents_board_detail"
         tools:layout="@layout/fragment_contents_board_detail" />
+    <fragment
+        android:id="@+id/fragmentPlatformBoardDetail"
+        android:name="com.example.subsmanager2.board.FragmentPlatformBoardDetail"
+        android:label="fragment_platform_board_detail"
+        tools:layout="@layout/fragment_platform_board_detail" />
     <fragment
         android:id="@+id/fragmentSubsUpdate"
         android:name="com.example.subsmanager2.subs.FragmentSubsUpdate"

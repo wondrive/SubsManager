@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_subs_update.view.edit_subs_custom
 import kotlinx.android.synthetic.main.fragment_subs_update.view.edit_subs_name
 import kotlinx.android.synthetic.main.fragment_subs_update.view.spinner_alarm_d_day
 import kotlinx.android.synthetic.main.fragment_subs_update.view.switch_alarm
-import kotlinx.android.synthetic.main.fragment_subs_write.view.*
+import kotlinx.android.synthetic.main.fragment_subs_register.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -44,7 +44,7 @@ class FragmentSubsUpdate : Fragment() {
 
         val subsId = arguments?.getLong("SUBS_ID") ?: kotlin.run { throw Error("SUBS_ID가 없습니다.") }
         val userId = arguments?.getString("USER_ID")?: kotlin.run { throw Error("USER_ID 없습니다.") }
-        val updateYn = arguments?.getString("UPDATE_YN")?:kotlin.run { throw  Error("Update_YN이 없습니다.") }
+        val updateYn = arguments?.getString("UPDATE_YN")?:kotlin.run { throw  Error("UPDATE_YN이 없습니다.") }
 
         //데이터 파싱
         val firestore by lazy { FirebaseFirestore.getInstance() }
