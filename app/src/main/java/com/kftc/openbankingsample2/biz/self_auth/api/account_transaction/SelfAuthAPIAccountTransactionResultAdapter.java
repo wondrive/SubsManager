@@ -45,13 +45,13 @@ public class SelfAuthAPIAccountTransactionResultAdapter extends KmRecyclerViewAr
         public void onBindViewHolder(View view, int position, Transaction item, boolean isSelected, boolean isExpanded, boolean isEtc) {
 
             ((TextView) view.findViewById(R.id.tvTranDate)).setText(Utils.dateForm(item.getTran_date(), "-"));
-            ((TextView) view.findViewById(R.id.tvInoutType)).setText(item.getInout_type());
+            //((TextView) view.findViewById(R.id.tvInoutType)).setText(item.getInout_type());
 
             // 거래금액
             ((TextView) view.findViewById(R.id.tvTranAmt)).setText(Utils.moneyForm(item.getTran_amt()));
 
             // 거래후잔액
-            ((TextView) view.findViewById(R.id.tvAfterBalanceAmt)).setText(Utils.moneyForm(item.getAfter_balance_amt()));
+            //((TextView) view.findViewById(R.id.tvAfterBalanceAmt)).setText(Utils.moneyForm(item.getAfter_balance_amt()));
 
             // 통장인자내용
             ((TextView) view.findViewById(R.id.tvPrintContent)).setText(item.getPrint_content());
