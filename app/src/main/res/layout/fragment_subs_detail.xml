@@ -31,6 +31,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:text="내가 구독중인 서비스"
             android:textColor="@color/black"
             android:textSize="24sp"
@@ -60,9 +61,12 @@
 
                 <TextView
                     android:id="@+id/txt_usage"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="이달 사용량" />
             </TableRow>
 
             <TableRow
@@ -73,6 +77,7 @@
                     android:id="@+id/textView13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:text="구독 서비스"
                     android:textAlignment="textEnd"
                     android:textColor="@color/orange"
@@ -82,9 +87,11 @@
                     android:id="@+id/txt_subs_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
                     android:layout_weight="5"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="구독 서비스" />
             </TableRow>
 
             <TableRow
@@ -103,9 +110,11 @@
                 <TextView
                     android:id="@+id/txt_charge_date"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
                     android:layout_weight="5"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="정기 결제일" />
 
             </TableRow>
 
@@ -125,9 +134,11 @@
                 <TextView
                     android:id="@+id/txt_fee"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
                     android:layout_weight="5"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="구독료" />
 
             </TableRow>
 
@@ -147,9 +158,11 @@
                 <TextView
                     android:id="@+id/txt_alarm_d_day"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
                     android:layout_weight="5"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="알람 D-day" />
 
             </TableRow>
         </TableLayout>
