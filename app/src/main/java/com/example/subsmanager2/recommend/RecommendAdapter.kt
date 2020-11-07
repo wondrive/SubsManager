@@ -6,13 +6,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.subsmanager2.R
 import com.example.subsmanager2.entity.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.android.synthetic.main.list_item_platform_board.view.*
 import kotlinx.android.synthetic.main.list_item_recommend.view.*
+import kotlinx.android.synthetic.main.list_item_recommend.view.img_sub_app
+import kotlinx.android.synthetic.main.list_item_recommend.view.item_txt_fee
 
 
 //class SubsAdapter(var subsList: List<SubsEntity> = emptyList()) :
@@ -51,12 +55,27 @@ class RecommendAdapter : RecyclerView.Adapter<RecommendAdapter.ItemViewHolder>()
 
                     recommendList.add(item!!)
                     Log.i(TAG, "3-2. recommend ::: " + item)
+                    Log.i(TAG, "3-3. recommendList ::: " + recommendList)
+
                 }
                 notifyDataSetChanged()  // 위치 꼭 여기여야 만함
                 Log.i(TAG, "4. recommendList ::: " + recommendList)
             }
 
     }// end of 1. category 테이블*/
+
+
+    fun setSubAppIcon(appName: String?, img_sub_app: ImageView) {
+        when (appName) {
+            "넷플릭스" -> img_sub_app.setImageResource(R.drawable.netflix)
+            "왓챠" -> img_sub_app.setImageResource(R.drawable.watcha)
+            "유튜브 프리미엄" -> img_sub_app.setImageResource(R.drawable.youtube)
+            "밀리의 서재" -> img_sub_app.setImageResource(R.drawable.millie)
+            "지니뮤직" -> img_sub_app.setImageResource(R.drawable.genie)
+            "멜론뮤직" -> img_sub_app.setImageResource(R.drawable.melon)
+            "리디북스" -> img_sub_app.setImageResource(R.drawable.ridi)
+        }
+    }
 
 
 
@@ -84,6 +103,7 @@ class RecommendAdapter : RecyclerView.Adapter<RecommendAdapter.ItemViewHolder>()
                 itemView.item_txt_plan_name.text = recommend.planName
                 itemView.item_txt_subs_name.text = recommend.subsName
                 itemView.item_rating.rating = recommend.boardRating.toFloat()
+                setSubAppIcon(recommend.subsName, itemView.img_sub_app)
                 itemView.item_txt_fee.text = recommend.fee.toString()+"￦"
 
 
