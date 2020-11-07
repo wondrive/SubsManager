@@ -19,30 +19,36 @@
             android:layout_height="50dp">
 
             <TableRow android:layout_marginTop="5dp">
+                <CheckBox
+                    android:id="@+id/cbSelect"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    />
                 <TextView
                     android:id="@+id/tvTranDate"
                     android:gravity="center"
                     android:text="xxxx-xx-xx"
                     style="@style/TextViewAPIResult"
                     android:layout_width="0dp" android:layout_weight="1"/>
-                <TextView
+                <!--<TextView
                     android:id="@+id/tvInoutType"
                     android:gravity="center"
                     android:text="입금"
                     style="@style/TextViewAPIResult"
-                    android:layout_width="0dp" android:layout_weight="0.5"/>
+                    android:layout_width="0dp" android:layout_weight="0.5"/>-->
                 <TextView
                     android:id="@+id/tvTranAmt"
                     android:gravity="center"
                     android:text="10,000"
                     style="@style/TextViewAPIResult"
                     android:layout_width="0dp" android:layout_weight="1"/>
-                <TextView
+                <!--<TextView
                     android:id="@+id/tvAfterBalanceAmt"
                     android:gravity="center"
                     android:text="100,000"
                     style="@style/TextViewAPIResult"
-                    android:layout_width="0dp" android:layout_weight="1"/>
+                    android:layout_width="0dp" android:layout_weight="1"/>-->
                 <TextView
                     android:id="@+id/tvPrintContent"
                     android:gravity="center"

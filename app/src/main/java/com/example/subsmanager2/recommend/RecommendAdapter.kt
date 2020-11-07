@@ -103,8 +103,8 @@ class RecommendAdapter : RecyclerView.Adapter<RecommendAdapter.ItemViewHolder>()
                 itemView.item_txt_plan_name.text = recommend.planName
                 itemView.item_txt_subs_name.text = recommend.subsName
                 itemView.item_rating.rating = recommend.boardRating.toFloat()
-                itemView.item_txt_fee.text = recommend.fee+"￦"
                 setSubAppIcon(recommend.subsName, itemView.img_sub_app)
+                itemView.item_txt_fee.text = recommend.fee.toString()+"￦"
 
 
                 // 이미지 추후 처리
@@ -112,6 +112,6 @@ class RecommendAdapter : RecyclerView.Adapter<RecommendAdapter.ItemViewHolder>()
 
         }//end of bindItems
     }//end of ItemViewHolder
-    companion object {var searchword = "음악"
+    companion object {var searchword = "영화/드라마"
     }fun setSearchWord(a: String) {searchword = a};
 }

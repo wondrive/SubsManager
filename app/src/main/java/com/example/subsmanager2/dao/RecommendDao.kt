@@ -22,6 +22,7 @@ class RecommendDao {
         return resultList.size
     }
 
+    /*
     // 맞춤형 서비스 출력           =====> 추후 userId로 roomDB에서 빈도높은 category 추출하여 검색하는 기능 추가
     fun selectRecommendList(selectCategory: String): ArrayList<RecommendEntity> {
         var recommend = RecommendEntity()
@@ -59,7 +60,7 @@ class RecommendDao {
                                             Log.i(TAG, "3. planOfficialList ::: " + item!!)
 
                                             // plan (요금제) 값 할당
-                                            recommend.id = item.id
+                                            //recommend.id = item.id
                                             recommend.planName = item.name
                                             recommend.fee = item.fee
                                             recommend.boardRating = item.boardRating
@@ -72,10 +73,10 @@ class RecommendDao {
                                     }
                         }
                     } // end of 2. subs_official 테이블
-            }// end of 1. category 테이블*/
+            }// end of 1. category 테이블
 
         return resultList();
-    }
+    }*/
 
 }
 

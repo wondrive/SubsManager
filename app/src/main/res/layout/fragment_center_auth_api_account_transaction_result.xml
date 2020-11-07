@@ -55,31 +55,35 @@
             android:layout_height="30dp">
 
             <TableRow>
+                <CheckBox
+                    android:id="@+id/cbAllSelect"
+                    android:gravity="center"
+                    android:layout_width="0dp" android:layout_weight="0.3" />
                 <TextView
                     style="@style/TextViewAPIResult"
                     android:gravity="center"
                     android:layout_width="0dp" android:layout_weight="1"
                     android:text="거래일자" />
-                <TextView
+                <!--<TextView
                     style="@style/TextViewAPIResult"
                     android:gravity="center"
                     android:layout_width="0dp" android:layout_weight="0.5"
-                    android:text="구분" />
+                    android:text="구분" />-->
                 <TextView
                     style="@style/TextViewAPIResult"
                     android:gravity="center"
                     android:layout_width="0dp" android:layout_weight="1"
                     android:text="거래금액" />
+                <!--<TextView
+                    style="@style/TextViewAPIResult"
+                    android:gravity="center"
+                    android:layout_width="0dp" android:layout_weight="1"
+                    android:text="거래후잔액" />-->
                 <TextView
                     style="@style/TextViewAPIResult"
                     android:gravity="center"
                     android:layout_width="0dp" android:layout_weight="1"
-                    android:text="거래후잔액" />
-                <TextView
-                    style="@style/TextViewAPIResult"
-                    android:gravity="center"
-                    android:layout_width="0dp" android:layout_weight="1"
-                    android:text="인자내용" />
+                    android:text="거래내용" />
             </TableRow>
 
         </TableLayout>

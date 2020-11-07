@@ -9,6 +9,7 @@ import com.google.firebase.database.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.WriteBatch
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.squareup.moshi.Moshi
@@ -50,6 +51,8 @@ class SubsDao {
 
     // 구독앱 목록
     fun selectSubsList(userId: String): LiveData<List<SubsEntity>> {
+        subsList.clear()
+
         // 여러 문서 가져오기
         firestore.collection("subs").whereEqualTo("userId", userId).orderBy("subsId", Query.Direction.DESCENDING).get()
             .addOnSuccessListener { documents ->
@@ -122,6 +125,50 @@ class SubsDao {
                     Log.w("Firestore", "subs_count :: 실패", it.exception)
                 }
             }
+    }
+
+    fun insertSubsList(subsList: ArrayList<SubsEntity>) {
+        val countRef = firestore.collection("count") //.document("subs_count")
+        val subsRef = firestore.collection("subs")
+        val batch = firestore.batch()
+        var subs_count = 0L
+
+        firestore.runTransaction { transaction ->
+            // count 값 가져오기 1
+            val snapshot = transaction.get(countRef.document("subs_count"))
+            subs_count = snapshot.getLong("count")!!
+            Log.d("FireStore", "subs_count 추출 ::: " + subs_count)
+            
+
+            // count 값 가져오기2
+            /*countRef.get().addOnCompleteListener {
+                if (it.isSuccessful) { // 성공시
+                    for (document in it.result!!) {
+                        if (document.id == "subs_count") {
+                            subs_count = document.data["count"].toString().toLong()
+                            Log.d("FireStore", "subs_count 증분 성공 ::: " + subs_count)
+                        }
+                    }
+                }
+            }*/
+
+
+            for(item in subsList) {
+                item.subsId = ++subs_count
+                transaction.set(subsRef.document(item.subsId.toString()), item)
+
+                Log.d(TAG, "subsList 추가 후 subs_count: "+subs_count)
+            }
+
+            // subs_count를 update
+            //countRef.document("subs_count").update("count", subs_count)
+            transaction.update(countRef.document("subs_count"), "count", subs_count)
+
+            //batch.commit()
+
+            Log.d(TAG, "최종: "+subs_count)
+        }
+
     }
 
     // 업데이트

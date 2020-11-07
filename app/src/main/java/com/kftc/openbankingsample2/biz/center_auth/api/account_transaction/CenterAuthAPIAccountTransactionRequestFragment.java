@@ -2,6 +2,7 @@ package com.kftc.openbankingsample2.biz.center_auth.api.account_transaction;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.kftc.openbankingsample2.common.util.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -179,27 +181,34 @@ public class CenterAuthAPIAccountTransactionRequestFragment extends AbstractCent
         view.findViewById(R.id.btnNext).setOnClickListener(v -> {
 
             // 직전내용 저장
+            // 토큰 및 핀테크 이용번호 추출
             String accessToken = etToken.getText().toString().trim();
             Utils.saveData(CenterAuthConst.CENTER_AUTH_ACCESS_TOKEN, accessToken);
             String fintechUseNum = etFintechUseNum.getText().toString();
             Utils.saveData(CenterAuthConst.CENTER_AUTH_FINTECH_USE_NUM, fintechUseNum);
 
+            // 현재 날짜, 한달 전 날짜 포맷
+            SimpleDateFormat presentDateFormat = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+            Calendar fromDateFormat = Calendar.getInstance();
+            fromDateFormat.add(Calendar.MONTH, -1);
+
             // 요청전문
             HashMap<String, String> paramMap = new HashMap<>();
-            paramMap.put("bank_tran_id", etBankTranId.getText().toString());
-            paramMap.put("fintech_use_num", fintechUseNum);
-            paramMap.put("inquiry_type", inquiryType);
-            paramMap.put("inquiry_base", inquiryBase);
-            paramMap.put("from_date", etFromDate.getText().toString().trim());
-            paramMap.put("from_time", etFromTime.getText().toString().trim());
-            paramMap.put("to_date", etToDate.getText().toString().trim());
-            paramMap.put("to_time", etToTime.getText().toString().trim());
-            paramMap.put("sort_order", sortOrder);
-            paramMap.put("tran_dtime", etTranDtime.getText().toString());
-            paramMap.put("befor_inquiry_trace_info", etBeforInquiryTraceInfo.getText().toString());
+            paramMap.put("bank_tran_id", etBankTranId.getText().toString());    // 은행거래고유번호
+            paramMap.put("fintech_use_num", fintechUseNum);                     // 핀테크 이용 번호
+            paramMap.put("inquiry_type", "O");//inquiryType);                          // 쿼리 타입
+            paramMap.put("inout_type", "출금");
+            paramMap.put("inquiry_base", inquiryBase);                   // 조회 코드
+            paramMap.put("from_date", presentDateFormat.format(fromDateFormat.getTime()));//etFromDate.getText().toString().trim());  // 조회 시작 날짜
+            paramMap.put("from_time", "000000");//etFromTime.getText().toString().trim());  //   "  시작 시간
+            paramMap.put("to_date", presentDateFormat.format(new Date()));//etToDate.getText().toString().trim());      //   "  종료 날짜
+            paramMap.put("to_time", "000000");//etToTime.getText().toString().trim());      //   "  종료 시간
+            paramMap.put("sort_order", "D");//sortOrder);                              // 정렬 순서
+            paramMap.put("tran_dtime", etTranDtime.getText().toString());       // 요청 일시
+            paramMap.put("befor_inquiry_trace_info", etBeforInquiryTraceInfo.getText().toString()); // 직전 조회 추적정보
 
             showProgress();
-            CenterAuthApiRetrofitAdapter.getInstance()
+            CenterAuthApiRetrofitAdapter.getInstance()  // 센터인증 객체
                     .accountTrasactionListFinNum("Bearer " + accessToken, paramMap)
                     .enqueue(super.handleResponse("page_record_cnt", "현재페이지 조회건수", responseJson -> {
 
@@ -209,6 +218,7 @@ public class CenterAuthAPIAccountTransactionRequestFragment extends AbstractCent
                         args.putParcelable("result", result);
                         args.putSerializable("request", paramMap);
                         args.putString(CenterAuthConst.BUNDLE_KEY_ACCESS_TOKEN, accessToken);
+                        Log.i("조회 요청", paramMap.toString());
                         goNext();
                     })
             );

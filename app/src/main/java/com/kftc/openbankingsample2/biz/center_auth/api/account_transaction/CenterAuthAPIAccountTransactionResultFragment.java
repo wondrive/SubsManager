@@ -2,10 +2,12 @@ package com.kftc.openbankingsample2.biz.center_auth.api.account_transaction;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,9 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.subsmanager2.R;
+import com.example.subsmanager2.dao.SubsDao;
+import com.example.subsmanager2.entity.SubsEntity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.kftc.openbankingsample2.biz.center_auth.AbstractCenterAuthMainFragment;
 import com.kftc.openbankingsample2.biz.center_auth.CenterAuthConst;
+import com.kftc.openbankingsample2.biz.center_auth.CenterAuthHomeFragment;
 import com.kftc.openbankingsample2.biz.center_auth.api.CenterAuthAPIFragment;
 import com.kftc.openbankingsample2.biz.center_auth.http.CenterAuthApiRetrofitAdapter;
 import com.kftc.openbankingsample2.common.data.ApiCallAccountTransactionResponse;
@@ -24,8 +30,11 @@ import com.kftc.openbankingsample2.common.data.Transaction;
 import com.kftc.openbankingsample2.common.util.Utils;
 import com.kftc.openbankingsample2.common.util.view.recyclerview.KmRecyclerViewDividerHeight;
 
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -62,9 +71,9 @@ public class CenterAuthAPIAccountTransactionResultFragment extends AbstractCente
         args = getArguments();
         if (args == null) args = new Bundle();
 
-        result = args.getParcelable("result");
-        paramMap = (HashMap<String, String>) args.getSerializable("request");
-        accessToken = args.getString(CenterAuthConst.BUNDLE_KEY_ACCESS_TOKEN, "");
+        result = args.getParcelable("result");                                      // 공유변수 받아오기 (응답받은 변수)
+        paramMap = (HashMap<String, String>) args.getSerializable("request");      // 공유변수 받아오기 (요청할 변수)
+        accessToken = args.getString(CenterAuthConst.BUNDLE_KEY_ACCESS_TOKEN, "");  // 공유변수 args에서 토큰 추출
     }
 
     @Nullable
@@ -76,7 +85,6 @@ public class CenterAuthAPIAccountTransactionResultFragment extends AbstractCente
     }
 
     void initView() {
-
         // 상단 정보
         totalRecordCnt = result.getPageRecordCntInt();
         tvTotalRecordCnt = view.findViewById(R.id.tvTotalRecordCnt);
@@ -87,8 +95,8 @@ public class CenterAuthAPIAccountTransactionResultFragment extends AbstractCente
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.addItemDecoration(new KmRecyclerViewDividerHeight(30));
 
-        view.findViewById(R.id.btnNext).setOnClickListener(v -> goNext());
-        view.findViewById(R.id.btnCancel).setOnClickListener(v -> onBackPressed());
+        view.findViewById(R.id.btnNext).setOnClickListener(v -> goNext());          // 저장
+        view.findViewById(R.id.btnCancel).setOnClickListener(v -> onBackPressed()); //
 
         initData();
     }
@@ -115,8 +123,8 @@ public class CenterAuthAPIAccountTransactionResultFragment extends AbstractCente
     // 거래내역조회 요청
     void requestMoreDate() {
 
-        paramMap.put("bank_tran_id", getRandomBankTranId());
-        paramMap.put("befor_inquiry_trace_info", beforInquiryTraceInfo);
+        paramMap.put("bank_tran_id", getRandomBankTranId());    // 거래 고유번호 랜덤 입력
+        paramMap.put("befor_inquiry_trace_info", beforInquiryTraceInfo);    // 직전정보 조회(다음 데이터 더 있는지 확인용)
 
         showProgress();
         CenterAuthApiRetrofitAdapter.getInstance()
@@ -172,6 +180,55 @@ public class CenterAuthAPIAccountTransactionResultFragment extends AbstractCente
     };
 
     void goNext() {
-        startFragment(CenterAuthAPIFragment.class, null, R.string.fragment_id_center_api_call);
+        //ArrayList<Transaction> SelectedList = adapter.get(); //new ArrayList<String>();
+
+        //Toast.makeText(view.getContext(), "선택항목 : " + SelectedList.toString(), Toast.LENGTH_LONG);
+        Log.d("선택항목", "getSelectedList : "+adapter.getSelectedList().toString());
+
+
+
+        // 수정
+        // startFragment(CenterAuthAPIFragment.class, null, R.string.fragment_id_center_api_call);
+        savePlan();         // result 를 plan에 저장
+        activity.finish();  // 구독앱 리스트 호출
+    }
+
+    public void onBackPressed() {
+        startFragment(CenterAuthHomeFragment.class, null, R.string.fragment_id_center);
+    }
+
+    void savePlan() {
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.KOREA);
+        SubsDao subsDao = new SubsDao();
+        ArrayList<SubsEntity> subsList = new ArrayList<>();
+
+        // 일단 전체 저장 해보기
+        for (Transaction item : adapter.getItemList()) {
+
+            SubsEntity subs = new SubsEntity();
+            subs.setSubsName(item.getPrint_content());
+            subs.setSubsCustomName(item.getPrint_content());
+            subs.setFee(item.getTran_amt());
+            subs.setFeeDate(item.getTran_date());//dayFormat.format(item.getTran_date()));
+            subs.setAlarmYN(false);
+            subs.setAlarmDday("7일 전");
+            subs.setUserId(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+            subsList.add(subs);
+        }
+        subsDao.insertSubsList(subsList);
+
+
+        // 선택 저장
+        ArrayList<Transaction> SelectedList = adapter.getSelectedItemList(); //new ArrayList<String>();
+        Toast.makeText(getContext(), "선택항목 : " + SelectedList.toString(), Toast.LENGTH_LONG);
+        for (Transaction item : SelectedList){
+            // Firebase 저장
+
+        }
+
+
+
+        // 체크된 것만 저장
     }
 }

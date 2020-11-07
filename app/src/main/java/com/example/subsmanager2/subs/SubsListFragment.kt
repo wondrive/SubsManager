@@ -18,6 +18,7 @@ import com.google.firebase.firestore.Query
 import com.kftc.openbankingsample2.biz.main.OpenBankingMainActivity
 import kotlinx.android.synthetic.main.fragment_subs_list.*
 import kotlinx.android.synthetic.main.fragment_subs_list.view.*
+import java.text.DecimalFormat
 
 /**
  * A simple [Fragment] subclass.
@@ -62,11 +63,12 @@ class SubsListFragment : Fragment() {
         }
 
         //요금 총합
-        totalFee=0
+        val deciamlFormat: DecimalFormat = DecimalFormat("###,###")
         subsDao.firestore?.collection("subs")
             .orderBy("subsId", Query.Direction.DESCENDING)
             .whereEqualTo("userId", user.toString())
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                totalFee = 0
                 for (snapshot in querySnapshot!!.documents) {
                     Log.d("fee : ", snapshot.get("fee").toString())
                     val fee = snapshot.get("fee")
@@ -74,7 +76,7 @@ class SubsListFragment : Fragment() {
                         totalFee += fee.toInt()
                     }
                 }
-                rootView?.item_txt_total_fee?.text = "총 구독료: " + totalFee.toString() + "₩"
+                rootView?.item_txt_total_fee?.text = "총 구독료: " + deciamlFormat.format(totalFee) + "₩"
             }
 
         /* Fab 애니메이션 초기화 */
