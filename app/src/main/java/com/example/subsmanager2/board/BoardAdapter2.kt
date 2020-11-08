@@ -116,12 +116,8 @@ class BoardAdapter2 : RecyclerView.Adapter<BoardAdapter2.ItemViewHolder>() {
             itemView.setOnClickListener {
                 Navigation.findNavController(itemView).navigate(
                     R.id.action_boardListFragment_to_fragmentContentsBoardDetail,
-                    Bundle().apply {
-                        /* //현재 선택한 Board의 id(primary key)
-                          - noteIdx가 없는 리스트는 존재할 수 없으므로 강제 언래핑(Unwrapping)*/
-                        putLong("BOARD_ID", board.boardId!!)
-                        putString("USER_ID", board.userId!!)
-                        putString("UPDATE_YN", "Y")
+                    Bundle().apply{
+                        putString("boardId", board.boardId.toString()!!)
                     })
             }//end of setOnClickListener
         }//end of bindItems

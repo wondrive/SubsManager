@@ -52,24 +52,12 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.ItemViewHolder>() {
                                 for (snapshot in querySnapshot!!.documents) {
                                     val board = snapshot.toObject(PlatformBoardEntity::class.java)
                                     if (board != null) {
+                                        Log.e("boardId :::: ",board.boardId.toString())
                                         platformBoardList?.add(board)
                                     }
                                 }
                                 notifyDataSetChanged()
                             }
-//                            .get()
-//                            .addOnSuccessListener { result ->
-//                                platformBoardList.clear()
-//                                for (document in result) {
-//                                    val board = document.toObject(PlatformBoardEntity::class.java)
-//                                    platformBoardList?.add(board)
-//                                    Log.d("board : ",board.boardTitle)
-//                                }
-//                                notifyDataSetChanged()
-//                            }
-//                            .addOnFailureListener { exception ->
-//                                Log.w(TAG, "Error getting documents.", exception)
-//                            }
                     }
                     // 작성된 게시글이 3개 이하일 때
                     else {
@@ -137,11 +125,7 @@ class BoardAdapter : RecyclerView.Adapter<BoardAdapter.ItemViewHolder>() {
                     //platform detail로 이동
                     R.id.action_boardListFragment_to_fragmentPlatformBoardDetail,
                     Bundle().apply {
-                        /* //현재 선택한 Board의 id(primary key)
-                          - noteIdx가 없는 리스트는 존재할 수 없으므로 강제 언래핑(Unwrapping)*/
-                        putLong("BOARD_ID", board.boardId!!)
-                        putString("USER_ID", board.userId!!)
-                        putString("UPDATE_YN", "Y")
+                        putString("boardId", board.boardId.toString()!!)
                     })
             }//end of setOnClickListener
         }//end of bindItems
