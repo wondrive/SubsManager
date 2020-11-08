@@ -1,27 +1,31 @@
 package com.example.subsmanager2.subs
 
-import android.net.Uri
+import android.app.AppOpsManager
+import android.app.usage.UsageStats
+import android.app.usage.UsageStatsManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.Process
+import android.provider.Settings
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.SubsDao
-import com.example.subsmanager2.database.DatabaseModule
 import com.example.subsmanager2.entity.SubsEntity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.fragment_subs_detail.*
 import kotlinx.android.synthetic.main.fragment_subs_detail.view.*
 import kotlinx.android.synthetic.main.fragment_subs_detail.view.txt_subs_name
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -36,6 +40,7 @@ class SubsDetailFragment : Fragment() {
     private var subsId:Long =0
     private var userId:String=""
     private var updateYn:String=""
+    private var appName:String=""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,15 +69,6 @@ class SubsDetailFragment : Fragment() {
             }
         }
 
-        /* DetailFragment에서 LiveData observe
-           - DB에서 트랜잭션(Transaction)이 발생하면 UI를 갱신
-           - (박진아 작성: 음.. LiveData observe에 대한 개념이 없어서 바로 firestore과 연결하는 것으로 구현했습니다☔︎
-        */
-//        subsDao.selectLiveSubs(subsId)?.observe(viewLifecycleOwner, Observer {
-//            view.txt_subs_name.text=it.subsName
-//            Log.d(TAG, "Subs_Detail 출력 ::: " + it.subsName)
-//        })
-
         //데이터 파싱
         val firestore by lazy { FirebaseFirestore.getInstance() }
         var subs = SubsEntity()
@@ -80,20 +76,30 @@ class SubsDetailFragment : Fragment() {
             .get()
             .addOnSuccessListener { documentSnapshot ->
                 for(document in documentSnapshot!!) {
-                    Log.d(TAG, "Subs_Detail  ::: " + document.data)
                     subs = document.toObject(SubsEntity::class.java)
                     view.txt_subs_name.text=subs.subsName
                     view.txt_charge_date.text=subs.feeDate
-                    view.txt_fee.text=subs.fee
                     view.txt_alarm_d_day.text=subs.alarmDday
-                    view.txt_usage.text="미정"
+                    /**
+                     * 사용시간 가져오기
+                     * 임시데이터로 youtube 기록 가져온것임!
+                     * appName=subs.subsName
+                     */
+                    appName = "youtube"
+                    if (!checkForPermission()) {
+                        Log.i(TAG, "The user may not allow the access to apps usage. ")
+                        startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+                    } else {
+                        val usageStats = getAppUsageStats()
+                        view.txt_usage.text = "이번 달에 '"+subs.fee+"'원을 지출하고 "+showAppUsageStats(usageStats,appName).toString() +"분 사용했습니다."
+                    }
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Subs 상세 읽기 실패: ", exception)
-            }
+         }
 
-        // 데이터 수정 -- 작업중입니다.^^
+        // 데이터 수정
         view.btn_detail_edit.setOnClickListener {
             //childFragmentManager:  Fragment에서 다른 Fragment를 만들 때(DetailFragment에서 DialFragment 만들 때)
             //RecipeWriteFragment().show(childFragmentManager, recipeId.toString())
@@ -114,6 +120,55 @@ class SubsDetailFragment : Fragment() {
             //뒤로가기
             findNavController().popBackStack()
         }
+
     }//end of onViewCreated
+
+    // 허가 받았는지 확인
+    fun checkForPermission(): Boolean {
+        val appOps = activity?.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+        val packageName = context?.packageName
+        val mode = appOps.checkOpNoThrow(
+            AppOpsManager.OPSTR_GET_USAGE_STATS,
+            Process.myUid(),
+            packageName
+        )
+        return mode == AppOpsManager.MODE_ALLOWED
+    }
+
+    //한달간 데이터
+    private fun getAppUsageStats(): MutableList<UsageStats> {
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.MONTH, -1)
+
+        val usageStatsManager = activity?.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+        val queryUsageStats = usageStatsManager
+            .queryUsageStats(
+                UsageStatsManager.INTERVAL_MONTHLY, cal.timeInMillis,
+                System.currentTimeMillis()
+            )
+        return queryUsageStats
+    }
+
+    // 사용시간 조회
+    private fun showAppUsageStats(usageStats: MutableList<UsageStats>, appName: String): Double {
+        var usageTime: Double = 0.0
+
+        usageStats.sortWith(Comparator { right, left ->
+            compareValues(left.lastTimeUsed, right.lastTimeUsed)
+        })
+
+        usageStats.forEach { it ->
+            if(it.packageName.contains(appName)) {
+                usageTime = (it.totalTimeInForeground/60000).toDouble()
+//                Log.e(
+//                    TAG,
+//                    "packageName: ${it.packageName}, lastTimeUsed: ${Date(it.lastTimeUsed)}, " +
+//                            "totalTimeInForeground: ${it.totalTimeInForeground}"
+//                )
+            }
+        }
+        Log.e("usageTime: ",usageTime.toString())
+        return usageTime
+    }
 
 }
