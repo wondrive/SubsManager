@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -25,6 +26,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -166,4 +168,17 @@ dependencies {
      */
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.8.3'
 
+    /**
+     * permission dialog
+     */
+    implementation 'com.github.pedroSG94:AutoPermissions:1.0.3'
+
+}
+/**
+ * permission dialog
+ */
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
 }
