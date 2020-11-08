@@ -1,22 +1,30 @@
 package com.example.subsmanager2
 
+import android.app.Activity
+import android.app.AppOpsManager
+import android.app.usage.UsageStats
+import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Process
+import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.kftc.openbankingsample2.biz.main.IntroActivity
+import com.pedro.library.AutoPermissions
+import com.pedro.library.AutoPermissions.Companion.parsePermissions
+import com.pedro.library.AutoPermissionsListener
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
-class MainActivity : AppCompatActivity() {
 
-    val testdata:Int =0
-
-    var mContext: Context? = null
+/**AutoPermissionsListener*/
+class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,25 +51,94 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        /**
+         * 앱 접근 허가 요청 -> 앱 실행되자마자 승인을 받으러감
+         */
+        if (!checkForPermission()) {
+            Log.i("_", "The user may not allow the access to apps usage. ")
+            Toast.makeText(
+                this,
+                "Failed to retrieve app usage statistics. " +
+                        "You may need to enable access for this app through " +
+                        "Settings > Security > Apps with usage access",
+                Toast.LENGTH_LONG
+            ).show()
+              startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+        }else{
+            Log.e("permission","get success")
+        }
+    }
+    /** 팝업창으로 허가 요청 받으려했는데, 구현이 안됐음
+    override fun onDenied(requestCode: Int, permissions: Array<String>) {
+        TODO("Not yet implemented")
+    }
 
-        // 타이틀 바 없애기 위해 주척처리 했습니다.
-        // Top Level Destination 설정. (뒤로가기 안보이게 하기)
-        /*NavigationUI.setupActionBarWithNavController(
-            this,
-            controller,
-            AppBarConfiguration(
-                setOf(
-                    R.id.splashFragment,
-                    R.id.loginFragment,
-                    R.id.agricListFragment,
-                    R.id.agricSearchFragment,
-                    R.id.boardListFragment,
-                    R.id.mypageFragment
-                )
+    override fun onGranted(requestCode: Int, permissions: Array<String>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+    */
+
+    private fun checkForPermission(): Boolean {
+        val appOps = getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+        val mode = appOps.checkOpNoThrow(
+            AppOpsManager.OPSTR_GET_USAGE_STATS,
+            Process.myUid(),
+            packageName
+        )
+        return mode == AppOpsManager.MODE_ALLOWED
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private fun getAppUsageStats(): MutableList<UsageStats> {
+        val cal = Calendar.getInstance()
+        cal.add(Calendar.YEAR, -1)
+
+        val usageStatsManager = getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+        val queryUsageStats = usageStatsManager
+            .queryUsageStats(
+                UsageStatsManager.INTERVAL_MONTHLY, cal.timeInMillis,
+                System.currentTimeMillis()
             )
-        )*/
+        return queryUsageStats
+    }
+    private fun showAppUsageStats(usageStats: MutableList<UsageStats>, appName: String) {
+        usageStats.sortWith(Comparator { right, left ->
+            compareValues(left.lastTimeUsed, right.lastTimeUsed)
+        })
+        usageStats.forEach { it ->
+            if(it.packageName.contains(appName)) {
+                Log.e(
+                    "",
+                    "packageName: ${it.packageName}, lastTimeUsed: ${Date(it.lastTimeUsed)}, " +
+                            "totalTimeInForeground: ${it.totalTimeInForeground}"
+                )
+            }
+        }
     }
 
     // 뒤로가기 버튼 눌렀을 때, 안꺼지고 뒤로가기
     override fun onSupportNavigateUp() = findNavController(R.id.navigation_host).navigateUp()
+
+
 }
