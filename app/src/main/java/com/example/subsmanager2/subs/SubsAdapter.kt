@@ -12,12 +12,20 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import com.example.subsmanager2.R
 import com.example.subsmanager2.dao.SubsDao
+import com.example.subsmanager2.data.ReminderData
 import com.example.subsmanager2.entity.SubsEntity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_mypage.view.*
 import kotlinx.android.synthetic.main.list_item_subs.view.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 //class SubsAdapter(var subsList: List<SubsEntity> = emptyList()) :
@@ -28,17 +36,18 @@ class SubsAdapter : RecyclerView.Adapter<SubsAdapter.ItemViewHolder>() {
     // DAO
     val subsDao = SubsDao()
     var subsList = ArrayList<SubsEntity>()
+    // Reminder 알람 설정
+    lateinit var reminderList:ArrayList<ReminderData>
+
 
     override fun getItemCount() = subsList.size
 
     // 새로 추가한 부분 2020-10-19 by 정승원
     // 현재 사용자가 등록한 구독앱 목록을 가져옴 2020-11-01 by 박진아
     init {  // firebase에서 subs 불러온 뒤 Entity로 변환해 ArrayList에 담음
-
         //현재 사용자 정보
         FirebaseAuth.getInstance().currentUser?.let { it ->
             user=it.email.toString()
-            Log.d("user adapter:",user)
         }
 
         //이용자가 등록한 서비스 목록
@@ -83,20 +92,59 @@ class SubsAdapter : RecyclerView.Adapter<SubsAdapter.ItemViewHolder>() {
             itemView.item_txt_feedate.text = subs.feeDate*/
             itemView.item_switch_alarm.isChecked = subs.alarmYN
 
-            /* List 화면에서 아이템 뷰를 누르면 DetailFragment로 넘어감 */
-            itemView.setOnClickListener {
-                var index = adapterPosition
-                if (index != NO_POSITION) {
-                    Log.d("index:",index.toString())
-                    Navigation.findNavController(itemView).navigate(
-                        R.id.action_subsListFragment_to_subsDetailFragment,
-                        Bundle().apply {
-                            putLong("SUBS_ID", subs.subsId!!)
-                            putString("USER_ID", subs.userId!!)
-                            putString("UPDATE_YN", "Y")
-                        })
+            /**
+             * alarmYN을 설정한 경우
+             * Reminder Data 저장
+             */
+            if(subs.alarmYN) {
+                Log.d("alarm", "yes")
+                /**
+                notify : 1일전, 7일전, 14일전
+                feeDate : 결제일
+                reminderDate : feeDate - notify
+                 */
+                var notify: Int? = null
+                when (subs.alarmDday) {
+                    "1일 전" -> notify = 1
+                    "1주 전" -> notify = 7
+                    "2 전" -> notify = 14
                 }
-            }//end of setOnClickListener
+                val feeDate = subs.feeDate
+
+                val current = LocalDateTime.now()
+                val feeDateformatter = DateTimeFormatter.ofPattern("MM-" + feeDate + "-00:00")
+                val feeDateformatted = current.format(feeDateformatter)
+
+                val cal = Calendar.getInstance()
+                val df: DateFormat = SimpleDateFormat("MM-dd-HH:mm")
+                val date: Date = df.parse(feeDateformatted)
+                cal.time = date
+                cal.add(Calendar.DATE, -notify!!)
+
+                var reminderdata: ReminderData? = ReminderData()
+                    reminderdata!!.id = subs.subsId.toInt()
+                    reminderdata!!.name = subs.subsName
+                    reminderdata!!.date = df.format(cal.time)
+                    Log.d(
+                        "reminder data",
+                        reminderdata?.date + " " + reminderdata?.name + " " + reminderdata?.id
+                    )
+//                    reminderList.add(reminderdata)
+
+            }
+            /** List 화면에서 아이템 뷰를 누르면 DetailFragment로 넘어감 */
+            itemView.setOnClickListener {
+                    var index = adapterPosition
+                    if (index != NO_POSITION) {
+                        Navigation.findNavController(itemView).navigate(
+                            R.id.action_subsListFragment_to_subsDetailFragment,
+                            Bundle().apply {
+                                putLong("SUBS_ID", subs.subsId!!)
+                                putString("USER_ID", subs.userId!!)
+                                putString("UPDATE_YN", "Y")
+                            })
+                    }
+                }
 
             itemView.item_switch_alarm.setOnCheckedChangeListener{ buttonView, isChecked ->
                 subs.alarmYN = itemView.item_switch_alarm.isChecked
@@ -105,4 +153,3 @@ class SubsAdapter : RecyclerView.Adapter<SubsAdapter.ItemViewHolder>() {
         }//end of bindItems
     }//end of ItemViewHolder
 }
-
