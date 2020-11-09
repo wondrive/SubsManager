@@ -27,9 +27,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class SubsDetailFragment : Fragment() {
 
     val TAG = "SubsDetailFragment"
@@ -82,15 +80,19 @@ class SubsDetailFragment : Fragment() {
                     view.txt_alarm_d_day.text=subs.alarmDday
                     /**
                      * 사용시간 가져오기
-                     * 임시데이터로 youtube 기록 가져온것임!
-                     * appName=subs.subsName
                      */
                     //appName = "youtube"
                     appName=subs.subsName
+                    /**
+                     * 1. checkForPermission으로 USAGE_ACCESS 권한을 설정했는지 확인함
+                     */
                     if (!checkForPermission()) {
                         Log.i(TAG, "The user may not allow the access to apps usage. ")
                         startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
                     } else {
+                        /**
+                         * 2. showAppUsageStats로 해당하는 appName의 사용시간을 조회한다
+                         */
                         val usageStats = getAppUsageStats()
                         view.txt_usage.text = "이번 달에 '"+subs.fee+"'원을 지출하고 "+showAppUsageStats(usageStats,appName).toString() +"분 사용했습니다."
                     }
@@ -124,7 +126,9 @@ class SubsDetailFragment : Fragment() {
 
     }//end of onViewCreated
 
-    //package name 추춝
+    /**
+     * package name 추출한다
+     */
     fun getPackageName(subname: String): String{
         var rs=""
         when(subname){
@@ -142,7 +146,9 @@ class SubsDetailFragment : Fragment() {
     }
 
 
-    // 허가 받았는지 확인
+    /**
+     *  USAGE_STATS 허가 받았는지 확인하는 매소드
+     */
     fun checkForPermission(): Boolean {
         val appOps = activity?.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
         val packageName = context?.packageName
@@ -154,9 +160,12 @@ class SubsDetailFragment : Fragment() {
         return mode == AppOpsManager.MODE_ALLOWED
     }
 
-    //한달간 데이터
+    /**
+     * 한달간 사용 시간량을 조회함
+     */
     private fun getAppUsageStats(): MutableList<UsageStats> {
         val cal = Calendar.getInstance()
+        // 한달로 설정
         cal.add(Calendar.MONTH, -1)
 
         val usageStatsManager = activity?.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
@@ -168,7 +177,7 @@ class SubsDetailFragment : Fragment() {
         return queryUsageStats
     }
 
-    // 사용시간 조회
+
     private fun showAppUsageStats(usageStats: MutableList<UsageStats>, appName: String): Double {
         var usageTime: Double = 0.0
 
@@ -176,10 +185,16 @@ class SubsDetailFragment : Fragment() {
             compareValues(left.lastTimeUsed, right.lastTimeUsed)
         })
 
+        /**
+         * 3. 시스템에서 사용하는 package name을 받아온다
+         */
         val appname = getPackageName(appName)
 
         usageStats.forEach { it ->
             if(it.packageName.contains(appname) ) {
+                /**
+                 * it.totalTimeInForeground 은 ms값을 받아오므로 분 단위로 바꿔준다
+                 */
                 usageTime = (it.totalTimeInForeground/60000).toDouble()
                 Log.e(
                     TAG,
@@ -189,6 +204,9 @@ class SubsDetailFragment : Fragment() {
             }
         }
         Log.e("usageTime: ",usageTime.toString())
+        /**
+         * 분단위로 usageTime 값을 반환한다.
+         */
         return usageTime
     }
 
