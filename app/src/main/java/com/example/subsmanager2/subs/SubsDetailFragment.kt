@@ -124,6 +124,24 @@ class SubsDetailFragment : Fragment() {
 
     }//end of onViewCreated
 
+    //package name 추춝
+    fun getPackageName(subname: String): String{
+        var rs=""
+        when(subname){
+            "watcha" -> rs="wplay"
+            "왓챠" -> rs="wplay"
+            "youtube" -> rs = "youtube"
+            "밀리의 서재" -> rs = "milli"
+            "넷플릭스" -> rs = "netflix"
+            "netflix" -> rs = "netflix"
+            "리디북스" -> rs = "ridi"
+            "지니" -> rs = "genie"
+            "멜론" -> rs = "melon"
+        }
+        return  rs
+    }
+
+
     // 허가 받았는지 확인
     fun checkForPermission(): Boolean {
         val appOps = activity?.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
@@ -158,14 +176,16 @@ class SubsDetailFragment : Fragment() {
             compareValues(left.lastTimeUsed, right.lastTimeUsed)
         })
 
+        val appname = getPackageName(appName)
+
         usageStats.forEach { it ->
-            if(it.packageName.contains(appName)) {
+            if(it.packageName.contains(appname) ) {
                 usageTime = (it.totalTimeInForeground/60000).toDouble()
-//                Log.e(
-//                    TAG,
-//                    "packageName: ${it.packageName}, lastTimeUsed: ${Date(it.lastTimeUsed)}, " +
-//                            "totalTimeInForeground: ${it.totalTimeInForeground}"
-//                )
+                Log.e(
+                    TAG,
+                    "packageName: ${it.packageName}, lastTimeUsed: ${Date(it.lastTimeUsed)}, " +
+                            "totalTimeInForeground: ${it.totalTimeInForeground}"
+                )
             }
         }
         Log.e("usageTime: ",usageTime.toString())
