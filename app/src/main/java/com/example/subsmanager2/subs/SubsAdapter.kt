@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
+import android.widget.ImageView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_mypage.view.*
+import kotlinx.android.synthetic.main.list_item_recommend.view.*
 import kotlinx.android.synthetic.main.list_item_subs.view.*
+import kotlinx.android.synthetic.main.list_item_subs.view.img_sub_app
 
 
 //class SubsAdapter(var subsList: List<SubsEntity> = emptyList()) :
@@ -43,18 +46,21 @@ class SubsAdapter : RecyclerView.Adapter<SubsAdapter.ItemViewHolder>() {
 
         //이용자가 등록한 서비스 목록
         subsDao.firestore?.collection("subs")
-            .orderBy("subsId", Query.Direction.DESCENDING)
+            //.orderBy("subsId", Query.Direction.DESCENDING)
             .whereEqualTo("userId",user.toString())
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 // ArrayList 비워줌
                 subsList.clear()
-                for (snapshot in querySnapshot!!.documents) {
-                    var item = snapshot.toObject(SubsEntity::class.java)
-                    if (item != null) {
-                        subsList.add(item!!)
+                if(querySnapshot != null) {
+                    for (snapshot in querySnapshot!!.documents) {
+                        var item = snapshot.toObject(SubsEntity::class.java)
+                        if (item != null) {
+                            subsList.add(item!!)
+                        }
                     }
+                    notifyDataSetChanged()
                 }
-                notifyDataSetChanged()
+
             }
     }
 
@@ -81,6 +87,7 @@ class SubsAdapter : RecyclerView.Adapter<SubsAdapter.ItemViewHolder>() {
             itemView.item_txt_name.text = subs.subsName
             /*itemView.item_txt_fee.text = subs.fee
             itemView.item_txt_feedate.text = subs.feeDate*/
+            setSubAppIcon(subs.subsName, itemView.img_sub_app)
             itemView.item_switch_alarm.isChecked = subs.alarmYN
 
             /* List 화면에서 아이템 뷰를 누르면 DetailFragment로 넘어감 */
@@ -104,5 +111,19 @@ class SubsAdapter : RecyclerView.Adapter<SubsAdapter.ItemViewHolder>() {
             }
         }//end of bindItems
     }//end of ItemViewHolder
+
+
+    fun setSubAppIcon(appName: String?, img_sub_app: ImageView) {
+        when (appName) {
+            "넷플릭스" -> { img_sub_app.setImageResource(R.drawable.netflix) }
+            "왓챠" -> { img_sub_app.setImageResource(R.drawable.watcha) }
+            "유투브 프리미엄" -> { img_sub_app.setImageResource(R.drawable.youtube) }
+            "밀리의 서재" -> { img_sub_app.setImageResource(R.drawable.millie) }
+            "지니뮤직" -> { img_sub_app.setImageResource(R.drawable.genie) }
+            "멜론뮤직" -> { img_sub_app.setImageResource(R.drawable.melon) }
+            "리디북스" -> { img_sub_app.setImageResource(R.drawable.ridi) }
+            else -> { img_sub_app.visibility = View.INVISIBLE }
+        }
+    }
 }
 

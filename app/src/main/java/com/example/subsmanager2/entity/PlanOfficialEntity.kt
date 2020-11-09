@@ -10,7 +10,6 @@ data class PlanOfficialEntity(    //
     var boardRating:Float  = 0.0F,
     var subsName:String     = "",
     var categoryName: String = "",
-    var planName: String = "",
     var imgUrl:String =""
 ) {
     @Exclude
@@ -21,7 +20,6 @@ data class PlanOfficialEntity(    //
             "fee" to fee,
             "boardRating" to boardRating,
             "imgUrl" to imgUrl,
-            "planName" to planName,
             "subsName" to subsName
         )
     }

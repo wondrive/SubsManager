@@ -69,14 +69,18 @@ class SubsListFragment : Fragment() {
             .whereEqualTo("userId", user.toString())
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 totalFee = 0
-                for (snapshot in querySnapshot!!.documents) {
-                    Log.d("fee : ", snapshot.get("fee").toString())
-                    val fee = snapshot.get("fee")
-                    if (fee is String) {
-                        totalFee += fee.toInt()
+                if(querySnapshot!=null) {
+
+                    for (snapshot in querySnapshot!!.documents) {
+                        Log.d("fee : ", snapshot.get("fee").toString())
+                        val fee = snapshot.get("fee")
+                        if (fee is String) {
+                            totalFee += fee.toInt()
+                        }
                     }
+                    rootView?.item_txt_total_fee?.text = "총 구독료: " + deciamlFormat.format(totalFee) + "₩"
                 }
-                rootView?.item_txt_total_fee?.text = "총 구독료: " + deciamlFormat.format(totalFee) + "₩"
+
             }
 
         /* Fab 애니메이션 초기화 */

@@ -197,7 +197,6 @@ public class CenterAuthAPIAccountTransactionRequestFragment extends AbstractCent
             paramMap.put("bank_tran_id", etBankTranId.getText().toString());    // 은행거래고유번호
             paramMap.put("fintech_use_num", fintechUseNum);                     // 핀테크 이용 번호
             paramMap.put("inquiry_type", "O");//inquiryType);                          // 쿼리 타입
-            paramMap.put("inout_type", "출금");
             paramMap.put("inquiry_base", inquiryBase);                   // 조회 코드
             paramMap.put("from_date", presentDateFormat.format(fromDateFormat.getTime()));//etFromDate.getText().toString().trim());  // 조회 시작 날짜
             paramMap.put("from_time", "000000");//etFromTime.getText().toString().trim());  //   "  시작 시간

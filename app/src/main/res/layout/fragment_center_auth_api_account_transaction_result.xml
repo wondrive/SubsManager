@@ -58,7 +58,8 @@
                 <CheckBox
                     android:id="@+id/cbAllSelect"
                     android:gravity="center"
-                    android:layout_width="0dp" android:layout_weight="0.3" />
+                    android:layout_width="0dp" android:layout_weight="0.3"
+                    android:visibility="gone"/>
                 <TextView
                     style="@style/TextViewAPIResult"
                     android:gravity="center"

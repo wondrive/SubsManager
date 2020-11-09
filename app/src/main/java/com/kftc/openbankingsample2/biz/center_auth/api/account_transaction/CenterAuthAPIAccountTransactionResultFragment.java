@@ -31,6 +31,7 @@ import com.kftc.openbankingsample2.common.util.Utils;
 import com.kftc.openbankingsample2.common.util.view.recyclerview.KmRecyclerViewDividerHeight;
 
 import java.lang.reflect.Array;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -198,7 +199,8 @@ public class CenterAuthAPIAccountTransactionResultFragment extends AbstractCente
     }
 
     void savePlan() {
-        SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.KOREA);
+        SimpleDateFormat dayFormat = new SimpleDateFormat("d", Locale.KOREA);
+
         SubsDao subsDao = new SubsDao();
         ArrayList<SubsEntity> subsList = new ArrayList<>();
 
@@ -209,13 +211,16 @@ public class CenterAuthAPIAccountTransactionResultFragment extends AbstractCente
             subs.setSubsName(item.getPrint_content());
             subs.setSubsCustomName(item.getPrint_content());
             subs.setFee(item.getTran_amt());
-            subs.setFeeDate(item.getTran_date());//dayFormat.format(item.getTran_date()));
+            //subs.setFeeDate(item.getTran_date());
+            subs.setFeeDate(item.getTran_date().substring(6));
             subs.setAlarmYN(false);
-            subs.setAlarmDday("7일 전");
+            subs.setAlarmDday("1주 전");
             subs.setUserId(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
             subsList.add(subs);
         }
+
+
         subsDao.insertSubsList(subsList);
 
 

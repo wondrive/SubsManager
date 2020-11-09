@@ -138,7 +138,6 @@ class SubsDao {
             val snapshot = transaction.get(countRef.document("subs_count"))
             subs_count = snapshot.getLong("count")!!
             Log.d("FireStore", "subs_count 추출 ::: " + subs_count)
-            
 
             // count 값 가져오기2
             /*countRef.get().addOnCompleteListener {

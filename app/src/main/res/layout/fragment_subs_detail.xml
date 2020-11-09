@@ -33,7 +33,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="8dp"
             android:text="내가 구독중인 서비스"
             android:textColor="@color/black"
             android:textSize="24sp"
@@ -45,7 +45,7 @@
             android:id="@+id/txt_usage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="40dp"
             android:textColor="@color/black"
             android:textSize="24sp"
@@ -102,10 +102,18 @@
                     android:id="@+id/txt_charge_date"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:layout_weight="5"
+                    android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     tools:text="정기 결제일" />
+
+                <TextView
+                    android:id="@+id/textView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="일"
+                    android:textSize="18sp" />
 
             </TableRow>
 

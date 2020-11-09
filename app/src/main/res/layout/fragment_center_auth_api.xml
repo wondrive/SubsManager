@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <!--서브타이틀-->
-    <LinearLayout android:id="@+id/llSubTitle" style="@style/SubTitleLayout">
+    <LinearLayout android:id="@+id/llSubTitle" style="@style/SubTitleLayout" android:visibility="gone">
         <TextView android:id="@+id/tvSubTitle" style="@style/SubTitleText"
             android:text="주요 API 목록\n- 사용자정보조회 후 나머지 API 이용"/>
     </LinearLayout>
@@ -28,18 +28,6 @@
                 android:layout_marginTop="50dp" />
 
             <Button
-                android:id="@+id/btnInqrBlncPage"
-                style="@style/Button01"
-                android:layout_width="280dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:text="잔액조회" />
-
-            <Button
                 android:id="@+id/btnInqrTranRecPage"
                 style="@style/Button01"
                 android:layout_width="280dp"
@@ -52,6 +40,19 @@
                 android:text="거래내역조회" />
 
             <Button
+                android:id="@+id/btnInqrBlncPage"
+                style="@style/Button01"
+                android:layout_width="280dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                android:text="잔액조회" />
+
+            <Button
                 android:id="@+id/btnInqrRealNamePage"
                 style="@style/Button01"
                 android:layout_width="280dp"
@@ -61,6 +62,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="15dp"
+                android:visibility="gone"
                 android:text="계좌실명조회" />
 
             <Button
@@ -73,6 +75,7 @@
                 android:text="출금이체"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
+                android:visibility="gone"
                 android:layout_marginTop="15dp" />
 
             <Button
@@ -85,6 +88,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:text="입금이체" />
 
             <Button
@@ -97,6 +101,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:text="등록계좌조회" />
 
             <Button
@@ -109,6 +114,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:text="계좌해지" />
 
             <Button
@@ -121,6 +127,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:text="이체결과조회" />
 
             <Button
@@ -133,6 +140,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:text="송금인정보조회" />
 
             <Button
@@ -145,6 +153,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:text="수취조회" />
 
             <Button
@@ -157,6 +166,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:text="자금반환청구" />
 
             <Button
@@ -169,6 +179,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 android:text="자금반환 결과조회" />
 
             <View

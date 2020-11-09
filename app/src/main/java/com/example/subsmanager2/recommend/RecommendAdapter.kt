@@ -39,30 +39,25 @@ class RecommendAdapter : RecyclerView.Adapter<RecommendAdapter.ItemViewHolder>()
         var planQuery = firestore?.collection("plan_official")
         //PLANQUERY 만 사용해서 돌려보기
 
-        // 검색조건 = selectFee 보다 작은거 (추후 수정필요)
-
-        // 1. category 테이블 : categoryId 추출
+        // plan_offical 테이블
         var plan = PlanOfficialEntity()
         planQuery.whereEqualTo("categoryName", searchword)
-            //.orderBy("boardRating", Query.Direction.DESCENDING)
+            //.orderBy("boardRating", Query.Direction.DESCENDING)       // 색인추가로 해결
             //.orderBy("fee")
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 for (snapshot in querySnapshot!!.documents) {
                     var item = snapshot.toObject(PlanOfficialEntity::class.java)
                     Log.i(TAG, "3. planOfficialList ::: " + item!!)
-
                     // plan (요금제) 값 할당
-
                     recommendList.add(item!!)
-                    Log.i(TAG, "3-2. recommend ::: " + item)
-                    Log.i(TAG, "3-3. recommendList ::: " + recommendList)
-
                 }
                 notifyDataSetChanged()  // 위치 꼭 여기여야 만함
                 Log.i(TAG, "4. recommendList ::: " + recommendList)
             }
 
-    }// end of 1. category 테이블*/
+    }// end of init {}
+
+
 
 
     fun setSubAppIcon(appName: String?, img_sub_app: ImageView) {
@@ -100,7 +95,7 @@ class RecommendAdapter : RecyclerView.Adapter<RecommendAdapter.ItemViewHolder>()
 
                 Log.i(TAG, "bindItems ::: " + recommend)
                 /* 게시글 맵핑하기 */
-                itemView.item_txt_plan_name.text = recommend.planName
+                itemView.item_txt_plan_name.text = recommend.name
                 itemView.item_txt_subs_name.text = recommend.subsName
                 itemView.item_rating.rating = recommend.boardRating.toFloat()
                 setSubAppIcon(recommend.subsName, itemView.img_sub_app)
