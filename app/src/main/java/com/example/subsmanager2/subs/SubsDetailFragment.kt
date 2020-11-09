@@ -85,7 +85,8 @@ class SubsDetailFragment : Fragment() {
                      * 임시데이터로 youtube 기록 가져온것임!
                      * appName=subs.subsName
                      */
-                    appName = "youtube"
+                    //appName = "youtube"
+                    appName=subs.subsName
                     if (!checkForPermission()) {
                         Log.i(TAG, "The user may not allow the access to apps usage. ")
                         startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
